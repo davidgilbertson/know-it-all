@@ -7,7 +7,7 @@ import App from '../components/App.jsx';
 import { isProd } from '../utils';
 import {
   WEBPACK_BUNDLE,
-} from '../constants';
+} from '../constants.js';
 
 let scriptSrc;
 

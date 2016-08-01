@@ -2,7 +2,7 @@ require('babel-register');
 const webpack = require('webpack');
 const WebpackDevServer = require('webpack-dev-server');
 const config = require('./config.shared.js');
-const CONSTANTS = require('../app/constants');
+const CONSTANTS = require('../app/constants.js');
 
 const contentBase = `http://localhost:${CONSTANTS.DEV_PORT}`;
 

@@ -3,7 +3,8 @@ import SkillTable from './SkillTable.jsx';
 
 const App = () => (
   <div>
-    <h1>App says hello</h1>
+    <header>App says hello</header>
+
     <SkillTable />
   </div>
 );

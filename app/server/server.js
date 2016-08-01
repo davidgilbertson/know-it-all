@@ -2,7 +2,7 @@ import express from 'express';
 const app = express();
 
 import appHtml from './appHtml.js';
-import { PORT } from '../constants';
+import { PORT } from '../constants.js';
 
 app.use(express.static('static'));
 
