@@ -1,3 +1,7 @@
+.idea
+static/js
+webpack/jsPackageName.json
+
 # Logs
 logs
 *.log
