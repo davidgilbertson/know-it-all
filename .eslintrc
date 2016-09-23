@@ -5,6 +5,7 @@
   },
   "extends": "airbnb",
   "rules": {
+    "quotes": ["error", "backtick"],
     "no-console": [
       "error",
       {

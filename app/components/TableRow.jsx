@@ -40,7 +40,7 @@ class TableRow extends Component {
     const styles = {
       row: {
         marginLeft: 10 * props.depth,
-        border: '1px solid red',
+        border: `1px solid red`,
       },
     };
 

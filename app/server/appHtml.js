@@ -12,8 +12,8 @@ import {
 let scriptSrc;
 
 if (isProd) {
-  const filePath = path.resolve(__dirname, '../../webpack/jsPackageName.json');
-  const jsPackageName = fs.readFileSync(filePath, 'utf8');
+  const filePath = path.resolve(__dirname, `../../webpack/jsPackageName.json`);
+  const jsPackageName = fs.readFileSync(filePath, `utf8`);
   scriptSrc = `/js/${JSON.parse(jsPackageName)}`;
 } else {
   scriptSrc = `http://localhost:8081/${WEBPACK_BUNDLE}`;
