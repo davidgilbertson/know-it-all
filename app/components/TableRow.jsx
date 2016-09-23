@@ -10,6 +10,26 @@ class TableRow extends Component {
     };
   }
 
+  renderTags(tags) {
+    if (!tags.length) return ``;
+
+    const tagStyle = {
+      borderRadius: 4,
+      backgroundColor: `#888`,
+      padding: `4px`,
+    };
+
+    return tags.map(tag => (
+      <span
+        key={tag.key}
+        style={tagStyle}
+        title={tag.value}
+      >
+        {tag.key}
+      </span>
+    ));
+  }
+
   render() {
     const { props, state } = this;
 
@@ -26,7 +46,8 @@ class TableRow extends Component {
 
     return (
       <div style={styles.row}>
-        <h2>{props.item.name}</h2>
+        <h2>{props.item.title}</h2>
+        {this.renderTags(props.item.tags)}
         {children}
       </div>
     );

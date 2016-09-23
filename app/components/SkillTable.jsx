@@ -12,7 +12,7 @@ class SkillTable extends React.Component {
   }
 
   renderItems() {
-    return skills.map(item => <TableRow item={item} depth={0} />);
+    return this.state.skills.map(item => <TableRow key={item.name} item={item} depth={0} />);
   }
 
   render() {

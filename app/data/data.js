@@ -1,49 +1,98 @@
-import { LEVELS } from '../constants.js';
+// idc = I don't care
+// know = Is this something that can be known? (otherwise maybe just a grouping)
+
+const tags = {
+  C: {key: 'C', value: 'Concept'},
+  JP: {key: 'JP', value: 'JS Primative'},
+  JF: {key: 'JF', value: 'JS Function'},
+  JM: {key: 'JM', value: 'JS Primative/Element Method'},
+  DE: {key: 'DE', value: 'DOM Element'},
+  EA: {key: 'EA', value: 'Element Attribute'},
+  CP: {key: 'CP', value: 'CSS Property'},
+  CV: {key: 'CV', value: 'CSS Value'},
+  DT: {key: 'DT', value: 'Data type'},
+
+};
 
 export const skills = [
   {
-    name: 'Javascript',
-    level: LEVELS.AUTO,
-    learnMore: false,
+    title: 'CSS',
+    tags: [],
+    value: null,
+    comment: null,
+    rating: null,
+    url: null,
+    idc: false,
+    know: false,
     items: [
       {
-        name: 'EcmaScript language',
-        level: LEVELS.AUTO,
-        learnMore: false,
+        title: 'Media Queries',
+        subtitle: 'level 3+4',
+        tags: [],
+        value: null,
+        comment: null,
+        rating: null,
+        url: null,
+        idc: false,
+        know: false,
         items: [
           {
-            name: 'Indexed collections',
-            level: LEVELS.AUTO,
-            learnMore: false,
+            title: '<ratio>',
+            subtitle: null,
+            tags: [tags.DT],
+            value: null,
+            comment: null,
+            rating: null,
+            url: null,
+            idc: false,
+            know: true,
+            items: [],
+          },
+          {
+            title: 'Media features',
+            subtitle: '',
+            tags: [],
+            value: null,
+            comment: null,
+            rating: null,
+            url: null,
+            idc: false,
+            know: true,
             items: [
               {
-                name: 'Arrays',
-                level: LEVELS.AUTO,
-                learnMore: false,
+                title: 'any-hover',
+                subtitle: 'New in level 4',
+                tags: [tags.CP],
+                value: null,
+                comment: null,
+                rating: null,
+                url: null,
+                idc: false,
+                know: true,
                 items: [
                   {
-                    name: 'Array.from()',
-                    description: null,
-                    example: null,
+                    title: 'none',
+                    subtitle: '',
+                    tags: [tags.CV],
+                    value: null,
+                    comment: null,
+                    rating: null,
                     url: null,
-                    level: null,
-                    learnMore: false,
+                    idc: false,
+                    know: true,
+                    items: [],
                   },
                   {
-                    name: 'Array.isArray()',
-                    description: null,
-                    example: null,
+                    title: 'hover',
+                    subtitle: '',
+                    tags: [tags.CV],
+                    value: null,
+                    comment: null,
+                    rating: null,
                     url: null,
-                    level: null,
-                    learnMore: false,
-                  },
-                  {
-                    name: 'Array.of()',
-                    description: null,
-                    example: null,
-                    url: null,
-                    level: null,
-                    learnMore: false,
+                    idc: false,
+                    know: true,
+                    items: [],
                   },
                 ],
               },
@@ -53,4 +102,70 @@ export const skills = [
       },
     ],
   },
+  // {
+  //   name: 'Javascript',
+  //   items: [
+  //     {
+  //       name: 'EcmaScript language',
+  //       items: [
+  //         {
+  //           name: 'Indexed collections',
+  //           items: [
+  //             {
+  //               name: 'Arrays',
+  //               items: [
+  //                 {
+  //                   name: 'Array.from()',
+  //                   description: null,
+  //                   example: null,
+  //                   url: null,
+  //                 },
+  //                 {
+  //                   name: 'Array.isArray()',
+  //                   description: null,
+  //                   example: null,
+  //                   url: null,
+  //                 },
+  //                 {
+  //                   name: 'Array.of()',
+  //                   description: null,
+  //                   example: null,
+  //                   url: null,
+  //                 },
+  //               ],
+  //             },
+  //           ],
+  //         },
+  //       ],
+  //     },
+  //     {
+  //       name: 'Web APIs',
+  //       items: [
+  //         {
+  //           name: 'DOM',
+  //           items: [],
+  //         },
+  //         {
+  //           name: 'WebGL',
+  //           items: [],
+  //         },
+  //         {
+  //           name: 'Device APIs',
+  //           items: [
+  //
+  //           ],
+  //         },
+  //         {
+  //           name: 'Web Audio',
+  //           items: [],
+  //         },
+  //       ],
+  //     },
+  //     {
+  //       name: 'NodeJS',
+  //       items: [
+  //       ],
+  //     },
+  //   ],
+  // },
 ];
