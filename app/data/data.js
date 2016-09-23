@@ -1,171 +1,174 @@
 // idc = I don't care
 // know = Is this something that can be known? (otherwise maybe just a grouping)
-
-const tags = {
-  C: { key: `C`, value: `Concept` },
-  JP: { key: `JP`, value: `JS Primative` },
-  JF: { key: `JF`, value: `JS Function` },
-  JM: { key: `JM`, value: `JS Primative/Element Method` },
-  DE: { key: `DE`, value: `DOM Element` },
-  EA: { key: `EA`, value: `Element Attribute` },
-  CP: { key: `CP`, value: `CSS Property` },
-  CV: { key: `CV`, value: `CSS Value` },
-  DT: { key: `DT`, value: `Data type` },
-
-};
+import {
+  SCORES,
+  TAGS,
+} from '../constants.js';
 
 export const skills = [
   {
-    title: `CSS`,
+    name: `TOP`,
     tags: [],
     value: null,
     comment: null,
-    rating: null,
+    score: SCORES.LEVEL_0,
     url: null,
     idc: false,
     know: false,
     items: [
       {
-        title: `Media Queries`,
-        subtitle: `level 3+4`,
+        name: `CSS`,
         tags: [],
         value: null,
         comment: null,
-        rating: null,
+        score: SCORES.LEVEL_0,
         url: null,
         idc: false,
         know: false,
         items: [
           {
-            title: `<ratio>`,
-            subtitle: null,
-            tags: [tags.DT],
-            value: null,
-            comment: null,
-            rating: null,
-            url: null,
-            idc: false,
-            know: true,
-            items: [],
-          },
-          {
-            title: `Media features`,
-            subtitle: ``,
+            name: `Media Queries`,
+            subtitle: `level 3+4`,
             tags: [],
             value: null,
             comment: null,
-            rating: null,
+            score: SCORES.LEVEL_0,
             url: null,
             idc: false,
-            know: true,
+            know: false,
             items: [
               {
-                title: `any-hover`,
-                subtitle: `New in level 4`,
-                tags: [tags.CP],
+                name: `Media features`,
+                subtitle: ``,
+                tags: [],
                 value: null,
                 comment: null,
-                rating: null,
+                score: SCORES.LEVEL_0,
                 url: null,
                 idc: false,
                 know: true,
                 items: [
                   {
-                    title: `none`,
-                    subtitle: ``,
-                    tags: [tags.CV],
+                    name: `any-hover`,
+                    subtitle: `New in level 4`,
+                    tags: [TAGS.CP],
                     value: null,
                     comment: null,
-                    rating: null,
+                    score: SCORES.LEVEL_2,
                     url: null,
                     idc: false,
                     know: true,
-                    items: [],
-                  },
-                  {
-                    title: `hover`,
-                    subtitle: ``,
-                    tags: [tags.CV],
-                    value: null,
-                    comment: null,
-                    rating: null,
-                    url: null,
-                    idc: false,
-                    know: true,
-                    items: [],
+                    items: [
+                      {
+                        name: `none`,
+                        subtitle: ``,
+                        tags: [TAGS.CV],
+                        value: null,
+                        comment: null,
+                        score: SCORES.LEVEL_1,
+                        url: null,
+                        idc: false,
+                        know: true,
+                        items: [],
+                      },
+                      {
+                        name: `hover`,
+                        subtitle: ``,
+                        tags: [TAGS.CV],
+                        value: null,
+                        comment: null,
+                        score: SCORES.LEVEL_3,
+                        url: null,
+                        idc: false,
+                        know: true,
+                        items: [],
+                      },
+                    ],
                   },
                 ],
+              },
+              {
+                name: `<ratio>`,
+                subtitle: null,
+                tags: [TAGS.DT],
+                value: null,
+                comment: null,
+                score: SCORES.LEVEL_0,
+                url: null,
+                idc: false,
+                know: true,
+                items: [],
               },
             ],
           },
         ],
       },
+      // {
+      //   name: 'Javascript',
+      //   items: [
+      //     {
+      //       name: 'EcmaScript language',
+      //       items: [
+      //         {
+      //           name: 'Indexed collections',
+      //           items: [
+      //             {
+      //               name: 'Arrays',
+      //               items: [
+      //                 {
+      //                   name: 'Array.from()',
+      //                   description: null,
+      //                   example: null,
+      //                   url: null,
+      //                 },
+      //                 {
+      //                   name: 'Array.isArray()',
+      //                   description: null,
+      //                   example: null,
+      //                   url: null,
+      //                 },
+      //                 {
+      //                   name: 'Array.of()',
+      //                   description: null,
+      //                   example: null,
+      //                   url: null,
+      //                 },
+      //               ],
+      //             },
+      //           ],
+      //         },
+      //       ],
+      //     },
+      //     {
+      //       name: 'Web APIs',
+      //       items: [
+      //         {
+      //           name: 'DOM',
+      //           items: [],
+      //         },
+      //         {
+      //           name: 'WebGL',
+      //           items: [],
+      //         },
+      //         {
+      //           name: 'Device APIs',
+      //           items: [
+      //
+      //           ],
+      //         },
+      //         {
+      //           name: 'Web Audio',
+      //           items: [],
+      //         },
+      //       ],
+      //     },
+      //     {
+      //       name: 'NodeJS',
+      //       items: [
+      //       ],
+      //     },
+      //   ],
+      // },
     ],
   },
-  // {
-  //   name: 'Javascript',
-  //   items: [
-  //     {
-  //       name: 'EcmaScript language',
-  //       items: [
-  //         {
-  //           name: 'Indexed collections',
-  //           items: [
-  //             {
-  //               name: 'Arrays',
-  //               items: [
-  //                 {
-  //                   name: 'Array.from()',
-  //                   description: null,
-  //                   example: null,
-  //                   url: null,
-  //                 },
-  //                 {
-  //                   name: 'Array.isArray()',
-  //                   description: null,
-  //                   example: null,
-  //                   url: null,
-  //                 },
-  //                 {
-  //                   name: 'Array.of()',
-  //                   description: null,
-  //                   example: null,
-  //                   url: null,
-  //                 },
-  //               ],
-  //             },
-  //           ],
-  //         },
-  //       ],
-  //     },
-  //     {
-  //       name: 'Web APIs',
-  //       items: [
-  //         {
-  //           name: 'DOM',
-  //           items: [],
-  //         },
-  //         {
-  //           name: 'WebGL',
-  //           items: [],
-  //         },
-  //         {
-  //           name: 'Device APIs',
-  //           items: [
-  //
-  //           ],
-  //         },
-  //         {
-  //           name: 'Web Audio',
-  //           items: [],
-  //         },
-  //       ],
-  //     },
-  //     {
-  //       name: 'NodeJS',
-  //       items: [
-  //       ],
-  //     },
-  //   ],
-  // },
 ];
