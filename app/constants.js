@@ -4,9 +4,13 @@ export const WEBPACK_BUNDLE = `webpack-bundle.js`;
 
 export const COLORS = {
   GREY_LIGHT: `#f5f5f5`,
+  GREY_MID: `#e0e0e0`,
+  GREY_DARK: `#455a64`,
   GREEN: `#4caf50`,
   ORANGE: `#ff9800`,
   RED: `#f44336`,
+  PRIMARY: `#00bcd4`,
+  WHITE: `#fafafa`,
 };
 
 export const TAGS = {
@@ -34,21 +38,21 @@ export const SCORES = {
     color: COLORS.RED,
     icon: `¯\\_(ツ)_/¯`,
     shortTitle: `Don't know it`,
-    value: `Never heard of it`,
+    value: `I've never heard of it`,
   },
   LEVEL_2: {
     key: 2,
     color: COLORS.ORANGE,
     icon: `ʘ‿ʘ`,
     shortTitle: `Know of it`,
-    value: `Heard of it, but I could know it better`,
+    value: `I've heard of it, but I could know it better`,
   },
   LEVEL_3: {
     key: 3,
     color: COLORS.GREEN,
     icon: `(⌐■_■)`,
     shortTitle: `Know it`,
-    value: `I know it like the back of my hand`,
+    value: `I know it completely`,
   },
 };
 

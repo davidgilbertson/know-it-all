@@ -1,5 +1,6 @@
 // idc = I don't care
 // know = Is this something that can be known? (otherwise maybe just a grouping)
+
 import {
   SCORES,
   TAGS,
@@ -14,7 +15,8 @@ export const skills = [
     score: SCORES.LEVEL_0,
     url: null,
     idc: false,
-    know: false,
+    knowable: false,
+    isCode: false,
     items: [
       {
         name: `CSS`,
@@ -24,7 +26,8 @@ export const skills = [
         score: SCORES.LEVEL_0,
         url: null,
         idc: false,
-        know: false,
+        knowable: false,
+        isCode: false,
         items: [
           {
             name: `Media Queries`,
@@ -35,8 +38,22 @@ export const skills = [
             score: SCORES.LEVEL_0,
             url: null,
             idc: false,
-            know: false,
+            knowable: false,
+            isCode: false,
             items: [
+              {
+                name: `<ratio>`,
+                subtitle: null,
+                tags: [TAGS.DT],
+                value: null,
+                comment: null,
+                score: SCORES.LEVEL_0,
+                url: null,
+                idc: false,
+                knowable: true,
+                isCode: true,
+                items: [],
+              },
               {
                 name: `Media features`,
                 subtitle: ``,
@@ -46,7 +63,8 @@ export const skills = [
                 score: SCORES.LEVEL_0,
                 url: null,
                 idc: false,
-                know: true,
+                knowable: false,
+                isCode: false,
                 items: [
                   {
                     name: `any-hover`,
@@ -57,7 +75,8 @@ export const skills = [
                     score: SCORES.LEVEL_2,
                     url: null,
                     idc: false,
-                    know: true,
+                    knowable: false,
+                    isCode: true,
                     items: [
                       {
                         name: `none`,
@@ -68,7 +87,8 @@ export const skills = [
                         score: SCORES.LEVEL_1,
                         url: null,
                         idc: false,
-                        know: true,
+                        knowable: true,
+                        isCode: true,
                         items: [],
                       },
                       {
@@ -80,24 +100,13 @@ export const skills = [
                         score: SCORES.LEVEL_3,
                         url: null,
                         idc: false,
-                        know: true,
+                        knowable: true,
+                        isCode: true,
                         items: [],
                       },
                     ],
                   },
                 ],
-              },
-              {
-                name: `<ratio>`,
-                subtitle: null,
-                tags: [TAGS.DT],
-                value: null,
-                comment: null,
-                score: SCORES.LEVEL_0,
-                url: null,
-                idc: false,
-                know: true,
-                items: [],
               },
             ],
           },

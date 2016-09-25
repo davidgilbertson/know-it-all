@@ -1,68 +1,89 @@
 import React, { Component, PropTypes } from 'react';
 
 import {
+  COLORS,
   SCORES,
-  KEYS,
+  // KEYS,
 } from '../constants.js';
 
 class TableRow extends Component {
   constructor(props) {
     super(props);
 
-    this.onKeyDown = this.onKeyDown.bind(this);
+    // this.onKeyUp = this.onKeyUp.bind(this);
+    this.onRowClick = this.onRowClick.bind(this);
+    this.onTriangleClick = this.onTriangleClick.bind(this);
   }
 
-  componentDidMount() {
-    window.addEventListener(`keydown`, this.onKeyDown);
+  // componentDidMount() {
+  //   // window.addEventListener(`keypress`, this.onKeyUp);
+  // }
+  //
+  // componentWillUnmount() {
+  //   // window.removeEventListener(`keypress`, this.onKeyUp);
+  // }
+
+  // onKeyUp(e) {
+  //   const { props } = this;
+  //   if (props.item.row !== props.activeRow) return;
+  //   console.log(`  --  >  TableRow.jsx:26 > e.key`, e.key);
+  //   console.log(`  --  >  TableRow.jsx:26 > e.repeat`, e.repeat);
+  //   let scoredWithKey = false;
+  //
+  //   const saveScore = scoreNumber => {
+  //     props.updateScore(props.path, SCORES[`LEVEL_${scoreNumber}`]);
+  //   };
+  //
+  //   if (e.keyCode === KEYS.LEFT) {
+  //     if (props.item.isExpanded) {
+  //       props.expandCollapse(props.path, false);
+  //     }
+  //     return;
+  //   }
+  //
+  //   if (e.keyCode === KEYS.RIGHT) {
+  //     if (!props.item.isExpanded) {
+  //       props.expandCollapse(props.path, true);
+  //     }
+  //     return;
+  //   }
+  //
+  //   if (e.key === `0`) {
+  //     saveScore(0);
+  //     scoredWithKey = true;
+  //   }
+  //   if (e.key === `1`) {
+  //     saveScore(1);
+  //     scoredWithKey = true;
+  //   }
+  //   if (e.key === `2`) {
+  //     saveScore(2);
+  //     scoredWithKey = true;
+  //   }
+  //   if (e.key === `3`) {
+  //     saveScore(3);
+  //     scoredWithKey = true;
+  //   }
+  //
+  //   if (scoredWithKey) {
+  //     // This should make it visible whenever it becomes active.
+  //     props.goToNextKnowableRow(); // move to the next one after scoring
+  //   }
+  // }
+
+  onRowClick() {
+    console.log(`  --  >  TableRow.jsx:75 > onRowClick`);
+    const { props } = this;
+    props.setActiveRow(props.item.row);
   }
 
-  componentWillUnmount() {
-    window.removeEventListener(`keydown`, this.onKeyDown);
-  }
+  onTriangleClick(e) {
+    console.log(`  --  >  TableRow.jsx:80 > onTriangleClick`);
+    const { props } = this;
+    if (!props.item.items.length) return;
 
-  onKeyDown(e) {
-    if (this.props.item.row !== this.props.activeRow) return;
-    const { item } = this.props;
-
-    const saveScore = scoreNumber => {
-      this.props.onChange(this.props.path, SCORES[`LEVEL_${scoreNumber}`]);
-    };
-
-    if (e.keyCode === KEYS.LEFT) {
-      if (item.score.key <= 0) return;
-
-      saveScore(item.score.key - 1);
-
-      return;
-    }
-
-    if (e.keyCode === KEYS.RIGHT) {
-      if (item.score.key >= 3) return;
-      saveScore(item.score.key + 1);
-
-      return;
-    }
-
-    if (e.keyCode === KEYS.TOP_0 || e.keyCode === KEYS.NUM_0) {
-      saveScore(0);
-
-      return;
-    }
-    if (e.keyCode === KEYS.TOP_1 || e.keyCode === KEYS.NUM_1) {
-      saveScore(1);
-
-      return;
-    }
-    if (e.keyCode === KEYS.TOP_2 || e.keyCode === KEYS.NUM_2) {
-      saveScore(2);
-
-      return;
-    }
-    if (e.keyCode === KEYS.TOP_3 || e.keyCode === KEYS.NUM_3) {
-      saveScore(3);
-
-      return;
-    }
+    props.expandCollapse(props.item.path, !props.item.isExpanded);
+    e.stopPropagation(); // don't select the row
   }
 
   renderTags(tags) {
@@ -86,6 +107,11 @@ class TableRow extends Component {
   }
 
   renderScoreButton(item, displayScore) {
+    if (
+      (displayScore === SCORES.LEVEL_3 || displayScore === SCORES.LEVEL_2)
+      && !item.knowable
+    ) return null;
+
     const selected = item.score.key === displayScore.key;
 
     const labelStyle = {
@@ -95,7 +121,7 @@ class TableRow extends Component {
       border: `1px solid steelblue`,
       padding: 10,
       borderRadius: `4px`,
-      margin: 10,
+      marginRight: 10,
     };
 
     const inputStyle = {
@@ -113,7 +139,7 @@ class TableRow extends Component {
           type="radio"
           name={`${item.name}-options`}
           selected={selected}
-          onChange={() => this.props.onChange(this.props.path, displayScore)}
+          onChange={() => this.props.updateScore(this.props.path, displayScore)}
         />
         {displayScore.shortTitle}
       </label>
@@ -133,12 +159,10 @@ class TableRow extends Component {
 
         return (
           <TableRow
+            {...props}
             key={item.name}
             item={item}
-            activeRow={props.activeRow}
             path={childPath}
-            onChange={props.onChange}
-            setActiveRow={props.setActiveRow}
           />
         );
       })
@@ -147,51 +171,90 @@ class TableRow extends Component {
     const styles = {
       row: {
         position: `relative`,
-        marginLeft: 16,
-        borderTop: `1px solid #ddd`,
+        marginLeft: 20,
         borderLeft: `1px solid #eee`,
       },
       content: {
-        position: `relative`,
+        display: `flex`,
+        alignItems: `center`,
+        height: 60,
         paddingLeft: 13,
         transition: `150ms`,
-        backgroundColor: isActiveRow ? `#c5cae9` : ``,
+        borderBottom: `1px solid #ddd`,
+        backgroundColor: isActiveRow ? COLORS.GREY_DARK : ``,
+        color: isActiveRow ? COLORS.WHITE : ``,
         boxShadow: `inset 4px 0 ${props.item.score.color}`,
       },
-      name: {
-        display: `inline-block`,
+      name: {},
+      triangle: {
+        display: props.item.items.length ? `` : `none`,
+        margin: `0 10px 0 -37px`,
+        padding: 7, // for decent click area
+        transform: props.item.isExpanded ? `rotate(90deg)` : ``,
+        transition: `150ms`,
+        color: COLORS.GREY_MID,
+        cursor: `pointer`,
+      },
+      children: {
+        display: !props.item.isExpanded ? `none` : ``,
       },
       tagWrapper: {
-        display: `inline-block`,
         paddingLeft: 10,
       },
       scoreWrapper: {
-        display: `inline-block`,
-        float: `right`,
+        flex: 1,
+        textAlign: `right`,
+        marginRight: 10,
+      },
+      doNotCareButton: {
+        width: 60,
+        padding: 5,
+        border: `1px solid ${COLORS.GREY_DARK}`,
+        borderRadius: 4,
+        color: COLORS.GREY_DARK,
+        textTransform: `uppercase`,
+        fontSize: 12,
+        marginRight: 10,
       },
     };
+
+    if (props.item.isCode) {
+      styles.name.fontFamily = `monospace`;
+      styles.name.fontSize = `110%`;
+    }
 
     return (
       <div style={styles.row}>
         <div
           style={styles.content}
-          onClick={() => props.setActiveRow(props.item.row)}
+          onClick={this.onRowClick}
         >
-          <h2 style={styles.name}>{props.item.row}. {props.item.name}</h2>
+          <div
+            style={styles.triangle}
+            onClick={this.onTriangleClick}
+          >▶</div>
+
+          <p style={styles.name}>
+            {props.item.name}
+          </p>
 
           <div style={styles.tagWrapper}>
             {this.renderTags(props.item.tags)}
           </div>
 
           <div style={styles.scoreWrapper}>
-            {this.renderScoreButton(props.item, SCORES.LEVEL_0)}
+            {/* {this.renderScoreButton(props.item, SCORES.LEVEL_0)} */}
             {this.renderScoreButton(props.item, SCORES.LEVEL_1)}
             {this.renderScoreButton(props.item, SCORES.LEVEL_2)}
             {this.renderScoreButton(props.item, SCORES.LEVEL_3)}
           </div>
+
+          <button style={styles.doNotCareButton}>Don't care</button>
         </div>
 
-        {children}
+        <div style={styles.children}>
+          {children}
+        </div>
       </div>
     );
   }
@@ -204,8 +267,9 @@ TableRow.propTypes = {
   path: PropTypes.array.isRequired,
 
   // methods
-  onChange: PropTypes.func.isRequired,
+  updateScore: PropTypes.func.isRequired,
   setActiveRow: PropTypes.func.isRequired,
+  expandCollapse: PropTypes.func.isRequired,
 };
 
 export default TableRow;

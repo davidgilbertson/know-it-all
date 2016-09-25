@@ -7,7 +7,7 @@
   "rules": {
     "quotes": ["error", "backtick"],
     "no-console": [
-      "error",
+      "warn",
       {
         "allow": [
           "info",
