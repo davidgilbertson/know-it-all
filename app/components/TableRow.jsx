@@ -3,82 +3,22 @@ import React, { Component, PropTypes } from 'react';
 import {
   COLORS,
   SCORES,
-  // KEYS,
 } from '../constants.js';
 
 class TableRow extends Component {
   constructor(props) {
     super(props);
 
-    // this.onKeyUp = this.onKeyUp.bind(this);
     this.onRowClick = this.onRowClick.bind(this);
     this.onTriangleClick = this.onTriangleClick.bind(this);
   }
 
-  // componentDidMount() {
-  //   // window.addEventListener(`keypress`, this.onKeyUp);
-  // }
-  //
-  // componentWillUnmount() {
-  //   // window.removeEventListener(`keypress`, this.onKeyUp);
-  // }
-
-  // onKeyUp(e) {
-  //   const { props } = this;
-  //   if (props.item.row !== props.activeRow) return;
-  //   console.log(`  --  >  TableRow.jsx:26 > e.key`, e.key);
-  //   console.log(`  --  >  TableRow.jsx:26 > e.repeat`, e.repeat);
-  //   let scoredWithKey = false;
-  //
-  //   const saveScore = scoreNumber => {
-  //     props.updateScore(props.path, SCORES[`LEVEL_${scoreNumber}`]);
-  //   };
-  //
-  //   if (e.keyCode === KEYS.LEFT) {
-  //     if (props.item.isExpanded) {
-  //       props.expandCollapse(props.path, false);
-  //     }
-  //     return;
-  //   }
-  //
-  //   if (e.keyCode === KEYS.RIGHT) {
-  //     if (!props.item.isExpanded) {
-  //       props.expandCollapse(props.path, true);
-  //     }
-  //     return;
-  //   }
-  //
-  //   if (e.key === `0`) {
-  //     saveScore(0);
-  //     scoredWithKey = true;
-  //   }
-  //   if (e.key === `1`) {
-  //     saveScore(1);
-  //     scoredWithKey = true;
-  //   }
-  //   if (e.key === `2`) {
-  //     saveScore(2);
-  //     scoredWithKey = true;
-  //   }
-  //   if (e.key === `3`) {
-  //     saveScore(3);
-  //     scoredWithKey = true;
-  //   }
-  //
-  //   if (scoredWithKey) {
-  //     // This should make it visible whenever it becomes active.
-  //     props.goToNextKnowableRow(); // move to the next one after scoring
-  //   }
-  // }
-
   onRowClick() {
-    console.log(`  --  >  TableRow.jsx:75 > onRowClick`);
     const { props } = this;
-    props.setActiveRow(props.item.row);
+    props.goToRow(props.item.row);
   }
 
   onTriangleClick(e) {
-    console.log(`  --  >  TableRow.jsx:80 > onTriangleClick`);
     const { props } = this;
     if (!props.item.items.length) return;
 
@@ -116,9 +56,9 @@ class TableRow extends Component {
 
     const labelStyle = {
       display: `inline-block`,
-      backgroundColor: selected ? `steelblue` : `white`,
-      color: selected ? `white` : `steelblue`,
-      border: `1px solid steelblue`,
+      backgroundColor: selected ? COLORS.PRIMARY : COLORS.WHITE,
+      color: selected ? COLORS.WHITE : COLORS.PRIMARY,
+      border: `1px solid ${COLORS.PRIMARY}`,
       padding: 10,
       borderRadius: `4px`,
       marginRight: 10,
@@ -139,7 +79,7 @@ class TableRow extends Component {
           type="radio"
           name={`${item.name}-options`}
           selected={selected}
-          onChange={() => this.props.updateScore(this.props.path, displayScore)}
+          onChange={() => this.props.updateScore(this.props.item.path, displayScore)}
         />
         {displayScore.shortTitle}
       </label>
@@ -150,19 +90,16 @@ class TableRow extends Component {
     const { props } = this;
 
     const hasChildren = !!props.item.items && !!props.item.items.length;
-    const isActiveRow = props.item.row === props.activeRow;
+    const isActiveRow = props.item.row === props.currentNugget.row;
 
     const children = hasChildren
-      ? props.item.items.map((item, i) => {
-        const childPath = props.path.slice();
-        childPath.push(i);
+      ? props.item.items.map((item) => {
 
         return (
           <TableRow
             {...props}
             key={item.name}
             item={item}
-            path={childPath}
           />
         );
       })
@@ -211,6 +148,7 @@ class TableRow extends Component {
         padding: 5,
         border: `1px solid ${COLORS.GREY_DARK}`,
         borderRadius: 4,
+        backgroundColor: COLORS.WHITE,
         color: COLORS.GREY_DARK,
         textTransform: `uppercase`,
         fontSize: 12,
@@ -243,7 +181,6 @@ class TableRow extends Component {
           </div>
 
           <div style={styles.scoreWrapper}>
-            {/* {this.renderScoreButton(props.item, SCORES.LEVEL_0)} */}
             {this.renderScoreButton(props.item, SCORES.LEVEL_1)}
             {this.renderScoreButton(props.item, SCORES.LEVEL_2)}
             {this.renderScoreButton(props.item, SCORES.LEVEL_3)}
@@ -262,13 +199,12 @@ class TableRow extends Component {
 
 TableRow.propTypes = {
   // data
-  activeRow: PropTypes.number.isRequired,
+  currentNugget: PropTypes.object.isRequired,
   item: PropTypes.object.isRequired,
-  path: PropTypes.array.isRequired,
 
   // methods
   updateScore: PropTypes.func.isRequired,
-  setActiveRow: PropTypes.func.isRequired,
+  goToRow: PropTypes.func.isRequired,
   expandCollapse: PropTypes.func.isRequired,
 };
 

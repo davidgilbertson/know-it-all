@@ -5,8 +5,8 @@ let depth;
 const nuggetList = [];
 
 function parseData(nuggets, path = []) {
-  for (let i = 0; i < nuggets.length; i++) {
-    const nugget = nuggets[i];
+  for (let i = 0; i < nuggets.items.length; i++) {
+    const nugget = nuggets.items[i];
 
     nugget.isExpanded = true;
     nugget.row = rowCount++;
@@ -27,7 +27,7 @@ function parseData(nuggets, path = []) {
 
     if (nugget.items && nugget.items.length) {
       depth++;
-      parseData(nugget.items, nugget.path);
+      parseData(nugget, nugget.path);
       depth--;
     }
   }

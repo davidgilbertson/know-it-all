@@ -9,7 +9,7 @@ export const COLORS = {
   GREEN: `#4caf50`,
   ORANGE: `#ff9800`,
   RED: `#f44336`,
-  PRIMARY: `#00bcd4`,
+  PRIMARY: `#3f51b5`,
   WHITE: `#fafafa`,
 };
 

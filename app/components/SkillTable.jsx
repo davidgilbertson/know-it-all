@@ -2,7 +2,7 @@ import React from 'react';
 import cloneDeep from 'lodash/cloneDeep';
 
 import TableRow from './TableRow.jsx';
-import { skills } from '../data/data.js';
+import { nuggetTreeData } from '../data/nuggetTreeData.js';
 import { decorateData } from '../utils';
 import {
   COLORS,
@@ -13,31 +13,32 @@ import {
 function getItemByPath(tree, path) {
   return path.reduce(
     (result, itemPos) => result.items[itemPos],
-    { items: [tree] } // TODO so dodgy, just structure the data butter
+    tree
   );
 }
 
 function getItemByRow(data, row) {
   const activeNugget = data.nuggetList.find(nugget => nugget.row === row);
-  return getItemByPath(data.nuggetTree[0], activeNugget.path);
+  return getItemByPath(data.nuggetTree, activeNugget.path);
 }
 
 class SkillTable extends React.Component {
   constructor(props) {
     super(props);
 
-    const decoratedData = decorateData(skills);
+    const decoratedData = decorateData(nuggetTreeData);
     this.state = {
       nuggetTree: decoratedData.nuggetTree,
-      nuggetList: decoratedData.nuggetList,
-      activeRow: 0,
+      currentNugget: decoratedData.nuggetTree.items[0], // "TOP"
     };
+
+    this.nuggetList = decoratedData.nuggetList;
 
     this.updateScore = this.updateScore.bind(this);
     this.onKeyDown = this.onKeyDown.bind(this);
-    this.setActiveRow = this.setActiveRow.bind(this);
     this.expandCollapse = this.expandCollapse.bind(this);
     this.goToNextKnowableRow = this.goToNextKnowableRow.bind(this);
+    this.goToRow = this.goToRow.bind(this);
   }
 
   componentDidMount() {
@@ -51,20 +52,23 @@ class SkillTable extends React.Component {
   onKeyDown(e) {
     const { state } = this;
     const stateClone = cloneDeep(state);
-    const currentItem = getItemByRow(stateClone, state.activeRow);
+    const currentItem = getItemByRow({
+      nuggetTree: stateClone.nuggetTree,
+      nuggetList: this.nuggetList,
+    }, state.currentNugget.row);
 
     if (e.keyCode === KEYS.UP) {
-      if (state.activeRow <= 0) return;
+      if (state.currentNugget.row <= 0) return;
 
       e.preventDefault();
-      this.setActiveRow(state.activeRow - 1);
+      this.goToRow(state.currentNugget.row - 1);
     }
 
     if (e.keyCode === KEYS.DOWN) {
-      if (state.activeRow >= state.nuggetList.length - 1) return;
+      if (state.currentNugget.row >= this.nuggetList.length - 1) return;
 
       e.preventDefault();
-      this.setActiveRow(state.activeRow + 1);
+      this.goToRow(state.currentNugget.row + 1);
     }
 
 
@@ -93,27 +97,43 @@ class SkillTable extends React.Component {
     if (e.key === `3`) saveScore(3);
   }
 
-  setActiveRow(activeRow) {
-    this.setState({ activeRow });
-  }
-
   goToNextKnowableRow() {
-    const currentActiveRow = this.state.activeRow;
-    const nextNugget = this.state.nuggetList.find(nugget => (
+    const currentActiveRow = this.state.currentNugget.row;
+    const nextNugget = this.nuggetList.find(nugget => (
       nugget.row > currentActiveRow && nugget.knowable
     ));
 
     if (nextNugget) {
       setTimeout(() => {
-        this.setState({ activeRow: nextNugget.row });
-      }, 150);
+        this.goToRow(nextNugget.row);
+      }, 150); // give the user time to see the score update
     }
+  }
+
+  goToRow(row) {
+    const currentNugget = this.nuggetList.find(nugget => nugget.row === row);
+    const newNuggetTree = cloneDeep(this.state.nuggetTree);
+    let currentLevel = newNuggetTree;
+    let updateTree = false;
+
+    currentNugget.path.forEach(pos => {
+      if (!currentLevel.isExpanded) {
+        currentLevel.isExpanded = true;
+        updateTree = true;
+      }
+      currentLevel = currentLevel.items[pos];
+    });
+
+    if (updateTree) {
+      this.setState({ nuggetTree: newNuggetTree });
+    }
+    this.setState({ currentNugget });
   }
 
   expandCollapse(nuggetPath, isExpanded) {
     const nuggetTree = cloneDeep(this.state.nuggetTree);
+    const currentItem = getItemByPath(nuggetTree, nuggetPath);
 
-    const currentItem = getItemByPath(nuggetTree[0], nuggetPath);
     if (!currentItem || !currentItem.items || !currentItem.items.length) return;
 
     currentItem.isExpanded = isExpanded;
@@ -124,7 +144,7 @@ class SkillTable extends React.Component {
   updateScore(nuggetPath, score) {
     const nuggetTree = cloneDeep(this.state.nuggetTree);
 
-    const currentItem = getItemByPath(nuggetTree[0], nuggetPath);
+    const currentItem = getItemByPath(nuggetTree, nuggetPath);
     currentItem.score = score;
 
     this.setState({ nuggetTree });
@@ -144,10 +164,9 @@ class SkillTable extends React.Component {
     return (
       <div style={styles.content}>
         <TableRow
-          item={state.nuggetTree[0]}
-          path={[]}
-          activeRow={state.activeRow}
-          setActiveRow={this.setActiveRow}
+          item={state.nuggetTree.items[0]}
+          currentNugget={state.currentNugget}
+          goToRow={this.goToRow}
           updateScore={this.updateScore}
           expandCollapse={this.expandCollapse}
           goToNextKnowableRow={this.goToNextKnowableRow}
