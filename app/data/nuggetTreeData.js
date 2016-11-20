@@ -6,43 +6,6 @@ import {
   TAGS,
 } from '../constants.js';
 
-// by doing it this way (objects instead of array):
-// the tree is no more or less complex
-// I can still use Object.keys() and iterate down the tree to set a 'path' prop for each
-// when I define a path to an object `top.items.css.items.mediaQueries.items` it will
-// continue to work even if the data structure changes
-// whereas with arrays and [0, 0, 0, 1, 2] it very brittle.
-
-const differentTreeIdea = {
-  items: {
-    top: {
-      name: `TOP`,
-      items: {
-        css: {
-          name: `CSS`,
-          tags: [],
-          items: {
-            mediaQueries: {
-              name: `Media Queries`,
-              tags: [],
-              items: {
-                ratio: {
-                  name: `<ratio>`,
-                  tags: [],
-                },
-                mediaFeatures: {
-                  name: `Media features`,
-                  tags: [],
-                },
-              },
-            },
-          },
-        },
-      },
-    },
-  },
-};
-
 export const nuggetTreeData = {
   items: [
     {
