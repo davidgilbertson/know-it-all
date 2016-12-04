@@ -17,7 +17,13 @@ body, h1, h2, h3, h4, h5, h6, p {
   margin: 0;
   font-family: "Calibri Light", Roboto, Helvetica, Arial, sans-serif;
   font-size: 1rem;
-  font-weight: 400;
+  font-weight: 300;
+}
+
+body {
+  color: #333;
+  background: #bf4444;
+  overflow-y: scroll;
 }
 
 a {

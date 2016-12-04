@@ -9,6 +9,8 @@ import {
   WEBPACK_BUNDLE,
 } from '../constants.js';
 
+import data from '../data/data';
+
 let scriptSrc;
 
 if (isProd) {
@@ -19,20 +21,27 @@ if (isProd) {
   scriptSrc = `http://localhost:8081/${WEBPACK_BUNDLE}`;
 }
 
-const appHtml = `
+console.time(`render`);
+const appHtml = ReactDomServer.renderToString(<App data={data} />);
+console.timeEnd(`render`);
+
+const responseHtml = `
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf8">
   <title>Know it all</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=no">
   <link rel="stylesheet" href="/main.css" />
 </head>
 <body>
-  <div id="app">${ReactDomServer.renderToString(<App />)}</div>
+  <div id="app">${appHtml}</div>
+  <script>
+    window.APP_DATA=${JSON.stringify(data)};
+  </script>
   <script async src="${scriptSrc}"></script>
 </body>
 </html>
 `;
 
-export default appHtml;
+export default responseHtml;

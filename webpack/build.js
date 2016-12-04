@@ -24,7 +24,7 @@ config.plugins = config.plugins.concat([
 config.module.loaders.push({
   test: /\.jsx?$/,
   exclude: /node_modules/,
-  loader: 'babel',
+  loader: `babel`,
   query: {
     compact: true,
   },

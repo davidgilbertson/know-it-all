@@ -1,48 +1,50 @@
-import cloneDeep from 'lodash/cloneDeep';
+import { SCORES } from '../constants';
 
 let rowCount;
-let depth;
-const nuggetList = [];
+let depth = 0;
+const itemList = [];
 
-function parseData(nuggets, path = []) {
-  for (let i = 0; i < nuggets.items.length; i++) {
-    const nugget = nuggets.items[i];
+function parseData(items, path = []) {
+  for (let i = 0; i < items.length; i++) {
+    const item = items[i];
 
-    nugget.isExpanded = true;
-    nugget.row = rowCount++;
-    nugget.depth = depth;
-    nugget.path = path.slice();
-    nugget.path.push(i);
+    item.isExpanded = depth < 0;
+    item.row = rowCount++;
+    item.depth = depth;
+    item.path = path.slice();
+    item.path.push(i); // TODO (davidg): I'm overdoing the path thing, fix this
+    item.pathString = item.path.join(`.`);
+    item.leaf = !item.children || !item.children.length; // TODO (davidg): or tag == fake?
+    item.score = SCORES.LEVEL_0; // TODO (davidg): mush with saved data?
 
-    const shallowNugget = cloneDeep(nugget);
-    shallowNugget.items.length = 0;
-    // the nugget list should only be used for navigating to the next/previous row
-    // so include a subset of data (any other data wouldn't be updated)
-    nuggetList.push({
-      name: nugget.name,
-      row: nugget.row,
-      path: nugget.path,
-      knowable: nugget.knowable,
+    itemList.push({
+      name: item.name,
+      id: item.id,
+      row: item.row,
+      path: item.path,
+      pathString: item.pathString,
+      leaf: item.leaf,
     });
 
-    if (nugget.items && nugget.items.length) {
+    if (item.children && item.children.length) {
       depth++;
-      parseData(nugget, nugget.path);
+      parseData(item.children, item.path);
       depth--;
     }
   }
 
-  return nuggets;
+  return items;
 }
 
-export function decorateData(originalNuggetTree) {
+export function decorateData(originalItemTree) {
   rowCount = 0;
   depth = 0;
-  nuggetList.length = 0;
-  const nuggetTree = parseData(cloneDeep(originalNuggetTree));
+  itemList.length = 0;
+
+  const itemTree = parseData(originalItemTree.slice());
 
   return {
-    nuggetTree,
-    nuggetList,
+    itemTree,
+    itemList,
   };
 }

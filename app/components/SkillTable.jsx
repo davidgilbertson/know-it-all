@@ -1,8 +1,7 @@
 import React from 'react';
-import cloneDeep from 'lodash/cloneDeep';
+const Immutable = require(`immutable`);
 
-import TableRow from './TableRow.jsx';
-import { nuggetTreeData } from '../data/nuggetTreeData.js';
+import TableRows from './TableRows';
 import { decorateData } from '../utils';
 import {
   COLORS,
@@ -10,29 +9,38 @@ import {
   SCORES,
 } from '../constants';
 
-function getItemByPath(tree, path) {
-  return path.reduce(
-    (result, itemPos) => result.items[itemPos],
-    tree
-  );
+function getArrayPath(stringPath) {
+  return stringPath.replace(/\./g, `.children.`).split(`.`);
+}
+
+// TODO (davidg): this isn't needed, can just be in getItemByRow, no?
+function getItemByPath(tree, pathString) {
+  const pathAsArray = getArrayPath(pathString);
+
+  return tree.getIn(pathAsArray);
 }
 
 function getItemByRow(data, row) {
   const activeNugget = data.nuggetList.find(nugget => nugget.row === row);
-  return getItemByPath(data.nuggetTree, activeNugget.path);
+  return getItemByPath(data.itemTree, activeNugget.pathString);
+}
+
+function updateAtPath(object, path, prop, value) {
+  const pathAsArray = getArrayPath(path);
+  return object.updateIn(pathAsArray, item => item.set(prop, value));
 }
 
 class SkillTable extends React.Component {
   constructor(props) {
     super(props);
 
-    const decoratedData = decorateData(nuggetTreeData);
+    const decoratedData = decorateData(props.data);
     this.state = {
-      nuggetTree: decoratedData.nuggetTree,
-      currentNugget: decoratedData.nuggetTree.items[0], // "TOP"
+      itemTree: Immutable.fromJS(decoratedData.itemTree),
+      currentNugget: decoratedData.itemTree[0],
     };
 
-    this.nuggetList = decoratedData.nuggetList;
+    this.nuggetList = decoratedData.itemList;
 
     this.updateScore = this.updateScore.bind(this);
     this.onKeyDown = this.onKeyDown.bind(this);
@@ -51,9 +59,9 @@ class SkillTable extends React.Component {
 
   onKeyDown(e) {
     const { state } = this;
-    const stateClone = cloneDeep(state);
+
     const currentItem = getItemByRow({
-      nuggetTree: stateClone.nuggetTree,
+      itemTree: state.itemTree,
       nuggetList: this.nuggetList,
     }, state.currentNugget.row);
 
@@ -73,21 +81,21 @@ class SkillTable extends React.Component {
 
 
     if (e.keyCode === KEYS.LEFT) {
-      if (currentItem.isExpanded) {
-        this.expandCollapse(currentItem.path, false);
+      if (currentItem.get(`isExpanded`)) {
+        this.expandCollapse(currentItem.get(`pathString`), false);
       }
       return;
     }
 
     if (e.keyCode === KEYS.RIGHT) {
-      if (!currentItem.isExpanded) {
-        this.expandCollapse(currentItem.path, true);
+      if (!currentItem.get(`isExpanded`)) {
+        this.expandCollapse(currentItem.get(`pathString`), true);
       }
       return;
     }
 
     const saveScore = scoreNumber => {
-      this.updateScore(currentItem.path, SCORES[`LEVEL_${scoreNumber}`]);
+      this.updateScore(currentItem.get(`pathString`), SCORES[`LEVEL_${scoreNumber}`]);
       this.goToNextKnowableRow(); // move to the next one after scoring
     };
 
@@ -100,7 +108,7 @@ class SkillTable extends React.Component {
   goToNextKnowableRow() {
     const currentActiveRow = this.state.currentNugget.row;
     const nextNugget = this.nuggetList.find(nugget => (
-      nugget.row > currentActiveRow && nugget.knowable
+      nugget.row > currentActiveRow && nugget.leaf
     ));
 
     if (nextNugget) {
@@ -112,42 +120,33 @@ class SkillTable extends React.Component {
 
   goToRow(row) {
     const currentNugget = this.nuggetList.find(nugget => nugget.row === row);
-    const newNuggetTree = cloneDeep(this.state.nuggetTree);
-    let currentLevel = newNuggetTree;
-    let updateTree = false;
 
-    currentNugget.path.forEach(pos => {
-      if (!currentLevel.isExpanded) {
-        currentLevel.isExpanded = true;
-        updateTree = true;
-      }
-      currentLevel = currentLevel.items[pos];
-    });
+    const pathSteps = currentNugget.pathString.split(`.`);
 
-    if (updateTree) {
-      this.setState({ nuggetTree: newNuggetTree });
+    while (pathSteps.length > 1) {
+      pathSteps.pop();
+      const thisPath = pathSteps.join(`.`);
+
+      // TODO (davidg): room for performance improvement here.
+      // This is called when not needed.
+      this.setState(({ itemTree }) => ({
+        itemTree: updateAtPath(itemTree, thisPath, `isExpanded`, true),
+      }));
     }
+
     this.setState({ currentNugget });
   }
 
   expandCollapse(nuggetPath, isExpanded) {
-    const nuggetTree = cloneDeep(this.state.nuggetTree);
-    const currentItem = getItemByPath(nuggetTree, nuggetPath);
-
-    if (!currentItem || !currentItem.items || !currentItem.items.length) return;
-
-    currentItem.isExpanded = isExpanded;
-
-    this.setState({ nuggetTree });
+    this.setState(({ itemTree }) => ({
+      itemTree: updateAtPath(itemTree, nuggetPath, `isExpanded`, isExpanded),
+    }));
   }
 
   updateScore(nuggetPath, score) {
-    const nuggetTree = cloneDeep(this.state.nuggetTree);
-
-    const currentItem = getItemByPath(nuggetTree, nuggetPath);
-    currentItem.score = score;
-
-    this.setState({ nuggetTree });
+    this.setState(({ itemTree }) => ({
+      itemTree: updateAtPath(itemTree, nuggetPath, `score`, score),
+    }));
   }
 
   render() {
@@ -155,27 +154,30 @@ class SkillTable extends React.Component {
     const styles = {
       content: {
         margin: `20px auto`,
+        maxWidth: 1000,
         border: `1px solid ${COLORS.GREY_MID}`,
-        maxWidth: 800,
+        background: COLORS.WHITE,
         boxShadow: `0 27px 55px 0 rgba(0, 0, 0, 0.3), 0 17px 17px 0 rgba(0, 0, 0, 0.15)`,
       },
     };
 
     return (
       <div style={styles.content}>
-        <TableRow
-          item={state.nuggetTree.items[0]}
+        <TableRows
+          items={state.itemTree}
           currentNugget={state.currentNugget}
           goToRow={this.goToRow}
           updateScore={this.updateScore}
           expandCollapse={this.expandCollapse}
           goToNextKnowableRow={this.goToNextKnowableRow}
         />
-
-        <pre>{JSON.stringify(state, null, 2)}</pre>
       </div>
     );
   }
 }
+
+SkillTable.propTypes = {
+  data: React.PropTypes.array.isRequired,
+};
 
 export default SkillTable;

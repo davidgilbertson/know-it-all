@@ -1,6 +1,7 @@
 .idea
 static/js
 webpack/jsPackageName.json
+private
 
 # Logs
 logs
