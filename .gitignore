@@ -1,5 +1,5 @@
 .idea
-static/js
+static
 webpack/jsPackageName.json
 private
 

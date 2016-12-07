@@ -1,12 +1,15 @@
+const webpack = require(`webpack`);
 const path = require(`path`);
+
+process.env.WEBPACKING = true;
 
 module.exports = {
   entry: [
     `./app/client/client.js`,
   ],
   output: {
-    path: path.resolve(__dirname, `../static/js`),
-    filename: `client.[hash].js`,
+    path: path.resolve(__dirname, `../static`),
+    filename: `app.[hash].js`,
   },
   module: {
     loaders: [
@@ -22,10 +25,13 @@ module.exports = {
   },
   resolve: {
     extensions: [``, `.js`, `.jsx`],
-  //   alias: {
-  //     localforage$: `localforage/dist/localforage.nopromises.min.js`,
-  //   },
   },
   bail: true,
-  plugins: [], // extended in prod/dev-specific configs
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env': {
+        IMPORT_SCSS: JSON.stringify(true),
+      },
+    }),
+  ],
 };

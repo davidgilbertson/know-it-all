@@ -1,13 +1,14 @@
 import React from 'react';
 const Immutable = require(`immutable`);
 
-import TableRows from './TableRows';
-import { decorateData } from '../utils';
+import TableRows from '../TableRows/TableRows';
+import { decorateData } from '../../utils';
 import {
-  COLORS,
   KEYS,
   SCORES,
-} from '../constants';
+} from '../../constants';
+
+if (process.env.IMPORT_SCSS) require(`./SkillTable.scss`); // eslint-disable-line global-require
 
 function getArrayPath(stringPath) {
   return stringPath.replace(/\./g, `.children.`).split(`.`);
@@ -34,13 +35,26 @@ class SkillTable extends React.Component {
   constructor(props) {
     super(props);
 
-    const decoratedData = decorateData(props.data);
-    this.state = {
-      itemTree: Immutable.fromJS(decoratedData.itemTree),
-      currentNugget: decoratedData.itemTree[0],
-    };
+    // TODO (davidg): we will always have data, since we wait for it before rendering on the client.
+    if (props.data) { // when rendered in Node, we will have data already
+      const decoratedData = decorateData(props.data);
 
-    this.nuggetList = decoratedData.itemList;
+      // TODO (davidg): don't set currentNugget on load.
+      // but it will need to set it in any func that relies on it
+      this.state = {
+        itemTree: Immutable.fromJS(decoratedData.itemTree),
+        currentNugget: decoratedData.itemTree[0],
+      };
+
+      this.nuggetList = decoratedData.itemList;
+    } else { // when rendered on client we won't have data yet.
+      // this.state = {
+      //   itemTree: Immutable.fromJS([]),
+      //   currentNugget: {},
+      // };
+      //
+      // this.nuggetList = [];
+    }
 
     this.updateScore = this.updateScore.bind(this);
     this.onKeyDown = this.onKeyDown.bind(this);
@@ -151,18 +165,9 @@ class SkillTable extends React.Component {
 
   render() {
     const { state } = this;
-    const styles = {
-      content: {
-        margin: `20px auto`,
-        maxWidth: 1000,
-        border: `1px solid ${COLORS.GREY_MID}`,
-        background: COLORS.WHITE,
-        boxShadow: `0 27px 55px 0 rgba(0, 0, 0, 0.3), 0 17px 17px 0 rgba(0, 0, 0, 0.15)`,
-      },
-    };
 
     return (
-      <div style={styles.content}>
+      <div className="skill-table">
         <TableRows
           items={state.itemTree}
           currentNugget={state.currentNugget}
@@ -177,7 +182,7 @@ class SkillTable extends React.Component {
 }
 
 SkillTable.propTypes = {
-  data: React.PropTypes.array.isRequired,
+  data: React.PropTypes.array,
 };
 
 export default SkillTable;

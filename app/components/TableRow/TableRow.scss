@@ -1,0 +1,98 @@
+@import '../global';
+
+.table-row {
+    position: relative;
+    margin-left: 20px;
+    border-left: 1px solid #eee;
+}
+
+.table-row__content {
+    display: flex;
+    align-items: center;
+    height: 60px;
+    padding-left: 13px;
+    transition: 150ms;
+    border-bottom: 1px solid $GREY_MID;
+
+    .table-row--selected > & {
+        background: $GREY_LIGHT;
+        box-shadow: inset 0 0 0 1px $GREY_DARK;
+    }
+}
+
+.table-row__triangle {
+    margin: 0 10px 0 -37px;
+    padding: 7px; // for decent click area
+    transition: 150ms;
+    color: $GREY_MID;
+    cursor: pointer;
+    user-select: none;
+
+    .table-row--has-no-children & {
+        display: none;
+    }
+
+    .table-row--expanded > .table-row__content & {
+        transform: rotate(90deg);
+    }
+}
+
+.table-row__name {
+    .table-row--code & {
+        font-family: monospace;
+    }
+}
+
+.table-row__tag-wrapper {
+    padding-left: 10px;
+    color: $GREY_DARK;
+}
+
+.table-row__score-wrapper {
+    flex: 1;
+    text-align: right;
+    margin-right: 10px;
+}
+
+.table-row__do-not-care-button {
+    width: 60px;
+    padding: 5px;
+    border: 1px solid $GREY_DARK;
+    border-radius: 4px;
+    background: $WHITE;
+    color: $GREY_DARK;
+    text-transform: uppercase;
+    font-size: 14px;
+    margin-right: 10px;
+}
+
+.table-row__tag {
+    border-radius: 4px;
+    background: #ddd;
+    padding: 2px 6px;
+    margin-left: 4px;
+    font-size: 12px;
+}
+
+.table-row__score-button {
+    display: inline-block;
+    background: $WHITE;
+    color: $PRIMARY;
+    border: 1px solid $PRIMARY;
+    padding: 10px;
+    border-radius: 4px;
+    margin-right: 10px;
+    user-select: none;
+
+    &--selected {
+        display: inline-block;
+        background: $PRIMARY;
+        color: $WHITE;
+        border: 1px solid $PRIMARY;
+    }
+}
+
+.table-row__score-button-input {
+    position: absolute;
+    transform: translateX(-100vw);
+}

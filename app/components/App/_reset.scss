@@ -1,0 +1,55 @@
+html {
+    box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+}
+
+body, h1, h2, h3, h4, h5, h6, p {
+    margin: 0;
+    font-family: "Calibri Light", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 1rem;
+    font-weight: 300;
+}
+
+body {
+    color: #333;
+    background: #bf4444;
+    overflow-y: scroll;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+a:focus {
+    outline: 0;
+}
+
+input {
+    appearance: none;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    min-width: 0;
+    font-size: 1rem;
+    font-family: inherit;
+}
+
+body:not(.user-tabbing) input:focus {
+    outline: 0;
+}
+
+button {
+    background-color: transparent;
+    border: 0;
+    color: inherit;
+    font-family: inherit;
+    font-weight: inherit;
+    font-size: inherit;
+    letter-spacing: 1px;
+}

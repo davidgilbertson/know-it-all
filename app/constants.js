@@ -55,7 +55,7 @@ export const TAGS = {
   ECMA_402: { key: `ECMA_402`, value: `ECMA_402` },
   TYPE: { key: `TYPE`, value: `TYPE` },
   PRIMITIVE: { key: `PRIMITIVE`, value: `PRIMITIVE` },
-  ECMA_262: { key: `ECMA_262`, value: `ECMA_262` },
+  ECMA_262: { key: `ECMA_262`, value: `ECMA 262` },
   SYMBOL: { key: `SYMBOL`, value: `SYMBOL` },
   WEBVTT1: { key: `WEBVTT1`, value: `WEBVTT1` },
   SELECTOR: { key: `SELECTOR`, value: `SELECTOR` },

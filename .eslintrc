@@ -11,6 +11,8 @@
       {
         "allow": [
           "info",
+          "time",
+          "timeEnd",
           "warn",
           "error"
         ]

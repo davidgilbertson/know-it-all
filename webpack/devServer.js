@@ -11,7 +11,7 @@ config.entry.unshift(
   `webpack/hot/only-dev-server`
 );
 
-config.devtool = `source-map`;
+config.devtool = `source-map`; // I love you webpack
 
 config.module.loaders.push({
   test: /\.jsx?$/,
@@ -19,6 +19,16 @@ config.module.loaders.push({
   loaders: [
     `react-hot`,
     `babel`,
+  ],
+});
+
+config.module.loaders.push({
+  test: /\.scss$/,
+  exclude: /node_modules/,
+  loaders: [
+    `style`,
+    `css`,
+    `sass`,
   ],
 });
 

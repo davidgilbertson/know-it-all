@@ -3,45 +3,49 @@ import path from 'path';
 import React from 'react';
 import ReactDomServer from 'react-dom/server';
 
-import App from '../components/App.jsx';
-import { isProd } from '../utils';
+import App from '../components/App/App.jsx';
 import {
   WEBPACK_BUNDLE,
 } from '../constants.js';
 
-import data from '../data/data';
+const data = require(`../data/data.json`);
 
-let scriptSrc;
+export default ({ dataFileName = `data.json`, scriptFileName, mode }) => {
+  let scriptSrc;
+  let styleTag = ``;
 
-if (isProd) {
-  const filePath = path.resolve(__dirname, `../../webpack/jsPackageName.json`);
-  const jsPackageName = fs.readFileSync(filePath, `utf8`);
-  scriptSrc = `/js/${JSON.parse(jsPackageName)}`;
-} else {
-  scriptSrc = `http://localhost:8081/${WEBPACK_BUNDLE}`;
-}
+  if (mode === `production`) {
+    scriptSrc = scriptFileName;
 
-console.time(`render`);
-const appHtml = ReactDomServer.renderToString(<App data={data} />);
-console.timeEnd(`render`);
+    const stylesPath = path.resolve(__dirname, `../../static/styles.css`);
+    const styles = fs.readFileSync(stylesPath, `utf8`);
 
-const responseHtml = `
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf8">
-  <title>Know it all</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=no">
-  <link rel="stylesheet" href="/main.css" />
-</head>
-<body>
-  <div id="app">${appHtml}</div>
-  <script>
-    window.APP_DATA=${JSON.stringify(data)};
-  </script>
-  <script async src="${scriptSrc}"></script>
-</body>
-</html>
-`;
+    styleTag = `<style>${styles}</style>`;
+  } else {
+    scriptSrc = `http://localhost:8081/${WEBPACK_BUNDLE}`;
+  }
 
-export default responseHtml;
+  const appHtml = ReactDomServer.renderToString(<App data={data} />);
+
+  return `
+  <!DOCTYPE html>
+  <html>
+  <head>
+    <meta charset="utf8">
+    <title>Know it all</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=no">
+    ${styleTag}
+    <link rel="prefetch" href="${dataFileName}" />
+    <script>
+      window.APP_DATA = {
+        dataFileName: '${dataFileName}',
+      };
+    </script>
+  </head>
+  <body>
+    <div id="app">${appHtml}</div>
+    <script async src="${scriptSrc}"></script>
+  </body>
+  </html>
+  `;
+};

@@ -5,9 +5,10 @@
   "main": "index.js",
   "scripts": {
     "heroku-postbuild": "npm run build",
+    "start": "node index.js",
     "build": "node webpack/build.js",
     "dev": "nodemon index.dev.js",
-    "test": "eslint ./app --color --ext .jsx,.js"
+    "test": "eslint ./app ./webpack --color --ext .jsx,.js"
   },
   "repository": {
     "type": "git",
@@ -28,15 +29,22 @@
     "babel-preset-react": "^6.11.1",
     "babel-preset-stage-2": "^6.11.0",
     "babel-register": "^6.11.6",
+    "classnames": "2.2.5",
+    "css-loader": "0.26.1",
     "express": "^4.14.0",
+    "extract-text-webpack-plugin": "1.0.1",
     "immutable": "3.8.1",
     "json-loader": "^0.5.4",
     "localforage": "^1.4.3",
     "lodash": "^4.16.1",
+    "node-sass": "3.13.0",
     "nodemon": "^1.11.0",
     "react": "^15.3.0",
     "react-dom": "^15.3.0",
     "rimraf": "^2.5.4",
+    "sass-loader": "4.0.2",
+    "style-loader": "0.13.1",
+    "stylelint": "7.6.0",
     "webpack": "^1.13.1"
   },
   "devDependencies": {

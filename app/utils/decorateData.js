@@ -1,4 +1,7 @@
-import { SCORES } from '../constants';
+import {
+  SCORES,
+  TAGS,
+} from '../constants';
 
 let rowCount;
 let depth = 0;
@@ -16,6 +19,7 @@ function parseData(items, path = []) {
     item.pathString = item.path.join(`.`);
     item.leaf = !item.children || !item.children.length; // TODO (davidg): or tag == fake?
     item.score = SCORES.LEVEL_0; // TODO (davidg): mush with saved data?
+    item.tags = item.tags.map(tagString => TAGS[tagString]).filter(tag => !!tag);
 
     itemList.push({
       name: item.name,
