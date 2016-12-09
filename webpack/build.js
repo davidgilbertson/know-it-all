@@ -10,19 +10,20 @@ const appHtml = require(`../app/server/appHtml`).default;
 
 const rimraf = require(`rimraf`);
 
-rimraf.sync(path.resolve(__dirname, `../static`));
+rimraf.sync(path.resolve(__dirname, `../public`));
 
-config.entry.unshift(`babel-polyfill`);
+fs.mkdirSync(`./public`);
+
+fs.createReadStream(`./assets/favicon.ico`).pipe(fs.createWriteStream(`./public/favicon.ico`));
 
 config.plugins = config.plugins.concat([
-  new webpack.optimize.UglifyJsPlugin({
-    sourceMap: false,
-  }),
   new webpack.DefinePlugin({
     'process.env': {
       NODE_ENV: JSON.stringify(`production`),
     },
   }),
+  new webpack.optimize.UglifyJsPlugin({ sourceMap: true }),
+  new webpack.optimize.DedupePlugin(),
 ]);
 
 config.plugins.push(
@@ -57,10 +58,16 @@ compiler.run((compileError, stats) => {
     chunks: false,
   });
 
-  // get the name of the JS file (including the hash webpack created)
-  const scriptFileName = jsonStats.assetsByChunkName.main.filter(asset => asset.endsWith(`.js`));
+  console.log(stats.toString({
+    chunks: false,
+    colors: true,
+  }));
 
-  // We get the hash for the data file and copy it to static
+  // get the name of the JS file (including the hash webpack created)
+  const scriptFileName = jsonStats.assetsByChunkName.app[0];
+  const polyfilledScriptFileName = jsonStats.assetsByChunkName[`app-with-polyfills`][0];
+
+  // get the hash for the data file and copy it to public
   fs.readFile(`./app/data/data.json`, `utf8`, (dataFileError, dataJson) => {
     const dataHash = crypto.createHash(`md5`).update(dataJson).digest(`hex`);
     const dataFileName = `data.${dataHash}.json`;
@@ -69,16 +76,18 @@ compiler.run((compileError, stats) => {
     const htmlString = appHtml({
       dataFileName,
       scriptFileName,
+      polyfilledScriptFileName,
       mode: `production`,
     });
 
     // write the data to a new file with the hash in the name
-    // this could be a copy/rename but we already had the file read
-    fs.writeFile(`./static/${dataFileName}`, dataJson, `utf8`, (dataJsonError) => {
+    // this could be a copy/rename but we already
+    // had the file loaded and perf doesn't matter here
+    fs.writeFile(`./public/${dataFileName}`, dataJson, `utf8`, (dataJsonError) => {
       if (dataJsonError) console.error(`Error writing data.json to disk: ${dataJsonError}`);
     });
 
-    fs.writeFile(`./static/index.html`, htmlString, `utf8`, (indexError) => {
+    fs.writeFile(`./public/index.html`, htmlString, `utf8`, (indexError) => {
       if (indexError) console.error(`Error creating index.html: ${indexError}`);
 
       console.timeEnd(`build`);

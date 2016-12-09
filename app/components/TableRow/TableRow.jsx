@@ -139,9 +139,10 @@ class TableRow extends Component {
       { 'table-row--expanded': props.item.get(`isExpanded`) }
     );
 
-    const contentStyle = {
+    const contentStyle = props.item.get(`score`)
+    ? {
       boxShadow: `inset 4px 0 ${props.item.get(`score`).color}`,
-    };
+    } : null;
 
     return (
       <div

@@ -1,15 +1,19 @@
 const webpack = require(`webpack`);
 const path = require(`path`);
 
-process.env.WEBPACKING = true;
-
 module.exports = {
-  entry: [
-    `./app/client/client.js`,
-  ],
+  entry: {
+    app: [
+      `./app/client/client.js`,
+    ],
+    'app-with-polyfills': [
+      `babel-polyfill`,
+      `./app/client/client.js`,
+    ],
+  },
   output: {
-    path: path.resolve(__dirname, `../static`),
-    filename: `app.[hash].js`,
+    path: path.resolve(__dirname, `../public`),
+    filename: `[name].[hash].js`,
   },
   module: {
     loaders: [
@@ -20,7 +24,7 @@ module.exports = {
       },
     ],
     // noParse: [
-    //   /localforage/,
+      // /localforage/,
     // ],
   },
   resolve: {

@@ -1,4 +1,7 @@
 # Know it all
+
+https://knowitall-9a92e.firebaseapp.com/
+
 The goal of know-it-all is to help you discover things 
 that you don't know about web development.
 

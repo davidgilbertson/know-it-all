@@ -6,7 +6,7 @@ const CONSTANTS = require(`../app/constants.js`);
 
 const contentBase = `http://localhost:${CONSTANTS.DEV_PORT}`;
 
-config.entry.unshift(
+config.entry.app.unshift(
   `webpack-dev-server/client?${contentBase}`,
   `webpack/hot/only-dev-server`
 );

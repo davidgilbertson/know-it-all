@@ -7,6 +7,7 @@
     "heroku-postbuild": "npm run build",
     "start": "node index.js",
     "build": "node webpack/build.js",
+    "deploy": "firebase deploy",
     "dev": "nodemon index.dev.js",
     "test": "eslint ./app ./webpack --color --ext .jsx,.js"
   },
@@ -30,6 +31,7 @@
     "babel-preset-stage-2": "^6.11.0",
     "babel-register": "^6.11.6",
     "classnames": "2.2.5",
+    "compression": "^1.6.2",
     "css-loader": "0.26.1",
     "express": "^4.14.0",
     "extract-text-webpack-plugin": "1.0.1",

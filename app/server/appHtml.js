@@ -10,6 +10,8 @@ import {
 
 const data = require(`../data/data.json`);
 
+// TODO (davidg): load polyfilledScriptFileName if the browser doesn't have fetch
+// is there anything else I need to polyfill?
 export default ({ dataFileName = `data.json`, scriptFileName, mode }) => {
   let scriptSrc;
   let styleTag = ``;
@@ -17,7 +19,7 @@ export default ({ dataFileName = `data.json`, scriptFileName, mode }) => {
   if (mode === `production`) {
     scriptSrc = scriptFileName;
 
-    const stylesPath = path.resolve(__dirname, `../../static/styles.css`);
+    const stylesPath = path.resolve(__dirname, `../../public/styles.css`);
     const styles = fs.readFileSync(stylesPath, `utf8`);
 
     styleTag = `<style>${styles}</style>`;

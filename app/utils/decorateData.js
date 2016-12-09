@@ -11,7 +11,7 @@ function parseData(items, path = []) {
   for (let i = 0; i < items.length; i++) {
     const item = items[i];
 
-    item.isExpanded = depth < 0;
+    item.isExpanded = depth < 1;
     item.row = rowCount++;
     item.depth = depth;
     item.path = path.slice();

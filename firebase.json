@@ -1,0 +1,16 @@
+{
+  "hosting": {
+    "public": "public",
+    "headers": [
+      {
+        "source": "**/*.@(js|json|ico)",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "max-age=31536000"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,9 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Perf from 'react-addons-perf';
 import App from '../components/App/App.jsx';
 
-window.Perf = Perf;
+if (process.env.NODE_ENV !== `production`) {
+  window.Perf = require(`react-addons-perf`); // eslint-disable-line global-require
+}
 
 // We don't want to inline this data cos it's HUGE
 // We fetch here, but we have already pre-fetched in the <head>
