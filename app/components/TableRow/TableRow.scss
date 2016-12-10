@@ -21,7 +21,7 @@
     border-bottom: 1px solid $GREY_300;
 
     .table-row--selected > & {
-        border-bottom: 1px solid $GREY_700;
+        background: $GREY_50;
     }
 }
 
