@@ -93,7 +93,6 @@ class SkillTable extends React.Component {
       this.goToRow(state.currentNugget.row + 1);
     }
 
-
     if (e.keyCode === KEYS.LEFT) {
       if (currentItem.get(`isExpanded`)) {
         this.expandCollapse(currentItem.get(`pathString`), false);
