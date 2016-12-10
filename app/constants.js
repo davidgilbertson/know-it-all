@@ -75,28 +75,28 @@ export const TAGS = {
 
 export const SCORES = {
   LEVEL_0: {
-    key: 0,
+    key: `LEVEL_0`,
     color: COLORS.GREY_LIGHT,
     icon: `--`,
     shortTitle: `Unrated`,
     value: `Unrated`,
   },
   LEVEL_1: {
-    key: 1,
+    key: `LEVEL_1`,
     color: COLORS.RED,
     icon: `¯\\_(ツ)_/¯`,
     shortTitle: `Don't know it`,
     value: `I've never heard of it`,
   },
   LEVEL_2: {
-    key: 2,
+    key: `LEVEL_2`,
     color: COLORS.ORANGE,
     icon: `ʘ‿ʘ`,
     shortTitle: `Know of it`,
     value: `I've heard of it, but I could know it better`,
   },
   LEVEL_3: {
-    key: 3,
+    key: `LEVEL_3`,
     color: COLORS.GREEN,
     icon: `(⌐■_■)`,
     shortTitle: `Know it`,

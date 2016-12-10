@@ -16,6 +16,18 @@ fs.mkdirSync(`./public`);
 
 fs.createReadStream(`./assets/favicon.ico`).pipe(fs.createWriteStream(`./public/favicon.ico`));
 
+// in dev mode, only one package is produced
+// in prod, an 'app' and an 'app-with-polyfills' is produced
+config.entry = {
+  app: [
+    `./app/client/client.js`,
+  ],
+  'app-with-polyfills': [
+    `babel-polyfill`,
+    `./app/client/client.js`,
+  ],
+};
+
 config.plugins = config.plugins.concat([
   new webpack.DefinePlugin({
     'process.env': {

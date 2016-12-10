@@ -2,15 +2,6 @@ const webpack = require(`webpack`);
 const path = require(`path`);
 
 module.exports = {
-  entry: {
-    app: [
-      `./app/client/client.js`,
-    ],
-    'app-with-polyfills': [
-      `babel-polyfill`,
-      `./app/client/client.js`,
-    ],
-  },
   output: {
     path: path.resolve(__dirname, `../public`),
     filename: `[name].[hash].js`,

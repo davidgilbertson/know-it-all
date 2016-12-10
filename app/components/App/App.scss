@@ -1,7 +1,27 @@
+@import '../global';
 @import './reset';
 
-.header__title {
+html {
+    height: 100%;
+}
+
+body {
+    color: $GREY_900;
+    min-height: 100%;
+    overflow-y: scroll;
+
+    @include for-tablet-portrait-up {
+        background: linear-gradient(-20deg, darken($DEEP_ORANGE_900, 10%), $DEEP_ORANGE_900 70%);
+    }
+}
+
+.header {
+    background: $DEEP_ORANGE_900;
     text-align: center;
+    padding: 8px;
+}
+
+.header__title {
     font-size: 40px;
-    color: white;
+    color: $WHITE;
 }

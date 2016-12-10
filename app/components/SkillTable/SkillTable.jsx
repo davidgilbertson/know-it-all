@@ -108,15 +108,15 @@ class SkillTable extends React.Component {
       return;
     }
 
-    const saveScore = scoreNumber => {
-      this.updateScore(currentItem.get(`pathString`), SCORES[`LEVEL_${scoreNumber}`]);
+    const saveScore = scoreKey => {
+      this.updateScore(currentItem.get(`pathString`), scoreKey);
       this.goToNextKnowableRow(); // move to the next one after scoring
     };
 
-    if (e.key === `0`) saveScore(0);
-    if (e.key === `1`) saveScore(1);
-    if (e.key === `2`) saveScore(2);
-    if (e.key === `3`) saveScore(3);
+    if (e.key === `0`) saveScore(`LEVEL_0`);
+    if (e.key === `1`) saveScore(`LEVEL_1`);
+    if (e.key === `2`) saveScore(`LEVEL_2`);
+    if (e.key === `3`) saveScore(`LEVEL_3`);
   }
 
   goToNextKnowableRow() {
@@ -157,9 +157,9 @@ class SkillTable extends React.Component {
     }));
   }
 
-  updateScore(nuggetPath, score) {
+  updateScore(nuggetPath, scoreKey) {
     this.setState(({ itemTree }) => ({
-      itemTree: updateAtPath(itemTree, nuggetPath, `score`, score),
+      itemTree: updateAtPath(itemTree, nuggetPath, `scoreKey`, scoreKey),
     }));
   }
 

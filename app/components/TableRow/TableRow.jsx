@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import TableRows from '../TableRows/TableRows';
+import Icon from '../Icon/Icon';
 const Immutable = require(`immutable`);
 import classnames from 'classnames';
 
@@ -15,7 +16,7 @@ class TableRow extends Component {
     super(props);
 
     this.onRowClick = this.onRowClick.bind(this);
-    this.onTriangleClick = this.onTriangleClick.bind(this);
+    // this.onTriangleClick = this.onTriangleClick.bind(this);
   }
 
   shouldComponentUpdate(nextProps) {
@@ -39,24 +40,21 @@ class TableRow extends Component {
 
   componentDidUpdate() {
     // When selected, scroll the item into view
-    if (this.props.item.get(`id`) === this.props.currentNugget.id) {
-      if (typeof this.el.scrollIntoViewIfNeeded === `function`) {
-        this.el.scrollIntoViewIfNeeded();
-      }
-    }
+    // scrollIntoViewIfNeeded() is a jerk, do something with scrolling the window
+    // where is that sin wave window scroll thing I did?
+    // if (this.props.item.get(`id`) === this.props.currentNugget.id) {
+    //   if (typeof this.el.scrollIntoViewIfNeeded === `function`) {
+    //     this.el.scrollIntoViewIfNeeded();
+    //   }
+    // }
   }
 
   onRowClick() {
     const { props } = this;
+    // React will batch the setState()s that these two trigger
+    // so there will only be one render
     props.goToRow(props.item.get(`row`));
-  }
-
-  onTriangleClick(e) {
-    const { props } = this;
-    if (!props.item.get(`children`).size) return;
-
     props.expandCollapse(props.item.get(`pathString`), !props.item.get(`isExpanded`));
-    e.stopPropagation(); // don't select the row
   }
 
   renderTags(tags) {
@@ -79,7 +77,7 @@ class TableRow extends Component {
       && !item.get(`leaf`)
     ) return null;
 
-    const selected = item.get(`score`).key === displayScore.key;
+    const selected = item.get(`scoreKey`) === displayScore.key;
 
     const scoreButtonClassName = classnames(
       `table-row__score-button`,
@@ -96,7 +94,7 @@ class TableRow extends Component {
           type="radio"
           name={`${item.get(`id`)}-${item.get(`name`)}`}
           selected={selected}
-          onChange={() => this.props.updateScore(item.get(`pathString`), displayScore)}
+          onChange={() => this.props.updateScore(item.get(`pathString`), displayScore.key)}
         />
         {displayScore.shortTitle}
       </label>
@@ -139,10 +137,22 @@ class TableRow extends Component {
       { 'table-row--expanded': props.item.get(`isExpanded`) }
     );
 
-    const contentStyle = props.item.get(`score`)
-    ? {
-      boxShadow: `inset 4px 0 ${props.item.get(`score`).color}`,
-    } : null;
+    const scoreKey = props.item.get(`scoreKey`);
+    const score = SCORES[scoreKey];
+    const contentStyle = {
+      boxShadow: `inset 4px 0 ${score.color}`,
+    };
+
+    // TODO (davidg): only create triangle here if needed
+    // remove CSS that hides it
+
+    const notes = props.item.get(`notes`);
+    const notesText = notes
+      ? (
+        <p className="table-row__notes">
+          ({props.item.get(`notes`)})
+        </p>
+      ) : null;
 
     return (
       <div
@@ -154,26 +164,35 @@ class TableRow extends Component {
           style={contentStyle}
           onClick={this.onRowClick}
         >
+          <div className="table-row__words">
+            <p className="table-row__name">
+              {props.item.get(`name`)}
+            </p>
+
+            {notesText}
+
+            <div className="table-row__tag-wrapper">
+              {this.renderTags(props.item.get(`tags`))}
+            </div>
+
+            <div className="table-row__score-wrapper">
+              {this.renderScoreButton(props.item, SCORES.LEVEL_1)}
+              {this.renderScoreButton(props.item, SCORES.LEVEL_2)}
+              {this.renderScoreButton(props.item, SCORES.LEVEL_3)}
+            </div>
+
+            <button className="table-row__do-not-care-button">Don't care</button>
+          </div>
+
           <div
-            className="table-row__triangle"
-            onClick={this.onTriangleClick}
-          >▶</div>
-
-          <p className="table-row__name">
-            {props.item.get(`name`)}
-          </p>
-
-          <div className="table-row__tag-wrapper">
-            {this.renderTags(props.item.get(`tags`))}
+            className="table-row__triangle-wrapper"
+          >
+            <Icon
+              className="table-row__triangle-icon"
+              icon={Icon.ICONS.downChevron}
+              size="24"
+            />
           </div>
-
-          <div className="table-row__score-wrapper">
-            {this.renderScoreButton(props.item, SCORES.LEVEL_1)}
-            {this.renderScoreButton(props.item, SCORES.LEVEL_2)}
-            {this.renderScoreButton(props.item, SCORES.LEVEL_3)}
-          </div>
-
-          <button className="table-row__do-not-care-button">Don't care</button>
         </div>
 
         {childRows}

@@ -18,7 +18,7 @@ function parseData(items, path = []) {
     item.path.push(i); // TODO (davidg): I'm overdoing the path thing, fix this
     item.pathString = item.path.join(`.`);
     item.leaf = !item.children || !item.children.length; // TODO (davidg): or tag == fake?
-    item.score = SCORES.LEVEL_0; // TODO (davidg): mush with saved data?
+    item.scoreKey = SCORES.LEVEL_0.key;
     item.tags = item.tags.map(tagString => TAGS[tagString]).filter(tag => !!tag);
 
     itemList.push({

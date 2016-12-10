@@ -2,75 +2,105 @@
 
 .table-row {
     position: relative;
-    margin-left: 20px;
-    border-left: 1px solid #eee;
+
+    .table-row { // only second level down to be indented
+        margin-left: 10px;
+        border-left: 1px solid #eee;
+    }
 }
 
 .table-row__content {
     display: flex;
-    align-items: center;
-    height: 60px;
-    padding-left: 13px;
+    align-items: stretch;
+    padding: 6px 6px 6px 8px;
     transition: 150ms;
-    border-bottom: 1px solid $GREY_MID;
+    border-bottom: 1px solid $GREY_300;
 
     .table-row--selected > & {
-        background: $GREY_LIGHT;
-        box-shadow: inset 0 0 0 1px $GREY_DARK;
+        background: $GREY_50;
+        box-shadow: inset 0 0 0 1px $GREY_900;
     }
 }
 
-.table-row__triangle {
-    margin: 0 10px 0 -37px;
-    padding: 7px; // for decent click area
-    transition: 150ms;
-    color: $GREY_MID;
-    cursor: pointer;
+.table-row__words {
+    flex: 1;
+    //border: 1px dotted red;
+    //padding: 4px 8px;
+}
+
+.table-row__triangle-wrapper {
+    //border: 1px dotted blue;
+    display: flex;
+    align-items: center;
+    width: 30px;
     user-select: none;
 
     .table-row--has-no-children & {
         display: none;
     }
 
+}
+
+.table-row__triangle-icon {
+    color: $GREY_300;
+    transition: 300ms;
+
     .table-row--expanded > .table-row__content & {
-        transform: rotate(90deg);
+        transform: rotateX(180deg);
     }
 }
 
 .table-row__name {
+    margin-top: 2px;
+
     .table-row--code & {
         font-family: monospace;
     }
 }
 
-.table-row__tag-wrapper {
-    padding-left: 10px;
-    color: $GREY_DARK;
+.table-row__notes {
+    margin-top: 4px;
+    color: $GREY_700;
 }
 
+.table-row__tag-wrapper {
+    margin-top: 6px;
+    color: $GREY_900;
+}
+
+//.table-row__notes-tag-wrapper {
+//    color: $GREY_2;
+//}
+
 .table-row__score-wrapper {
+    @include for-small-only {
+        display: none;
+    }
     flex: 1;
     text-align: right;
     margin-right: 10px;
 }
 
 .table-row__do-not-care-button {
+    @include for-small-only {
+        display: none;
+    }
     width: 60px;
     padding: 5px;
-    border: 1px solid $GREY_DARK;
+    border: 1px solid $GREY_900;
     border-radius: 4px;
     background: $WHITE;
-    color: $GREY_DARK;
+    color: $GREY_900;
     text-transform: uppercase;
     font-size: 14px;
     margin-right: 10px;
 }
 
 .table-row__tag {
-    border-radius: 4px;
-    background: #ddd;
+    //border-radius: 4px;
+    background: $BLUE_GREY_50;
     padding: 2px 6px;
-    margin-left: 4px;
+    margin-right: 4px;
     font-size: 12px;
 }
 

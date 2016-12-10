@@ -6,10 +6,13 @@ const CONSTANTS = require(`../app/constants.js`);
 
 const contentBase = `http://localhost:${CONSTANTS.DEV_PORT}`;
 
-config.entry.app.unshift(
+// in dev mode, only one package is produced
+// in prod, an 'app' and an 'app-with-polyfills' is produced
+config.entry = [
   `webpack-dev-server/client?${contentBase}`,
-  `webpack/hot/only-dev-server`
-);
+  `webpack/hot/only-dev-server`,
+  `./app/client/client.js`,
+];
 
 config.devtool = `source-map`; // I love you webpack
 
