@@ -24,6 +24,7 @@ config.entry = {
   ],
   'app-with-polyfills': [
     `babel-polyfill`,
+    `whatwg-fetch`,
     `./app/client/client.js`,
   ],
 };

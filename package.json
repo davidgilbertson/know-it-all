@@ -8,6 +8,7 @@
     "start": "node index.js",
     "build": "node webpack/build.js",
     "deploy": "firebase deploy",
+    "build-deploy": "npm run build && npm run deploy",
     "dev": "nodemon index.dev.js",
     "test": "eslint ./app ./webpack --color --ext .jsx,.js"
   },
@@ -47,7 +48,8 @@
     "sass-loader": "4.0.2",
     "style-loader": "0.13.1",
     "stylelint": "7.6.0",
-    "webpack": "^1.13.1"
+    "webpack": "^1.13.1",
+    "whatwg-fetch": "2.0.1"
   },
   "devDependencies": {
     "eslint": "^3.2.0",

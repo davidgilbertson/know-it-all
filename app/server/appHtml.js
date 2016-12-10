@@ -46,7 +46,30 @@ export default ({ dataFileName = `data.json`, scriptFileName, mode }) => {
   </head>
   <body>
     <div id="app">${appHtml}</div>
-    <script async src="${scriptSrc}"></script>
+    <script>
+      (function() {
+        var scriptSrc = '${scriptSrc}';
+
+        var newBrowser = (
+          'fetch' in window &&
+          'Promise' in window &&
+          'assign' in Object &&
+          'keys' in Object
+        );
+
+        if (!newBrowser) {
+          scriptSrc = scriptSrc.replace('app.', 'app-with-polyfills.');
+          console.log('This is not a great browser, loading package with polyfills.');
+        }
+
+        var scriptEl = document.createElement('script');
+        scriptEl.src = scriptSrc;
+        scriptEl.async = true;
+
+        var firstScript = document.getElementsByTagName('script')[0];
+        firstScript.parentNode.insertBefore(scriptEl, firstScript);
+      })();
+    </script>
   </body>
   </html>
   `;
