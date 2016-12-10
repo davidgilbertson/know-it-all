@@ -1,11 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 import TableRows from '../TableRows/TableRows';
 import Icon from '../Icon/Icon';
+import ScoreButtons from '../ScoreButtons/ScoreButtons';
 const Immutable = require(`immutable`);
 import classnames from 'classnames';
 
 import {
-  SCORES,
   TAGS,
 } from '../../constants.js';
 
@@ -71,39 +71,9 @@ class TableRow extends Component {
     ));
   }
 
-  renderScoreButton(item, displayScore) {
-    if (
-      (displayScore === SCORES.LEVEL_3 || displayScore === SCORES.LEVEL_2)
-      && !item.get(`leaf`)
-    ) return null;
-
-    const selected = item.get(`scoreKey`) === displayScore.key;
-
-    const scoreButtonClassName = classnames(
-      `table-row__score-button`,
-      { 'table-row__score-button--selected': selected }
-    );
-
-    return (
-      <label
-        className={scoreButtonClassName}
-        title={displayScore.value}
-      >
-        <input
-          className="table-row__score-button-input"
-          type="radio"
-          name={`${item.get(`id`)}-${item.get(`name`)}`}
-          selected={selected}
-          onChange={() => this.props.updateScore(item.get(`pathString`), displayScore.key)}
-        />
-        {displayScore.shortTitle}
-      </label>
-    );
-  }
-
   render() {
+    // TODO (davidg): is it as fast/faster to just to item.toJS() once rather than 10 item.gets()?
     const { props } = this;
-    // TODO (davidg): is it as fast/faster to just to item.toJS() once rather than 10 gets?
 
     const children = props.item.get(`children`);
 
@@ -126,7 +96,9 @@ class TableRow extends Component {
     const tags = props.item.get(`tags`).toJS();
 
     const isNotCode = tags.some(tag => (
-      tag.key === TAGS.ROOT.key || tag.key === TAGS.GROUPING.key || tag.key === TAGS.INFO.key
+      tag.key === TAGS.ROOT.key ||
+      tag.key === TAGS.GROUPING.key ||
+      tag.key === TAGS.INFO.key
     ));
 
     const className = classnames(
@@ -137,62 +109,42 @@ class TableRow extends Component {
       { 'table-row--expanded': props.item.get(`isExpanded`) }
     );
 
-    const scoreKey = props.item.get(`scoreKey`);
-    const score = SCORES[scoreKey];
-    const contentStyle = {
-      boxShadow: `inset 4px 0 ${score.color}`,
-    };
-
-    // TODO (davidg): only create triangle here if needed
-    // remove CSS that hides it
-
     const notes = props.item.get(`notes`);
     const notesText = notes
-      ? (
-        <p className="table-row__notes">
-          ({props.item.get(`notes`)})
-        </p>
-      ) : null;
+    ? (
+      <p className="table-row__notes">
+        ({props.item.get(`notes`)})
+      </p>
+    ) : null;
 
     return (
-      <div
-        className={className}
-        ref={el => (this.el = el)}
-      >
+      <div className={className}>
         <div
           className="table-row__content"
-          style={contentStyle}
           onClick={this.onRowClick}
         >
+          <div className="table-row__triangle-wrapper">
+            <Icon
+              className="table-row__triangle-icon"
+              icon={Icon.ICONS.downChevron}
+              size="20"
+            />
+          </div>
+
           <div className="table-row__words">
-            <p className="table-row__name">
-              {props.item.get(`name`)}
-            </p>
+            <p className="table-row__name">{props.item.get(`name`)}</p>
 
             {notesText}
 
             <div className="table-row__tag-wrapper">
               {this.renderTags(props.item.get(`tags`))}
             </div>
-
-            <div className="table-row__score-wrapper">
-              {this.renderScoreButton(props.item, SCORES.LEVEL_1)}
-              {this.renderScoreButton(props.item, SCORES.LEVEL_2)}
-              {this.renderScoreButton(props.item, SCORES.LEVEL_3)}
-            </div>
-
-            <button className="table-row__do-not-care-button">Don't care</button>
           </div>
 
-          <div
-            className="table-row__triangle-wrapper"
-          >
-            <Icon
-              className="table-row__triangle-icon"
-              icon={Icon.ICONS.downChevron}
-              size="24"
-            />
-          </div>
+          <ScoreButtons
+            item={props.item}
+            updateScore={props.updateScore}
+          />
         </div>
 
         {childRows}

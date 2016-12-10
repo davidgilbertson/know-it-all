@@ -1,0 +1,27 @@
+@import '../global';
+
+.score-buttons__button-wrapper {
+    display: flex;
+    align-items: stretch;
+    justify-content: flex-end;
+
+    @include for-tablet-portrait-down {
+        display: none;
+    }
+}
+
+.score-buttons__score-button {
+    display: inline-block;
+    background: $WHITE;
+    color: $GREY_700;
+    border: 1px solid $GREY_300;
+    padding: 10px;
+    border-radius: 4px;
+    margin-left: 10px;
+    user-select: none;
+}
+
+.score-buttons__score-button-input {
+    position: absolute;
+    transform: translateX(-100vw);
+}

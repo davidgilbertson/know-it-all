@@ -6,12 +6,15 @@ html {
 }
 
 body {
-    color: $GREY_900;
     min-height: 100%;
+    color: $GREY_900;
+    // TODO (davidg): all the nice OS fonts
+    font-family: "Calibri Light", Roboto, Helvetica, Arial, sans-serif;
+    font-weight: 300;
     overflow-y: scroll;
 
     @include for-tablet-portrait-up {
-        background: linear-gradient(-20deg, darken($DEEP_ORANGE_900, 10%), $DEEP_ORANGE_900 70%);
+        background: linear-gradient(-20deg, darken($DEEP_ORANGE_900, 10%), $DEEP_ORANGE_900 70%) fixed;
     }
 }
 

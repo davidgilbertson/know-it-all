@@ -9,3 +9,15 @@
         @content;
     }
 }
+
+@mixin for-tablet-portrait-down {
+    @media (max-width: 900px) {
+        @content;
+    }
+}
+
+@mixin for-tablet-landscape-up {
+    @media (min-width: 901px) {
+        @content;
+    }
+}

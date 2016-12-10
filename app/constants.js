@@ -102,6 +102,13 @@ export const SCORES = {
     shortTitle: `Know it`,
     value: `I know it completely`,
   },
+  LEVEL_4: {
+    key: `LEVEL_4`,
+    color: COLORS.GREY_DARK,
+    icon: `×`,
+    shortTitle: `Don't care`,
+    value: `I don't want to know it`,
+  },
 };
 
 export const KEYS = {
