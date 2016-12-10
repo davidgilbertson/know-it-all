@@ -12,14 +12,10 @@ body {
     font-family: "Calibri Light", Roboto, Helvetica, Arial, sans-serif;
     font-weight: 300;
     overflow-y: scroll;
-
-    @include for-tablet-portrait-up {
-        background: linear-gradient(-20deg, darken($DEEP_ORANGE_900, 10%), $DEEP_ORANGE_900 70%) fixed;
-    }
+    background: linear-gradient(-20deg, darken($DEEP_ORANGE_900, 10%), $DEEP_ORANGE_900 70%) fixed;
 }
 
 .header {
-    background: $DEEP_ORANGE_900;
     text-align: center;
     padding: 8px;
 }
