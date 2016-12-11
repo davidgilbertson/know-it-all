@@ -10,8 +10,6 @@ import {
 
 const data = require(`../data/data.json`);
 
-// TODO (davidg): load polyfilledScriptFileName if the browser doesn't have fetch
-// is there anything else I need to polyfill?
 export default ({ dataFileName = `data.json`, scriptFileName, mode }) => {
   let scriptSrc;
   let styleTag = ``;
@@ -29,19 +27,19 @@ export default ({ dataFileName = `data.json`, scriptFileName, mode }) => {
 
   const appHtml = ReactDomServer.renderToString(<App data={data} />);
 
-  return `
-  <!DOCTYPE html>
+  return `<!DOCTYPE html>
   <html>
   <head>
     <meta charset="utf8">
     <title>Know it all</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     ${styleTag}
     <link rel="prefetch" href="${dataFileName}" />
     <script>
       window.APP_DATA = {
         dataFileName: '${dataFileName}',
-      };
+        version: '${process.env.npm_package_version}',
+    };
     </script>
   </head>
   <body>

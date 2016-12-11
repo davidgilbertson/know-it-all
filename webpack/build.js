@@ -3,6 +3,7 @@ const crypto = require(`crypto`);
 const fs = require(`fs`);
 const path = require(`path`);
 const webpack = require(`webpack`);
+const htmlMinifier = require(`html-minifier`);
 const ExtractTextPlugin = require(`extract-text-webpack-plugin`);
 const config = require(`./config.shared.js`);
 
@@ -93,6 +94,13 @@ compiler.run((compileError, stats) => {
       mode: `production`,
     });
 
+    // This does pretty much nothing ATM (17.5kb -> 17.4kb)
+    const minHtmlString = htmlMinifier.minify(htmlString, {
+      caseSensitive: true,
+      keepClosingSlash: true,
+      minifyCSS: true,
+      minifyJS: true,
+    });
     // write the data to a new file with the hash in the name
     // this could be a copy/rename but we already
     // had the file loaded and perf doesn't matter here
@@ -100,7 +108,7 @@ compiler.run((compileError, stats) => {
       if (dataJsonError) console.error(`Error writing data.json to disk: ${dataJsonError}`);
     });
 
-    fs.writeFile(`./public/index.html`, htmlString, `utf8`, (indexError) => {
+    fs.writeFile(`./public/index.html`, minHtmlString, `utf8`, (indexError) => {
       if (indexError) console.error(`Error creating index.html: ${indexError}`);
 
       console.timeEnd(`build`);
