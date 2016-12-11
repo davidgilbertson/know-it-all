@@ -1,6 +1,6 @@
 {
   "name": "know-it-all",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "If you don't know it all, at least know what you don't know",
   "main": "index.js",
   "scripts": {
@@ -60,6 +60,7 @@
     "eslint-plugin-react": "^6.7.1",
     "react-addons-perf": "^15.4.1",
     "react-hot-loader": "^1.3.0",
+    "sw-precache": "4.2.3",
     "webpack-dev-server": "^1.14.1"
   },
   "babel": {

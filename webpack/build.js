@@ -3,13 +3,15 @@ const crypto = require(`crypto`);
 const fs = require(`fs`);
 const path = require(`path`);
 const webpack = require(`webpack`);
+const swPrecache = require(`sw-precache`);
 const htmlMinifier = require(`html-minifier`);
 const ExtractTextPlugin = require(`extract-text-webpack-plugin`);
-const config = require(`./config.shared.js`);
+const rimraf = require(`rimraf`);
 
+const config = require(`./config.shared.js`);
 const appHtml = require(`../app/server/appHtml`).default;
 
-const rimraf = require(`rimraf`);
+console.time(`build`);
 
 rimraf.sync(path.resolve(__dirname, `../public`));
 
@@ -17,16 +19,17 @@ fs.mkdirSync(`./public`);
 
 fs.createReadStream(`./assets/favicon.ico`).pipe(fs.createWriteStream(`./public/favicon.ico`));
 
+config.context = __dirname;
 // in dev mode, only one package is produced
 // in prod, an 'app' and an 'app-with-polyfills' is produced
 config.entry = {
   app: [
-    `./app/client/client.js`,
+    path.resolve(__dirname, `../app/client/client.js`),
   ],
   'app-with-polyfills': [
     `babel-polyfill`,
     `whatwg-fetch`,
-    `./app/client/client.js`,
+    path.resolve(__dirname, `../app/client/client.js`),
   ],
 };
 
@@ -58,6 +61,22 @@ config.module.loaders.push({
   exclude: /node_modules/,
   loader: ExtractTextPlugin.extract(`style`, `css!sass`), // I hate you so much webpack
 });
+
+function generateServiceWorker() {
+  swPrecache.write(path.resolve(__dirname, `../public/service-worker.js`), {
+    cacheId: `know-it-all`,
+    filename: `service-worker.js`,
+    stripPrefix: `public/`,
+    staticFileGlobs: [
+      `public/app.*.js`, // don't include the polyfills version
+      `public/*.{html,ico,json}`,
+    ],
+    // dontCacheBustUrlsMatching: ... I'm not bothering to set this, so yes there is redundancy
+    // skipWaiting: true,
+  });
+
+  console.timeEnd(`build`);
+}
 
 const compiler = webpack(config);
 
@@ -99,19 +118,25 @@ compiler.run((compileError, stats) => {
       minifyCSS: true,
       minifyJS: true,
     });
+
+    let dataFileWritten = false;
+    let indexFileWritten = false;
     // write the data to a new file with the hash in the name
     // this could be a copy/rename but we already
     // had the file loaded and perf doesn't matter here
+    // when they're both done, generate the service worker
     fs.writeFile(`./public/${dataFileName}`, dataJson, `utf8`, (dataJsonError) => {
       if (dataJsonError) console.error(`Error writing data.json to disk: ${dataJsonError}`);
+
+      if (indexFileWritten) generateServiceWorker();
+      dataFileWritten = true;
     });
 
     fs.writeFile(`./public/index.html`, minHtmlString, `utf8`, (indexError) => {
       if (indexError) console.error(`Error creating index.html: ${indexError}`);
 
-      console.timeEnd(`build`);
+      if (dataFileWritten) generateServiceWorker();
+      indexFileWritten = true;
     });
   });
 });
-
-console.time(`build`);
