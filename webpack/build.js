@@ -71,10 +71,10 @@ function generateServiceWorker() {
       `public/app.*.js`, // don't include the polyfills version
       `public/*.{html,ico,json}`,
     ],
-    // skipWaiting: true,
     dontCacheBustUrlsMatching: [
       /\.(js|json)$/, // I'm cache busting js and json files myself
     ],
+    skipWaiting: true,
   });
 
   console.timeEnd(`build`);
