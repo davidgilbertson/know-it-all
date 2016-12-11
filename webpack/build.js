@@ -79,7 +79,6 @@ compiler.run((compileError, stats) => {
 
   // get the name of the JS file (including the hash webpack created)
   const scriptFileName = jsonStats.assetsByChunkName.app[0];
-  const polyfilledScriptFileName = jsonStats.assetsByChunkName[`app-with-polyfills`][0];
 
   // get the hash for the data file and copy it to public
   fs.readFile(`./app/data/data.json`, `utf8`, (dataFileError, dataJson) => {
@@ -90,7 +89,6 @@ compiler.run((compileError, stats) => {
     const htmlString = appHtml({
       dataFileName,
       scriptFileName,
-      polyfilledScriptFileName,
       mode: `production`,
     });
 
