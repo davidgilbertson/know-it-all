@@ -16,11 +16,26 @@ body {
 }
 
 .header {
-    text-align: center;
+    text-align: left;
     padding: 8px;
+
+    @include for-tablet-portrait-up {
+        text-align: center;
+    }
 }
 
 .header__title {
     font-size: 40px;
     color: $WHITE;
+}
+
+.header__help {
+    position: absolute;
+    padding: 4px 6px 40px; // nice fat tap area
+    top: 0;
+    right: 0;
+    text-align: right;
+    font-size: 14px;
+    text-decoration: underline;
+    color: rgba($WHITE, 0.8);
 }
