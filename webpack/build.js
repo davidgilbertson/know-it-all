@@ -71,8 +71,10 @@ function generateServiceWorker() {
       `public/app.*.js`, // don't include the polyfills version
       `public/*.{html,ico,json}`,
     ],
-    // dontCacheBustUrlsMatching: ... I'm not bothering to set this, so yes there is redundancy
     // skipWaiting: true,
+    dontCacheBustUrlsMatching: [
+      /\.(js|json)$/, // I'm cache busting js and json files myself
+    ],
   });
 
   console.timeEnd(`build`);
