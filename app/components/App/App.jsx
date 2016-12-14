@@ -1,6 +1,4 @@
-// import React from 'react';
-import { h, Component } from 'preact';
-/** @jsx h */
+import { h, Component } from 'preact'; /** @jsx h */
 
 import SkillTable from '../SkillTable/SkillTable.jsx';
 
@@ -20,9 +18,7 @@ class App extends Component {
     return (
       <div id="app">
         <header className="header">
-          <h1 className="header__title">Know It All 3</h1>
-          <p style={{ color: `white` }}>T: {new Date().toString()}</p>
-
+          <h1 className="header__title">Know It All</h1>
           <a
             href="https://hackernoon.com/what-you-dont-know-about-web-development-d7d631f5d468#.ex2yp6d64"
             target="_blank"
@@ -37,10 +33,5 @@ class App extends Component {
     );
   }
 }
-
-// App.propTypes = {
-//   data: React.PropTypes.array,
-//   version: React.PropTypes.string,
-// };
 
 export default App;

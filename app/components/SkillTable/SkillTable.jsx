@@ -1,6 +1,4 @@
-// import React from 'react';
-import { h, Component } from 'preact';
-/** @jsx h */
+import { h, Component } from 'preact'; /** @jsx h */
 
 const Immutable = require(`immutable`);
 
@@ -181,9 +179,5 @@ class SkillTable extends Component {
     );
   }
 }
-
-// SkillTable.propTypes = {
-//   data: React.PropTypes.array,
-// };
 
 export default SkillTable;

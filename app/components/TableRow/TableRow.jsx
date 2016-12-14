@@ -1,11 +1,8 @@
-// import React, { Component, PropTypes } from 'react';
-import { h, Component } from 'preact';
-/** @jsx h */
+import { h, Component } from 'preact'; /** @jsx h */
 
 import TableRows from '../TableRows/TableRows';
 import Icon from '../Icon/Icon';
 import ScoreButtons from '../ScoreButtons/ScoreButtons';
-const Immutable = require(`immutable`);
 import classnames from 'classnames';
 
 import {
@@ -155,16 +152,5 @@ class TableRow extends Component {
     );
   }
 }
-
-// TableRow.propTypes = {
-//   // data
-//   currentNugget: PropTypes.object.isRequired,
-//   item: PropTypes.instanceOf(Immutable.Map).isRequired,
-//
-//   // methods
-//   updateScore: PropTypes.func.isRequired,
-//   goToRow: PropTypes.func.isRequired,
-//   expandCollapse: PropTypes.func.isRequired,
-// };
 
 export default TableRow;

@@ -1,11 +1,7 @@
 import fs from 'fs';
 import path from 'path';
-// import React from 'react';
-import { h } from 'preact';
-/** @jsx h */
-
+import { h } from 'preact'; /** @jsx h */
 import preactRenderToString from 'preact-render-to-string';
-// import ReactDomServer from 'react-dom/server';
 
 import App from '../components/App/App.jsx';
 import {
@@ -33,48 +29,49 @@ export default ({ dataFileName = `data.json`, scriptFileName, mode }) => {
 
   return `<!DOCTYPE html>
   <html>
-  <head>
-    <meta charset="utf8">
-    <title>Know it all</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#bf360c">
-    ${styleTag}
-    <link rel="prefetch" href="${dataFileName}" />
-    <script>
-      window.APP_DATA = {
-        dataFileName: '${dataFileName}',
-        version: '${process.env.npm_package_version}',
-    };
-    </script>
-  </head>
-  <body>
-    ${appHtml}
-    <script>
-      (function() {
-        var scriptSrc = '${scriptSrc}';
-
-        var newBrowser = (
-          'fetch' in window &&
-          'Promise' in window &&
-          'assign' in Object &&
-          'keys' in Object
-        );
-
-        if (!newBrowser) {
-          scriptSrc = scriptSrc.replace('app.', 'app-with-polyfills.');
-          console.log('This is not a great browser, loading package with polyfills.');
-        }
-
-        var scriptEl = document.createElement('script');
-        scriptEl.src = scriptSrc;
-        scriptEl.async = true;
-
-        var firstScript = document.getElementsByTagName('script')[0];
-        firstScript.parentNode.insertBefore(scriptEl, firstScript);
-      })();
-    </script>
-  </body>
+    <head>
+      <meta charset="utf8">
+      <title>Know it all</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+      <link rel="manifest" href="manifest.json">
+      
+      <meta name="theme-color" content="#bf360c">
+      
+      ${styleTag}
+      
+      <link rel="prefetch" href="${dataFileName}" />
+      
+      <script>
+        window.APP_DATA = {
+          dataFileName: '${dataFileName}',
+          version: '${process.env.npm_package_version}',
+        };
+        
+        (function() {
+          var scriptSrc = '${scriptSrc}';
+  
+          var newBrowser = (
+            'fetch' in window &&
+            'Promise' in window &&
+            'assign' in Object &&
+            'keys' in Object
+          );
+  
+          if (!newBrowser) {
+            scriptSrc = scriptSrc.replace('app.', 'app-with-polyfills.');
+            console.log('This is not a great browser, loading package with polyfills.');
+          }
+  
+          var scriptEl = document.createElement('script');
+          scriptEl.src = scriptSrc;
+          scriptEl.async = true;
+  
+          var firstScript = document.getElementsByTagName('script')[0];
+          firstScript.parentNode.insertBefore(scriptEl, firstScript);
+        })();
+      </script>
+    </head>
+    <body>${appHtml}</body>
   </html>
   `;
 };

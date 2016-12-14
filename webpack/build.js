@@ -54,7 +54,6 @@ config.module.loaders.push({
   loader: ExtractTextPlugin.extract(`style`, `css!sass`), // I hate you so much webpack
 });
 
-
 function removePublicDirectory() {
   return new Promise((resolve, reject) => {
     fsExtra.remove(`./public`, (err) => {

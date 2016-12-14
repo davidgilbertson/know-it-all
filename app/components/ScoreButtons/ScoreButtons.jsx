@@ -1,10 +1,5 @@
-// import React from 'react';
-import { h } from 'preact';
-/** @jsx h */
+import { h } from 'preact'; /** @jsx h */
 
-const Immutable = require(`immutable`);
-
-// const { PropTypes } = React;
 import {
   SCORES,
 } from '../../constants.js';
@@ -50,10 +45,5 @@ const ScoreButtons = props => (
     {renderScoreButton(props, SCORES.LEVEL_4)}
   </div>
 );
-
-// ScoreButtons.propTypes = {
-//   item: PropTypes.instanceOf(Immutable.Map).isRequired,
-//   updateScore: PropTypes.func.isRequired,
-// };
 
 export default ScoreButtons;
