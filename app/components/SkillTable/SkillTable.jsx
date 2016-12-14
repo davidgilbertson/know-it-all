@@ -1,4 +1,7 @@
-import React from 'react';
+// import React from 'react';
+import { h, Component } from 'preact';
+/** @jsx h */
+
 const Immutable = require(`immutable`);
 
 import TableRows from '../TableRows/TableRows';
@@ -30,7 +33,7 @@ function updateAtPath(object, path, prop, value) {
   return object.updateIn(pathAsArray, item => item.set(prop, value));
 }
 
-class SkillTable extends React.Component {
+class SkillTable extends Component {
   constructor(props) {
     super(props);
 
@@ -179,8 +182,8 @@ class SkillTable extends React.Component {
   }
 }
 
-SkillTable.propTypes = {
-  data: React.PropTypes.array,
-};
+// SkillTable.propTypes = {
+//   data: React.PropTypes.array,
+// };
 
 export default SkillTable;

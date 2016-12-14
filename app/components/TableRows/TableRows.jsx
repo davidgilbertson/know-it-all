@@ -1,4 +1,7 @@
-import React from 'react';
+// import React from 'react';
+import { h } from 'preact';
+/** @jsx h */
+
 import TableRow from '../TableRow/TableRow';
 const Immutable = require(`immutable`);
 
@@ -22,16 +25,16 @@ const TableRows = props => {
   return <div>{arr}</div>;
 };
 
-TableRows.propTypes = {
-  // methods
-  goToRow: React.PropTypes.func,
-  updateScore: React.PropTypes.func,
-  expandCollapse: React.PropTypes.func,
-  goToNextKnowableRow: React.PropTypes.func,
-
-  // props
-  items: React.PropTypes.instanceOf(Immutable.List),
-  currentNugget: React.PropTypes.object,
-};
+// TableRows.propTypes = {
+//   // methods
+//   goToRow: React.PropTypes.func,
+//   updateScore: React.PropTypes.func,
+//   expandCollapse: React.PropTypes.func,
+//   goToNextKnowableRow: React.PropTypes.func,
+//
+//   // props
+//   items: React.PropTypes.instanceOf(Immutable.List),
+//   currentNugget: React.PropTypes.object,
+// };
 
 export default TableRows;

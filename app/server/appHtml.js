@@ -1,7 +1,11 @@
 import fs from 'fs';
 import path from 'path';
-import React from 'react';
-import ReactDomServer from 'react-dom/server';
+// import React from 'react';
+import { h } from 'preact';
+/** @jsx h */
+
+import preactRenderToString from 'preact-render-to-string';
+// import ReactDomServer from 'react-dom/server';
 
 import App from '../components/App/App.jsx';
 import {
@@ -25,7 +29,7 @@ export default ({ dataFileName = `data.json`, scriptFileName, mode }) => {
     scriptSrc = `http://localhost:8081/${WEBPACK_BUNDLE}`;
   }
 
-  const appHtml = ReactDomServer.renderToString(<App data={data} />);
+  const appHtml = preactRenderToString(<App data={data} />);
 
   return `<!DOCTYPE html>
   <html>
@@ -45,7 +49,7 @@ export default ({ dataFileName = `data.json`, scriptFileName, mode }) => {
     </script>
   </head>
   <body>
-    <div id="app">${appHtml}</div>
+    ${appHtml}
     <script>
       (function() {
         var scriptSrc = '${scriptSrc}';

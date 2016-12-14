@@ -1,4 +1,5 @@
-import React from 'react';
+import { h } from 'preact';
+/** @jsx h */
 
 if (process.env.IMPORT_SCSS) require(`./Icon.scss`); // eslint-disable-line global-require
 
@@ -20,17 +21,17 @@ Icon.ICONS = {
   downChevron: `m 0,32 16,0 48,48 48,-48 16,0 -64,64 z`,
 };
 
-Icon.propTypes = {
-  className: React.PropTypes.string,
-  icon: React.PropTypes.string.isRequired,
-  size: React.PropTypes.oneOfType([
-    React.PropTypes.number,
-    React.PropTypes.string,
-  ]),
-};
-
-Icon.defaultProps = {
-  size: 24,
-};
+// Icon.propTypes = {
+//   className: React.PropTypes.string,
+//   icon: React.PropTypes.string.isRequired,
+//   size: React.PropTypes.oneOfType([
+//     React.PropTypes.number,
+//     React.PropTypes.string,
+//   ]),
+// };
+//
+// Icon.defaultProps = {
+//   size: 24,
+// };
 
 export default Icon;

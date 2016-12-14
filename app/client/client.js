@@ -1,6 +1,9 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+// import React from 'react';
+// import ReactDOM from 'react-dom';
 import App from '../components/App/App.jsx';
+import { h, render } from 'preact';
+/** @jsx h */
+
 
 // We don't want to inline this data cos it's HUGE
 // We fetch here, but we have already pre-fetched in the <head>
@@ -8,7 +11,8 @@ import App from '../components/App/App.jsx';
 fetch(window.APP_DATA.dataFileName)
 .then(response => response.json())
 .then(data => {
-  ReactDOM.render(<App data={data} version={window.APP_DATA.version} />, document.getElementById(`app`));
+  render(<App data={data} version={window.APP_DATA.version} />, document.body, document.getElementById(`app`));
+  // render(<App data={data} version={window.APP_DATA.version} />, document.querySelector('div'));
 });
 
 if (process.env.NODE_ENV !== `production`) {

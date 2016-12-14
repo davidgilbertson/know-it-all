@@ -1,10 +1,12 @@
-import React from 'react';
+// import React from 'react';
+import { h, Component } from 'preact';
+/** @jsx h */
 
 import SkillTable from '../SkillTable/SkillTable.jsx';
 
 if (process.env.IMPORT_SCSS) require(`./App.scss`); // eslint-disable-line global-require
 
-class App extends React.Component {
+class App extends Component {
   constructor(props) {
     super(props);
 
@@ -16,9 +18,9 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
+      <div id="app">
         <header className="header">
-          <h1 className="header__title">Know It All</h1>
+          <h1 className="header__title">Know It All 3</h1>
           <p style={{ color: `white` }}>T: {new Date().toString()}</p>
 
           <a
@@ -36,9 +38,9 @@ class App extends React.Component {
   }
 }
 
-App.propTypes = {
-  data: React.PropTypes.array,
-  version: React.PropTypes.string,
-};
+// App.propTypes = {
+//   data: React.PropTypes.array,
+//   version: React.PropTypes.string,
+// };
 
 export default App;
