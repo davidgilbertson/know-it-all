@@ -8,7 +8,7 @@ import App from '../components/App/App.jsx';
 fetch(window.APP_DATA.dataFileName)
 .then(response => response.json())
 .then(data => {
-  ReactDOM.render(<App data={data} />, document.getElementById(`app`));
+  ReactDOM.render(<App data={data} version={window.APP_DATA.version} />, document.getElementById(`app`));
 });
 
 if (process.env.NODE_ENV !== `production`) {
@@ -17,6 +17,9 @@ if (process.env.NODE_ENV !== `production`) {
 } else {
   // load service worker only in prod (doesn't play nice with HMR)
   if (`serviceWorker` in navigator) {
-    navigator.serviceWorker.register(`service-worker.js`);
+    navigator.serviceWorker.register(`service-worker.js`)
+      .catch((err) => {
+        console.error(`Error registering service worker: ${err}`);
+      });
   }
 }

@@ -5,7 +5,6 @@ import TableRows from '../TableRows/TableRows';
 import { decorateData } from '../../utils';
 import {
   KEYS,
-  SCORES,
 } from '../../constants';
 
 if (process.env.IMPORT_SCSS) require(`./SkillTable.scss`); // eslint-disable-line global-require

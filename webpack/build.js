@@ -56,7 +56,6 @@ config.module.loaders.push({
 
 
 function removePublicDirectory() {
-  console.log(`  --  >  build.js:67 > removePublicDirectory()`);
   return new Promise((resolve, reject) => {
     fsExtra.remove(`./public`, (err) => {
       if (err) {
@@ -69,7 +68,6 @@ function removePublicDirectory() {
 }
 
 function copyAssetsToPublic() {
-  console.log(`  --  >  build.js:80 > copyAssetsToPublic()`);
   return new Promise((resolve, reject) => {
     fsExtra.copy(`./assets`, `./public`, (err) => {
       if (err) {
@@ -82,7 +80,6 @@ function copyAssetsToPublic() {
 }
 
 function generateServiceWorker() {
-  console.log(`  --  >  build.js:93 > generateServiceWorker()`);
   return new Promise((resolve, reject) => {
     swPrecache.write(path.resolve(__dirname, `../public/service-worker.js`), {
       cacheId: `know-it-all`,
@@ -90,7 +87,7 @@ function generateServiceWorker() {
       stripPrefix: `public/`,
       staticFileGlobs: [
         `public/app.*.js`, // don't include the polyfills version
-        `public/*.{html,ico,json}`,
+        `public/*.{html,ico,json,png}`,
       ],
       dontCacheBustUrlsMatching: [
         /\.(js|json)$/, // I'm cache busting js and json files myself
@@ -107,7 +104,6 @@ function generateServiceWorker() {
 }
 
 function compileWithWebpack() {
-  console.log(`  --  >  build.js:119 > compileWithWebpack()`);
   return new Promise((resolve, reject) => {
     const compiler = webpack(config);
 
@@ -185,8 +181,8 @@ console.time(`build`);
 
 removePublicDirectory()
   .then(copyAssetsToPublic)
-  .then(generateServiceWorker)
   .then(compileWithWebpack)
+  .then(generateServiceWorker)
   .then(() => {
     console.timeEnd(`build`);
   })

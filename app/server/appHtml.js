@@ -33,7 +33,8 @@ export default ({ dataFileName = `data.json`, scriptFileName, mode }) => {
     <meta charset="utf8">
     <title>Know it all</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <link rel="manifest" href="/manifest.json">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#bf360c">
     ${styleTag}
     <link rel="prefetch" href="${dataFileName}" />
     <script>

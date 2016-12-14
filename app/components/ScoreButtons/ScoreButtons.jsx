@@ -39,7 +39,7 @@ function renderScoreButton(props, displayScore) {
   );
 }
 
-const ScoreButton = props => (
+const ScoreButtons = props => (
   <div className="score-buttons__button-wrapper">
     {renderScoreButton(props, SCORES.LEVEL_1)}
     {renderScoreButton(props, SCORES.LEVEL_2)}
@@ -48,9 +48,9 @@ const ScoreButton = props => (
   </div>
 );
 
-ScoreButton.propTypes = {
+ScoreButtons.propTypes = {
   item: PropTypes.instanceOf(Immutable.Map).isRequired,
   updateScore: PropTypes.func.isRequired,
 };
 
-export default ScoreButton;
+export default ScoreButtons;

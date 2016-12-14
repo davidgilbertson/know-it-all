@@ -6,6 +6,11 @@ const CONSTANTS = require(`../app/constants.js`);
 
 const contentBase = `http://localhost:${CONSTANTS.DEV_PORT}`;
 
+// super dodgy performance polyfill
+global.performance = {
+  now: () => Date.now(),
+};
+
 // in dev mode, only one package is produced
 // in prod, an 'app' and an 'app-with-polyfills' is produced
 config.entry = [

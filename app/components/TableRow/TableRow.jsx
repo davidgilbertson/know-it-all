@@ -11,12 +11,30 @@ import {
 
 if (process.env.IMPORT_SCSS) require(`./TableRow.scss`); // eslint-disable-line global-require
 
+const renderTags = (tags) => {
+  if (!tags.size) return ``;
+  const result = [];
+
+  tags.forEach(tag => {
+    result.push(
+      <span
+        key={tag.get(`key`)}
+        className="table-row__tag"
+        title={tag.get(`value`)}
+      >
+        {tag.get(`key`)}
+      </span>
+    );
+  });
+
+  return result;
+};
+
 class TableRow extends Component {
   constructor(props) {
     super(props);
 
     this.onRowClick = this.onRowClick.bind(this);
-    // this.onTriangleClick = this.onTriangleClick.bind(this);
   }
 
   shouldComponentUpdate(nextProps) {
@@ -38,17 +56,6 @@ class TableRow extends Component {
     return false;
   }
 
-  componentDidUpdate() {
-    // When selected, scroll the item into view
-    // scrollIntoViewIfNeeded() is a jerk, do something with scrolling the window
-    // where is that sin wave window scroll thing I did?
-    // if (this.props.item.get(`id`) === this.props.currentNugget.id) {
-    //   if (typeof this.el.scrollIntoViewIfNeeded === `function`) {
-    //     this.el.scrollIntoViewIfNeeded();
-    //   }
-    // }
-  }
-
   onRowClick() {
     const { props } = this;
     // React will batch the setState()s that these two trigger
@@ -57,22 +64,7 @@ class TableRow extends Component {
     props.expandCollapse(props.item.get(`pathString`), !props.item.get(`isExpanded`));
   }
 
-  renderTags(tags) {
-    if (!tags.size) return ``;
-
-    return tags.map(tag => (
-      <span
-        key={tag.get(`key`)}
-        className="table-row__tag"
-        title={tag.get(`value`)}
-      >
-        {tag.get(`key`)}
-      </span>
-    ));
-  }
-
   render() {
-    // TODO (davidg): is it as fast/faster to just to item.toJS() once rather than 10 item.gets()?
     const { props } = this;
 
     const children = props.item.get(`children`);
@@ -93,21 +85,23 @@ class TableRow extends Component {
       )
       : null;
 
-    const tags = props.item.get(`tags`).toJS();
-
-    const isNotCode = tags.some(tag => (
-      tag.key === TAGS.ROOT.key ||
-      tag.key === TAGS.GROUPING.key ||
-      tag.key === TAGS.INFO.key
+    const isNotCode = !!props.item.get(`tags`).find(tag => (
+      tag.get(`key`) === TAGS.ROOT.key ||
+      tag.get(`key`) === TAGS.GROUPING.key ||
+      tag.get(`key`) === TAGS.INFO.key
     ));
 
     const className = classnames(
       `table-row`,
-      { 'table-row--code': !isNotCode },
       { 'table-row--selected': isActiveRow },
       { 'table-row--has-no-children': !hasChildren },
       { 'table-row--expanded': props.item.get(`isExpanded`) }
     );
+
+    const tableRowNameStyle = !isNotCode ? {
+      fontFamily: `monospace`,
+      fontSize: `100%`,
+    } : null;
 
     const notes = props.item.get(`notes`);
     const notesText = notes
@@ -121,7 +115,8 @@ class TableRow extends Component {
       <div className={className}>
         <div
           className="table-row__content"
-          onClick={this.onRowClick}
+          onMouseDown={this.onRowClick}
+          onTouchStart={this.onRowClick}
         >
           <div className="table-row__triangle-wrapper">
             <Icon
@@ -132,12 +127,17 @@ class TableRow extends Component {
           </div>
 
           <div className="table-row__words">
-            <p className="table-row__name">{props.item.get(`name`)}</p>
+            <p
+              style={tableRowNameStyle}
+              className="table-row__name"
+            >
+              {props.item.get(`name`)}
+            </p>
 
             {notesText}
 
             <div className="table-row__tag-wrapper">
-              {this.renderTags(props.item.get(`tags`))}
+              {renderTags(props.item.get(`tags`))}
             </div>
           </div>
 
