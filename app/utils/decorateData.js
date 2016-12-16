@@ -6,12 +6,16 @@ import {
 let rowCount;
 let depth = 0;
 const itemList = [];
+let topLevelRow = 0;
 
 function parseData(items, path = []) {
   for (let i = 0; i < items.length; i++) {
     const item = items[i];
 
-    item.isExpanded = depth < 1;
+    topLevelRow += depth === 0 ? 1 : 0;
+    // have the first two top-level modules expanded to one level
+    // so I'm not producing too much DOM (that's still 43 rows)
+    item.isExpanded = depth < 1 && topLevelRow < 3;
     item.row = rowCount++;
     item.depth = depth;
     item.path = path.slice();
