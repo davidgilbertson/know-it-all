@@ -31,17 +31,16 @@ export default ({ dataFileName = `data.json`, scriptFileName, mode }) => {
   return `<!DOCTYPE html>
   <html>
     <head>
-      <meta charset="utf8">
       <title>Know it all</title>
-      <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-      <link rel="manifest" href="manifest.json">
       
+      <meta charset="utf8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
       <meta name="theme-color" content="#bf360c">
       <meta name="description" content="A big list of all the props, values, methods, functions, interfaces, modules, constants, constructors, events, attributes, parameters, return values, variables, elements, statements, operators, declarations, types, primatives, selectors and units of all the APIs related to web development.">
       
-      ${styleTag}
-      
       <link rel="prefetch" href="${dataFileName}" />
+      <link rel="manifest" href="manifest.json">
+      ${styleTag}
       
       <script>
         window.APP_DATA = {
@@ -63,17 +62,34 @@ export default ({ dataFileName = `data.json`, scriptFileName, mode }) => {
             scriptSrc = scriptSrc.replace('app.', 'app-with-polyfills.');
             console.log('This is not a great browser, loading package with polyfills.');
           }
+          
+          window.KA_SCRIPT_NAME = '${scriptSrc}';
   
-          var scriptEl = document.createElement('script');
-          scriptEl.src = scriptSrc;
-          scriptEl.async = true;
+          // prefetch the script here, then fetch it for real after the HTML
+          var linkEl = document.createElement('link');
+          linkEl.rel = 'prefetch';
+          linkEl.href = window.KA_SCRIPT_NAME;
   
-          var firstScript = document.getElementsByTagName('script')[0];
-          firstScript.parentNode.insertBefore(scriptEl, firstScript);
+          var firstLink = document.getElementsByTagName('link')[0];
+          firstLink.parentNode.insertBefore(linkEl, firstLink);
         })();
       </script>
     </head>
-    <body>${appHtml}</body>
+    
+    <body>
+      ${appHtml}
+      
+      <script>
+        (function() {
+            var scriptEl = document.createElement('script');
+            scriptEl.src = window.KA_SCRIPT_NAME;
+            scriptEl.async = true;
+    
+            var firstScript = document.getElementsByTagName('script')[0];
+            firstScript.parentNode.insertBefore(scriptEl, firstScript);
+        })();
+      </script>
+    </body>
   </html>
   `;
 };
