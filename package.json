@@ -1,6 +1,6 @@
 {
   "name": "know-it-all",
-  "version": "7.0.0",
+  "version": "10.0.0",
   "description": "If you don't know it all, at least know what you don't know",
   "main": "index.js",
   "scripts": {
@@ -42,6 +42,7 @@
     "json-loader": "^0.5.4",
     "localforage": "^1.4.3",
     "lodash": "^4.16.1",
+    "memoizee": "0.4.1",
     "node-sass": "3.13.0",
     "nodemon": "^1.11.0",
     "preact": "7.1.0",

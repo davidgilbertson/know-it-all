@@ -3,6 +3,7 @@ import { h, Component } from 'preact'; /** @jsx h */
 import TableRows from '../TableRows/TableRows';
 import Icon from '../Icon/Icon';
 import ScoreButtons from '../ScoreButtons/ScoreButtons';
+import Tags from '../Tags/Tags';
 import classnames from 'classnames';
 
 import {
@@ -10,25 +11,6 @@ import {
 } from '../../constants.js';
 
 if (process.env.IMPORT_SCSS) require(`./TableRow.scss`); // eslint-disable-line global-require
-
-const renderTags = (tags) => {
-  if (!tags.size) return ``;
-  const result = [];
-
-  tags.forEach(tag => {
-    result.push(
-      <span
-        key={tag.get(`key`)}
-        className="table-row__tag"
-        title={tag.get(`value`)}
-      >
-        {tag.get(`key`)}
-      </span>
-    );
-  });
-
-  return result;
-};
 
 class TableRow extends Component {
   constructor(props) {
@@ -115,8 +97,7 @@ class TableRow extends Component {
       <div className={className}>
         <div
           className="table-row__content"
-          onMouseDown={this.onRowClick}
-          onTouchStart={this.onRowClick}
+          onClick={this.onRowClick}
         >
           <div className="table-row__triangle-wrapper">
             <Icon
@@ -136,9 +117,10 @@ class TableRow extends Component {
 
             {notesText}
 
-            <div className="table-row__tag-wrapper">
-              {renderTags(props.item.get(`tags`))}
-            </div>
+            <Tags
+              tagList={props.item.get(`tags`)}
+              tagUid={props.item.get(`tagUid`)}
+            />
           </div>
 
           <ScoreButtons

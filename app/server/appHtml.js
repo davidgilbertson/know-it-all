@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import fs from 'fs';
 import path from 'path';
 import { h } from 'preact'; /** @jsx h */
@@ -36,6 +37,7 @@ export default ({ dataFileName = `data.json`, scriptFileName, mode }) => {
       <link rel="manifest" href="manifest.json">
       
       <meta name="theme-color" content="#bf360c">
+      <meta name="description" content="A big list of all the props, values, methods, functions, interfaces, modules, constants, constructors, events, attributes, parameters, return values, variables, elements, statements, operators, declarations, types, primatives, selectors and units of all the APIs related to web development.">
       
       ${styleTag}
       
@@ -75,3 +77,5 @@ export default ({ dataFileName = `data.json`, scriptFileName, mode }) => {
   </html>
   `;
 };
+
+/* eslint-enable max-len */

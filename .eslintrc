@@ -19,6 +19,7 @@
       }
     ],
     "react/prop-types": 0,
+    "react/no-unknown-property": 0,
     "max-len": ["error", 120]
   }
 }

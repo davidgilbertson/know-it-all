@@ -20,20 +20,17 @@ function renderScoreButton(props, displayScore) {
   : null;
 
   return (
-    <label
+    <button
       className="score-buttons__score-button"
       title={displayScore.value}
       style={selectedStyle}
+      onClick={(e) => {
+        e.stopPropagation();
+        props.updateScore(props.item.get(`pathString`), displayScore.key);
+      }}
     >
-      <input
-        className="score-buttons__score-button-input"
-        type="radio"
-        name={`${props.item.get(`id`)}-${props.item.get(`name`)}`}
-        selected={selected}
-        onChange={() => props.updateScore(props.item.get(`pathString`), displayScore.key)}
-      />
       {displayScore.shortTitle}
-    </label>
+    </button>
   );
 }
 

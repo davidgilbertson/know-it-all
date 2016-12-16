@@ -19,6 +19,7 @@ function parseData(items, path = []) {
     item.pathString = item.path.join(`.`);
     item.leaf = !item.children || !item.children.length; // TODO (davidg): or tag == fake?
     item.scoreKey = SCORES.LEVEL_0.key;
+    item.tagUid = item.tags.join(); // used to memoize tag rendering
     item.tags = item.tags.map(tagString => TAGS[tagString]).filter(tag => !!tag);
 
     itemList.push({
