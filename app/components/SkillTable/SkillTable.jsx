@@ -1,13 +1,11 @@
 import { h, Component } from 'preact'; /** @jsx h */
-
-const Immutable = require(`immutable`);
-
 import TableRows from '../TableRows/TableRows';
-import { decorateData } from '../../utils';
+import decorateData from '../../utils/decorateData';
 import {
   KEYS,
 } from '../../constants';
 
+const Immutable = require(`immutable`);
 if (process.env.IMPORT_SCSS) require(`./SkillTable.scss`); // eslint-disable-line global-require
 
 function getArrayPath(stringPath) {
@@ -107,7 +105,7 @@ class SkillTable extends Component {
       return;
     }
 
-    const saveScore = scoreKey => {
+    const saveScore = (scoreKey) => {
       this.updateScore(currentItem.get(`pathString`), scoreKey);
       this.goToNextKnowableRow(); // move to the next one after scoring
     };

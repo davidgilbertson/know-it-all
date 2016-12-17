@@ -3,11 +3,10 @@ import fs from 'fs';
 import path from 'path';
 import { h } from 'preact'; /** @jsx h */
 import preactRenderToString from 'preact-render-to-string';
-
-import App from '../components/App/App.jsx';
+import App from '../components/App/App';
 import {
   WEBPACK_BUNDLE,
-} from '../constants.js';
+} from '../constants';
 
 const data = require(`../data/data.json`);
 

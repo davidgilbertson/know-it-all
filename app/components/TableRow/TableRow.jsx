@@ -1,14 +1,13 @@
 import { h, Component } from 'preact'; /** @jsx h */
-
+import classnames from 'classnames';
 import TableRows from '../TableRows/TableRows';
 import Icon from '../Icon/Icon';
 import ScoreButtons from '../ScoreButtons/ScoreButtons';
 import Tags from '../Tags/Tags';
-import classnames from 'classnames';
 
 import {
   TAGS,
-} from '../../constants.js';
+} from '../../constants';
 
 if (process.env.IMPORT_SCSS) require(`./TableRow.scss`); // eslint-disable-line global-require
 
@@ -56,14 +55,14 @@ class TableRow extends Component {
 
     const childRows = hasChildren && props.item.get(`isExpanded`)
       ? (
-      <TableRows
-        items={children}
-        currentNugget={props.currentNugget}
-        goToRow={props.goToRow}
-        updateScore={props.updateScore}
-        expandCollapse={props.expandCollapse}
-        goToNextKnowableRow={props.goToNextKnowableRow}
-      />
+        <TableRows
+          items={children}
+          currentNugget={props.currentNugget}
+          goToRow={props.goToRow}
+          updateScore={props.updateScore}
+          expandCollapse={props.expandCollapse}
+          goToNextKnowableRow={props.goToNextKnowableRow}
+        />
       )
       : null;
 
@@ -77,7 +76,7 @@ class TableRow extends Component {
       `table-row`,
       { 'table-row--selected': isActiveRow },
       { 'table-row--has-no-children': !hasChildren },
-      { 'table-row--expanded': props.item.get(`isExpanded`) }
+      { 'table-row--expanded': props.item.get(`isExpanded`) },
     );
 
     const tableRowNameStyle = !isNotCode ? {
@@ -93,9 +92,12 @@ class TableRow extends Component {
       </p>
     ) : null;
 
+    /* eslint-disable jsx-a11y/no-static-element-interactions */
     return (
       <div className={className}>
         <div
+          role="button"
+          tabIndex="0"
           className="table-row__content"
           onClick={this.onRowClick}
         >
@@ -132,6 +134,7 @@ class TableRow extends Component {
         {childRows}
       </div>
     );
+    /* eslint-enable jsx-a11y/no-static-element-interactions */
   }
 }
 

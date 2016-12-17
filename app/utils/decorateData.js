@@ -9,14 +9,14 @@ const itemList = [];
 let topLevelRow = 0;
 
 function parseData(items, path = []) {
-  for (let i = 0; i < items.length; i++) {
+  for (let i = 0; i < items.length; i += 1) {
     const item = items[i];
 
     topLevelRow += depth === 0 ? 1 : 0;
     // have the first two top-level modules expanded to one level
     // so I'm not producing too much DOM (that's still 43 rows)
     item.isExpanded = depth < 1 && topLevelRow < 3;
-    item.row = rowCount++;
+    item.row = rowCount += 1;
     item.depth = depth;
     item.path = path.slice();
     item.path.push(i); // TODO (davidg): I'm overdoing the path thing, fix this
@@ -36,24 +36,25 @@ function parseData(items, path = []) {
     });
 
     if (item.children && item.children.length) {
-      depth++;
+      depth += 1;
       parseData(item.children, item.path);
-      depth--;
+      depth -= 1;
     }
   }
 
   return items;
 }
 
-export function decorateData(originalItemTree) {
+function decorateData(originalItemTree) {
   rowCount = 0;
   depth = 0;
   itemList.length = 0;
 
   const itemTree = parseData(originalItemTree.slice());
-
   return {
     itemTree,
     itemList,
   };
 }
+
+export default decorateData;

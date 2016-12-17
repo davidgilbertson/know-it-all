@@ -2,10 +2,10 @@ import { h } from 'preact'; /** @jsx h */
 
 import TableRow from '../TableRow/TableRow';
 
-const TableRows = props => {
+const TableRows = (props) => {
   const arr = [];
 
-  props.items.forEach(item => {
+  props.items.forEach((item) => {
     arr.push(
       <TableRow
         key={item.get(`id`)}
@@ -15,7 +15,7 @@ const TableRows = props => {
         updateScore={props.updateScore}
         expandCollapse={props.expandCollapse}
         goToNextKnowableRow={props.goToNextKnowableRow}
-      />
+      />,
     );
   });
 

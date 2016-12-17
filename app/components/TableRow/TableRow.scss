@@ -20,6 +20,11 @@
     transition: 150ms;
     border-bottom: 1px solid $GREY_300;
 
+    &:focus,
+    &:active {
+        outline: 0;
+    }
+
     .table-row--selected > & {
         background: $GREY_50;
     }

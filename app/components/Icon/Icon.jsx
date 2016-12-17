@@ -4,7 +4,7 @@ if (process.env.IMPORT_SCSS) require(`./Icon.scss`); // eslint-disable-line glob
 
 const cache = {};
 
-const Icon = props => {
+const Icon = (props) => {
   const key = `${props.icon}-${props.size}-${props.className}`;
   const cacheKey = cache[key];
 

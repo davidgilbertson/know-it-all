@@ -16,7 +16,7 @@ global.performance = {
 config.entry = [
   `webpack-dev-server/client?${contentBase}`,
   `webpack/hot/only-dev-server`,
-  `./app/client/client.js`,
+  `./app/client/client.jsx`,
 ];
 
 config.devtool = `source-map`; // I love you webpack

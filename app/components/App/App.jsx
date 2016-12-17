@@ -1,6 +1,6 @@
 import { h, Component } from 'preact'; /** @jsx h */
 
-import SkillTable from '../SkillTable/SkillTable.jsx';
+import SkillTable from '../SkillTable/SkillTable';
 
 if (process.env.IMPORT_SCSS) require(`./App.scss`); // eslint-disable-line global-require
 

@@ -16,12 +16,12 @@ config.context = __dirname;
 // in prod, an 'app' and an 'app-with-polyfills' is produced
 config.entry = {
   app: [
-    path.resolve(__dirname, `../app/client/client.js`),
+    path.resolve(__dirname, `../app/client/client.jsx`),
   ],
   'app-with-polyfills': [
     `babel-polyfill`,
     `whatwg-fetch`,
-    path.resolve(__dirname, `../app/client/client.js`),
+    path.resolve(__dirname, `../app/client/client.jsx`),
   ],
 };
 
@@ -35,9 +35,7 @@ config.plugins = config.plugins.concat([
   new webpack.optimize.DedupePlugin(),
 ]);
 
-config.plugins.push(
-  new ExtractTextPlugin(`styles.css`)
-);
+config.plugins.push(new ExtractTextPlugin(`styles.css`));
 
 config.module.loaders.push({
   test: /\.jsx?$/,
@@ -117,7 +115,7 @@ function compileWithWebpack() {
         chunks: false,
       });
 
-      console.log(stats.toString({
+      console.info(stats.toString({
         chunks: false,
         colors: true,
       }));

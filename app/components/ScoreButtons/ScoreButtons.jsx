@@ -2,7 +2,7 @@ import { h } from 'preact'; /** @jsx h */
 
 import {
   SCORES,
-} from '../../constants.js';
+} from '../../constants';
 
 if (process.env.IMPORT_SCSS) require(`./ScoreButtons.scss`); // eslint-disable-line global-require
 

@@ -1,10 +1,10 @@
 import express from 'express';
 import compression from 'compression';
+import appHtml from './appHtml';
+import { PORT } from '../constants';
+
 const app = express();
 app.use(compression());
-
-import appHtml from './appHtml.js';
-import { PORT } from '../constants.js';
 
 // In dev mode, generate the html dynamically
 // otherwise, serve everything from public
