@@ -4,13 +4,12 @@
   "description": "If you don't know it all, at least know what you don't know",
   "main": "index.js",
   "scripts": {
-    "heroku-postbuild": "npm run build",
     "start": "node index.js",
     "build": "node webpack/build.js",
     "deploy": "firebase deploy",
     "build-deploy": "npm run build && npm run deploy",
     "dev": "nodemon index.dev.js",
-    "test": "eslint ./app ./webpack --color --ext .jsx,.js"
+    "lint": "eslint ./app ./webpack --color --ext .jsx,.js"
   },
   "repository": {
     "type": "git",
@@ -21,9 +20,8 @@
   "bugs": {
     "url": "https://github.com/davidgilbertson/know-it-all/issues"
   },
-  "homepage": "https://github.com/davidgilbertson/know-it-all#readme",
+  "homepage": "https://github.com/davidgilbertson/know-it-all",
   "dependencies": {
-    "babel": "^6.5.2",
     "babel-core": "^6.11.4",
     "babel-loader": "^6.2.4",
     "babel-polyfill": "^6.9.1",
@@ -34,6 +32,11 @@
     "classnames": "2.2.5",
     "compression": "^1.6.2",
     "css-loader": "0.26.1",
+    "eslint": "^3.12.0",
+    "eslint-config-airbnb": "^13.0.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^2.2.3",
+    "eslint-plugin-react": "^6.7.1",
     "express": "^4.14.0",
     "extract-text-webpack-plugin": "1.0.1",
     "fs-extra": "1.0.0",
@@ -48,24 +51,14 @@
     "preact": "7.1.0",
     "preact-compat": "3.9.4",
     "preact-render-to-string": "3.3.0",
-    "react": "^15.3.0",
-    "react-dom": "^15.3.0",
+    "react-hot-loader": "^1.3.0",
     "sass-loader": "4.0.2",
     "style-loader": "0.13.1",
     "stylelint": "7.6.0",
-    "webpack": "^1.13.1",
-    "whatwg-fetch": "2.0.1"
-  },
-  "devDependencies": {
-    "eslint": "^3.2.0",
-    "eslint-config-airbnb": "^13.0.0",
-    "eslint-plugin-import": "^2.2.0",
-    "eslint-plugin-jsx-a11y": "^3.0.1",
-    "eslint-plugin-react": "^6.7.1",
-    "react-addons-perf": "^15.4.1",
-    "react-hot-loader": "^1.3.0",
     "sw-precache": "4.2.3",
-    "webpack-dev-server": "^1.14.1"
+    "webpack": "^1.13.1",
+    "webpack-dev-server": "^1.14.1",
+    "whatwg-fetch": "2.0.1"
   },
   "babel": {
     "presets": [
