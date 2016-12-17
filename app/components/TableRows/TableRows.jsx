@@ -1,4 +1,5 @@
-import { h } from 'preact'; /** @jsx h */
+// import { h } from 'preact'; /** @jsx h */
+import Inferno from 'inferno'; /** @jsx Inferno */
 
 import TableRow from '../TableRow/TableRow';
 

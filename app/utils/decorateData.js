@@ -7,6 +7,7 @@ let rowCount;
 let depth = 0;
 const itemList = [];
 let topLevelRow = 0;
+let dataIsParsed = false;
 
 function parseData(items, path = []) {
   for (let i = 0; i < items.length; i++) {
@@ -46,12 +47,21 @@ function parseData(items, path = []) {
 }
 
 export function decorateData(originalItemTree) {
+  // in dev mode, this data may already be parsed on the server from a previous request
+  if (dataIsParsed) {
+    return {
+      itemTree: originalItemTree,
+      itemList,
+    };
+  }
+
   rowCount = 0;
   depth = 0;
   itemList.length = 0;
 
   const itemTree = parseData(originalItemTree.slice());
 
+  dataIsParsed = true;
   return {
     itemTree,
     itemList,

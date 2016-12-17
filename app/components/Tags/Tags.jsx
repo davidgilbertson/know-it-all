@@ -1,4 +1,5 @@
-import { h } from 'preact'; /** @jsx h */
+// import { h } from 'preact'; /** @jsx h */
+import Inferno from 'inferno'; /** @jsx Inferno */
 
 if (process.env.IMPORT_SCSS) require(`./Tags.scss`); // eslint-disable-line global-require
 

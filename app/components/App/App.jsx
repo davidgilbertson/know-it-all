@@ -1,4 +1,6 @@
-import { h, Component } from 'preact'; /** @jsx h */
+// import { h, Component } from 'preact'; /** @jsx h */
+import Inferno from 'inferno'; /** @jsx Inferno */
+import Component from 'inferno-component';
 
 import SkillTable from '../SkillTable/SkillTable.jsx';
 
@@ -16,7 +18,7 @@ class App extends Component {
 
   render() {
     return (
-      <div id="app">
+      <div>
         <header className="header">
           <h1 className="header__title">Know It All</h1>
           <a

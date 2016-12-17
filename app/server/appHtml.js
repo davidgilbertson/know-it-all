@@ -1,8 +1,9 @@
 /* eslint-disable max-len */
 import fs from 'fs';
 import path from 'path';
-import { h } from 'preact'; /** @jsx h */
-import preactRenderToString from 'preact-render-to-string';
+
+import Inferno from 'inferno'; /** @jsx Inferno */
+import { renderToString } from 'inferno-server';
 
 import App from '../components/App/App.jsx';
 import {
@@ -26,7 +27,7 @@ export default ({ dataFileName = `data.json`, scriptFileName, mode }) => {
     scriptSrc = `http://localhost:8081/${WEBPACK_BUNDLE}`;
   }
 
-  const appHtml = preactRenderToString(<App data={data} />);
+  const appHtml = renderToString(<App data={data} />);
 
   return `<!DOCTYPE html>
   <html>
@@ -77,7 +78,7 @@ export default ({ dataFileName = `data.json`, scriptFileName, mode }) => {
     </head>
     
     <body>
-      ${appHtml}
+      <div id="app">${appHtml}</div>
       
       <script>
         (function() {

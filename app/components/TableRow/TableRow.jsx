@@ -1,4 +1,6 @@
-import { h, Component } from 'preact'; /** @jsx h */
+// import { h, Component } from 'preact'; /** @jsx h */
+import Inferno from 'inferno'; /** @jsx Inferno */
+import Component from 'inferno-component';
 
 import TableRows from '../TableRows/TableRows';
 import Icon from '../Icon/Icon';
