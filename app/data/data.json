@@ -1331,7 +1331,7 @@
           { "name": "insertRule()", "id": "y6sLvZwQ", "tags": ["METHOD", "STATIC"] }] },
         { "name": "CSSSupportsRule", "id": "YoBmS1m2", "tags": ["OBJECT"], "children": [
           { "name": "conditionText", "id": "VtDIpK8z", "tags": ["PROP"] }] }] },
-      { "name": "CSS Namespaces", "id": "ULyHN6IT", "tags": ["OBJECT"], "children": [
+      { "name": "CSS Namespaces", "id": "ULyHN6IT", "tags": ["GROUPING"], "children": [
         { "name": "@namespace", "id": "EVYYocc2", "tags": ["AT_RULE"] },
         { "name": "ns|a", "id": "wKjvYC7v", "tags": ["SELECTOR"], "notes": "matches a in ns" }] },
       { "name": "Selectors level 3", "id": "U7wrG3O5", "tags": ["GROUPING"], "children": [

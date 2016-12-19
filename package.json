@@ -1,6 +1,6 @@
 {
   "name": "know-it-all",
-  "version": "12.0.0",
+  "version": "14.0.0",
   "description": "If you don't know it all, at least know what you don't know",
   "main": "index.js",
   "scripts": {
@@ -51,6 +51,9 @@
     "preact": "7.1.0",
     "preact-compat": "3.9.4",
     "preact-render-to-string": "3.3.0",
+    "react": "^15.3.0",
+    "react-dom": "^15.3.0",
+    "react-addons-perf": "^15.4.1",
     "react-hot-loader": "^1.3.0",
     "sass-loader": "4.0.2",
     "style-loader": "0.13.1",

@@ -12,9 +12,13 @@ const Tags = ({ tagList, tagUid }) => {
     return cacheKey;
   }
 
+  // If no tags at all
   if (!tagList.size) return null;
 
-  const tagSpans = tagList.toArray().map(tag => (
+  const tagSpans = tagList
+  .toArray()
+  .filter(tag => tag.get(`key`) !== `ROOT` && tag.get(`key`) !== `GROUPING`)
+  .map(tag => (
     <span
       key={tag.get(`key`)}
       className="tags__tag"
@@ -23,6 +27,9 @@ const Tags = ({ tagList, tagUid }) => {
       {tag.get(`key`)}
     </span>
   ));
+
+  // If no tags after filtering out some tags
+  if (!tagSpans || !tagSpans.length) return null;
 
   const tagElements = (
     <div className="tags">

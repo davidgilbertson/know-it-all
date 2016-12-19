@@ -20,6 +20,7 @@ module.exports = {
     ],
     'react/prop-types': 0,
     'react/no-unknown-property': 0,
-    'max-len': [`error`, 120]
-  }
+    'max-len': [`error`, 120],
+    'linebreak-style': 0,
+  },
 };

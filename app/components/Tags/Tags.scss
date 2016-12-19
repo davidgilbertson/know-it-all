@@ -1,13 +1,14 @@
 @import '../global';
 
 .tags {
-    margin-top: 6px;
-    color: $GREY_900;
+  margin-top: 6px;
+  color: $GREY_900;
+  letter-spacing: 1px;
 }
 
 .tags__tag {
-    background: $BLUE_GREY_50;
-    padding: 2px 6px;
-    margin-right: 4px;
-    font-size: 12px;
+  background: $BLUE_GREY_50;
+  padding: 2px 6px;
+  margin-right: 4px;
+  font-size: 12px;
 }

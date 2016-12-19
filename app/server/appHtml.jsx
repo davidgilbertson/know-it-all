@@ -25,7 +25,7 @@ export default ({ dataFileName = `data.json`, scriptFileName, mode }) => {
     scriptSrc = `http://localhost:8081/${WEBPACK_BUNDLE}`;
   }
 
-  const appHtml = preactRenderToString(<App data={data} />);
+  const appHtml = preactRenderToString(<App data={data} version={process.env.npm_package_version} />);
 
   return `<!DOCTYPE html>
   <html>
@@ -59,10 +59,10 @@ export default ({ dataFileName = `data.json`, scriptFileName, mode }) => {
   
           if (!newBrowser) {
             scriptSrc = scriptSrc.replace('app.', 'app-with-polyfills.');
-            console.log('This is not a great browser, loading package with polyfills.');
+            console.log('This is not a great browser, loading', scriptSrc);
           }
           
-          window.KA_SCRIPT_NAME = '${scriptSrc}';
+          window.KA_SCRIPT_NAME = scriptSrc;
   
           // prefetch the script here, then fetch it for real after the HTML
           var linkEl = document.createElement('link');

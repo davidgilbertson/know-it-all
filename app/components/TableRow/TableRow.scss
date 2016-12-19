@@ -1,68 +1,69 @@
 @import '../global';
 
 .table-row {
-    position: relative;
+  position: relative;
 
-    .table-row { // only second level down to be indented
-        margin-left: 12px;
-        border-left: 1px solid #eee;
+  .table-row { // only second level down to be indented
+    margin-left: 12px;
+    border-left: 1px solid #eee;
 
-        @include for-tablet-portrait-up {
-            margin-left: 20px;
-        }
+    @include for-tablet-portrait-up {
+      margin-left: 20px;
     }
+  }
 }
 
 .table-row__content {
-    display: flex;
-    align-items: center;
-    padding: 6px 6px 8px 4px;
-    transition: 150ms;
-    border-bottom: 1px solid $GREY_300;
+  display: flex;
+  align-items: center;
+  padding: 6px 6px 6px 4px;
+  min-height: 44px; // for decent tap size
+  transition: 150ms;
+  border-bottom: 1px solid $GREY_300;
 
-    &:focus,
-    &:active {
-        outline: 0;
-    }
+  &:focus,
+  &:active {
+    outline: 0;
+  }
 
-    .table-row--selected > & {
-        background: $GREY_50;
-    }
+  .table-row--selected > & {
+    background: $GREY_50;
+  }
 }
 
 .table-row__triangle-wrapper {
-    display: flex;
-    align-items: center;
-    user-select: none;
+  display: flex;
+  align-items: center;
+  user-select: none;
 
-    .table-row--has-no-children & {
-        display: none;
-    }
+  .table-row--has-no-children & {
+    display: none;
+  }
 
 }
 
 .table-row__triangle-icon {
-    color: $GREY_300;
-    width: 24px;
-    overflow: hidden;
-    transition: 300ms;
+  color: $GREY_300;
+  width: 24px;
+  overflow: hidden;
+  transition: 300ms;
 
-    .table-row--expanded > .table-row__content & {
-        width: 0;
-        transform: rotateY(180deg);
-    }
+  .table-row--expanded > .table-row__content & {
+    width: 0;
+    transform: rotateY(180deg);
+  }
 }
 
 .table-row__words {
-    flex: 1;
-    padding-left: 4px;
+  flex: 1;
+  padding-left: 4px;
 }
 
 .table-row__name {
-    margin-top: 2px;
+  margin-top: 2px;
 }
 
 .table-row__notes {
-    margin-top: 4px;
-    color: $GREY_700;
+  margin-top: 4px;
+  color: $GREY_700;
 }
