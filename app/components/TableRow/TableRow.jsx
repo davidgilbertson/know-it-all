@@ -80,8 +80,7 @@ class TableRow extends Component {
     );
 
     const tableRowNameStyle = !isNotCode ? {
-      fontFamily: `monospace`,
-      fontSize: `100%`,
+      fontFamily: `"Courier New", monospace`,
     } : null;
 
     const notes = props.item.get(`notes`);
@@ -93,6 +92,7 @@ class TableRow extends Component {
     ) : null;
 
     /* eslint-disable jsx-a11y/no-static-element-interactions */
+    // because it's OK to have a <div> with role button clickable
     return (
       <div className={className}>
         <div

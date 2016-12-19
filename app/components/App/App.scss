@@ -8,11 +8,14 @@ html {
 body {
     min-height: 100%;
     color: $GREY_900;
-    // TODO (davidg): all the nice OS fonts
-    font-family: "Calibri Light", Roboto, Helvetica, Arial, sans-serif;
-    font-weight: 300;
+    font-family: "Helvetica Neue", "Calibri Light", Roboto, Arial, sans-serif;
     overflow-y: scroll;
     background: linear-gradient(-20deg, darken($DEEP_ORANGE_900, 10%), $DEEP_ORANGE_900 70%) fixed;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    letter-spacing: 0.02em;
 }
 
 .header {
@@ -27,6 +30,8 @@ body {
 .header__title {
     font-size: 40px;
     color: $WHITE;
+    letter-spacing: 2px;
+    text-transform: uppercase;
 }
 
 .header__help {
