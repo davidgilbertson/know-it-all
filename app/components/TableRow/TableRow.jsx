@@ -86,9 +86,9 @@ class TableRow extends Component {
     const notes = props.item.get(`notes`);
     const notesText = notes
     ? (
-      <p className="table-row__notes">
+      <span className="table-row__notes">
         ({props.item.get(`notes`)})
-      </p>
+      </span>
     ) : null;
 
     /* eslint-disable jsx-a11y/no-static-element-interactions */
@@ -111,13 +111,17 @@ class TableRow extends Component {
 
           <div className="table-row__words">
             <p
-              style={tableRowNameStyle}
               className="table-row__name"
             >
-              {props.item.get(`name`)}
+              <span
+                style={tableRowNameStyle}
+              >
+                {props.item.get(`name`)}
+              </span>
+
+              {notesText}
             </p>
 
-            {notesText}
 
             <Tags
               tagList={props.item.get(`tags`)}

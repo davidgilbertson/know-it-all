@@ -39,7 +39,6 @@
   .table-row--has-no-children & {
     display: none;
   }
-
 }
 
 .table-row__triangle-icon {
@@ -55,15 +54,17 @@
 }
 
 .table-row__words {
+  display: flex;
+  align-items: center;
   flex: 1;
   padding-left: 4px;
 }
 
 .table-row__name {
-  margin-top: 2px;
+  flex: 1;
 }
 
 .table-row__notes {
-  margin-top: 4px;
+  margin-left: 4px;
   color: $GREY_700;
 }

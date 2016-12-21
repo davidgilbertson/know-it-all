@@ -7,11 +7,6 @@ import {
 if (process.env.IMPORT_SCSS) require(`./ScoreButtons.scss`); // eslint-disable-line global-require
 
 function renderScoreButton(props, displayScore) {
-  if (
-    (displayScore === SCORES.LEVEL_3 || displayScore === SCORES.LEVEL_2)
-    && !props.item.get(`leaf`)
-  ) return null;
-
   const currentScoreKey = props.item.get(`scoreKey`);
   const selected = currentScoreKey === displayScore.key;
 

@@ -32,9 +32,9 @@ const Tags = ({ tagList, tagUid }) => {
   if (!tagSpans || !tagSpans.length) return null;
 
   const tagElements = (
-    <div className="tags">
+    <p>
       {tagSpans}
-    </div>
+    </p>
   );
 
   cache[tagUid] = tagElements;
