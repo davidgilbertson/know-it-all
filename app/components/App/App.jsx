@@ -1,6 +1,11 @@
 import { h, Component } from 'preact'; /** @jsx h */
-
 import SkillTable from '../SkillTable/SkillTable';
+
+import {
+  decorateData,
+} from '../../utils';
+
+const Immutable = require(`immutable`);
 
 if (process.env.IMPORT_SCSS) require(`./App.scss`); // eslint-disable-line global-require
 
@@ -8,10 +13,18 @@ class App extends Component {
   constructor(props) {
     super(props);
 
+    const decoratedData = decorateData(props.data);
+
+    // TODO (davidg): don't set currentNugget on load.
+    // but it will need to set it in any func that relies on it
     this.state = {
-      data: props.data,
-      stats: [],
+      itemTree: Immutable.fromJS(decoratedData.itemTree),
+      currentNugget: decoratedData.itemTree[0],
     };
+
+    this.nuggetList = decoratedData.itemList;
+
+    this.updateState = this.setState.bind(this);
   }
 
   render() {
@@ -28,7 +41,12 @@ class App extends Component {
           >What is this?</a>
         </header>
 
-        <SkillTable {...this.state} />
+        <SkillTable
+          itemTree={this.state.itemTree}
+          currentNugget={this.state.currentNugget}
+          nuggetList={this.nuggetList}
+          updateState={this.updateState}
+        />
       </div>
     );
   }
