@@ -18,10 +18,9 @@ config.entry = {
   app: [
     path.resolve(__dirname, `../app/client/client.jsx`),
   ],
-  'app-with-polyfills': [
+  polyfills: [
     `babel-polyfill`,
     `whatwg-fetch`,
-    path.resolve(__dirname, `../app/client/client.jsx`),
   ],
 };
 

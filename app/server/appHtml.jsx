@@ -36,43 +36,16 @@ export default ({ dataFileName = `data.json`, scriptFileName, mode }) => {
       <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
       <meta name="theme-color" content="#bf360c">
       <meta name="description" content="A big list of all the props, values, methods, functions, interfaces, modules, constants, constructors, events, attributes, parameters, return values, variables, elements, statements, operators, declarations, types, primatives, selectors and units of all the APIs related to web development.">
-      
+
+      <link rel="preload" href="${dataFileName}" />
+      <link rel="preload" href="${scriptSrc}" as="script" />
+
       <link rel="prefetch" href="${dataFileName}" />
+      <link rel="prefetch" href="${scriptSrc}" />
+
       <link rel="manifest" href="manifest.json">
-      ${styleTag}
       
-      <script>
-        window.APP_DATA = {
-          dataFileName: '${dataFileName}',
-          version: '${process.env.npm_package_version}',
-        };
-        
-        (function() {
-          var scriptSrc = '${scriptSrc}';
-  
-          var newBrowser = (
-            'fetch' in window &&
-            'Promise' in window &&
-            'assign' in Object &&
-            'keys' in Object
-          );
-  
-          if (!newBrowser) {
-            scriptSrc = scriptSrc.replace('app.', 'app-with-polyfills.');
-            console.log('This is not a great browser, loading', scriptSrc);
-          }
-          
-          window.KA_SCRIPT_NAME = scriptSrc;
-  
-          // prefetch the script here, then fetch it for real after the HTML
-          var linkEl = document.createElement('link');
-          linkEl.rel = 'prefetch';
-          linkEl.href = window.KA_SCRIPT_NAME;
-  
-          var firstLink = document.getElementsByTagName('link')[0];
-          firstLink.parentNode.insertBefore(linkEl, firstLink);
-        })();
-      </script>
+      ${styleTag}
     </head>
     
     <body>
@@ -80,14 +53,31 @@ export default ({ dataFileName = `data.json`, scriptFileName, mode }) => {
       
       <script>
         (function() {
+          window.APP_DATA = {
+            dataFileName: '${dataFileName}',
+            version: '${process.env.npm_package_version}',
+          };
+          
+          var newBrowser = (
+            'fetch' in window &&
+            'Promise' in window &&
+            'assign' in Object &&
+            'keys' in Object
+          );
+          
+          if (!newBrowser) {
+            console.log('You need polyfills to do a job. Shame.');
+            
             var scriptEl = document.createElement('script');
-            scriptEl.src = window.KA_SCRIPT_NAME;
-            scriptEl.async = true;
-    
+            scriptEl.src = '${scriptSrc}'.replace('app.', 'polyfills.');
+          
             var firstScript = document.getElementsByTagName('script')[0];
             firstScript.parentNode.insertBefore(scriptEl, firstScript);
+          }
         })();
       </script>
+      
+      <script src="${scriptSrc}"></script>
     </body>
   </html>
   `;
