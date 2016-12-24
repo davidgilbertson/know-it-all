@@ -1,11 +1,10 @@
 import { h, Component } from 'preact'; /** @jsx h */
+import Immutable from 'immutable';
 import SkillTable from '../SkillTable/SkillTable';
 
 import {
   decorateData,
 } from '../../utils';
-
-const Immutable = require(`immutable`);
 
 if (process.env.IMPORT_SCSS) require(`./App.scss`); // eslint-disable-line global-require
 

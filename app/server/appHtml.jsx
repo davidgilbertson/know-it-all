@@ -11,18 +11,20 @@ import {
 const data = require(`../data/data.json`);
 
 export default ({ dataFileName = `data.json`, scriptFileName, mode }) => {
-  let scriptSrc;
+  let appScriptSrc;
+  let polyfillScriptSrc = ``;
   let styleTag = ``;
 
   if (mode === `production`) {
-    scriptSrc = scriptFileName;
+    appScriptSrc = scriptFileName;
+    polyfillScriptSrc = appScriptSrc.replace(`app.`, `polyfills.`);
 
     const stylesPath = path.resolve(__dirname, `../../public/styles.css`);
     const styles = fs.readFileSync(stylesPath, `utf8`);
 
     styleTag = `<style>${styles}</style>`;
   } else {
-    scriptSrc = `http://localhost:8081/${WEBPACK_BUNDLE}`;
+    appScriptSrc = `http://localhost:8081/${WEBPACK_BUNDLE}`;
   }
 
   const appHtml = preactRenderToString(<App data={data} version={process.env.npm_package_version} />);
@@ -38,10 +40,10 @@ export default ({ dataFileName = `data.json`, scriptFileName, mode }) => {
       <meta name="description" content="A big list of all the props, values, methods, functions, interfaces, modules, constants, constructors, events, attributes, parameters, return values, variables, elements, statements, operators, declarations, types, primatives, selectors and units of all the APIs related to web development.">
 
       <link rel="preload" href="${dataFileName}" />
-      <link rel="preload" href="${scriptSrc}" as="script" />
+      <link rel="preload" href="${appScriptSrc}" as="script" />
 
       <link rel="prefetch" href="${dataFileName}" />
-      <link rel="prefetch" href="${scriptSrc}" />
+      <link rel="prefetch" href="${appScriptSrc}" />
 
       <link rel="manifest" href="manifest.json">
       
@@ -58,6 +60,8 @@ export default ({ dataFileName = `data.json`, scriptFileName, mode }) => {
             version: '${process.env.npm_package_version}',
           };
           
+          var scripts = ['${appScriptSrc}'];
+          
           var newBrowser = (
             'fetch' in window &&
             'Promise' in window &&
@@ -66,18 +70,18 @@ export default ({ dataFileName = `data.json`, scriptFileName, mode }) => {
           );
           
           if (!newBrowser) {
-            console.log('You need polyfills to do a job. Shame.');
-            
-            var scriptEl = document.createElement('script');
-            scriptEl.src = '${scriptSrc}'.replace('app.', 'polyfills.');
-          
-            var firstScript = document.getElementsByTagName('script')[0];
-            firstScript.parentNode.insertBefore(scriptEl, firstScript);
+            console.log('You need some polyfills, loading them now...');
+            scripts.unshift('${polyfillScriptSrc}');
           }
+          
+          scripts.forEach(function(src) {
+            var scriptEl = document.createElement('script');
+            scriptEl.src = src;
+            scriptEl.async = false;
+            document.head.appendChild(scriptEl);
+          });
         })();
       </script>
-      
-      <script src="${scriptSrc}"></script>
     </body>
   </html>
   `;

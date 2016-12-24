@@ -50,9 +50,7 @@ function decorateData(originalItemTree) {
   depth = 0;
   itemList.length = 0;
 
-  console.time(`decorateData()`);
   const itemTree = parseData(originalItemTree.slice());
-  console.timeEnd(`decorateData()`);
   return {
     itemTree,
     itemList,
