@@ -76,6 +76,7 @@ class SkillTable extends Component {
     if (e.key === `1`) saveScore(`LEVEL_1`);
     if (e.key === `2`) saveScore(`LEVEL_2`);
     if (e.key === `3`) saveScore(`LEVEL_3`);
+    if (e.key === `4`) saveScore(`LEVEL_4`);
   }
 
   goToNextKnowableRow() {
