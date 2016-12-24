@@ -82,7 +82,7 @@ class SkillTable extends Component {
   goToNextKnowableRow() {
     const currentActiveRow = this.props.currentNugget.row;
     const nextNugget = this.props.nuggetList.find(nugget => (
-      nugget.row > currentActiveRow && nugget.leaf
+      nugget.row > currentActiveRow
     ));
 
     if (nextNugget) {
