@@ -73,7 +73,7 @@
               { "name": "width", "id": "QjvWHNpy", "tags": ["VALUE"] },
               { "name": "height", "id": "RAHJEccl", "tags": ["VALUE"] },
               { "name": "initial-scale", "id": "bShDcX35", "tags": ["VALUE"] },
-              { "name": "maxiumu-scale", "id": "P3363lqt", "tags": ["VALUE"] },
+              { "name": "maximum-scale", "id": "P3363lqt", "tags": ["VALUE"] },
               { "name": "minimum-scale", "id": "slqQrbAV", "tags": ["VALUE"] },
               { "name": "user-scalable", "id": "lDMg4atq", "tags": ["VALUE"] }] }] }] },
         { "name": "<style>", "id": "nnulkVez", "tags": ["ELEMENT"], "children": [
