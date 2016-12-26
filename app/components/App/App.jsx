@@ -1,9 +1,9 @@
 import { h, Component } from 'preact'; /** @jsx h */
 import SkillTable from '../SkillTable/SkillTable';
 
-import {
-  decorateData,
-} from '../../utils';
+// import {
+//   decorateData,
+// } from '../../utils';
 
 if (process.env.IMPORT_SCSS) require(`./App.scss`); // eslint-disable-line global-require
 
@@ -11,11 +11,13 @@ class App extends Component {
   constructor(props) {
     super(props);
 
-    const decoratedData = decorateData(props.data);
+    // console.time(`decorateData()`);
+    // const decoratedData = decorateData(props.data);
+    // console.timeEnd(`decorateData()`);
 
     this.state = {
-      itemList: decoratedData.itemList,
-      currentItem: decoratedData.itemList[0],
+      itemList: props.data,
+      currentItem: props.data[0],
     };
 
     this.updateState = this.setState.bind(this);

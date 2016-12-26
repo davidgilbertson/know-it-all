@@ -9,6 +9,7 @@ const ExtractTextPlugin = require(`extract-text-webpack-plugin`);
 
 const config = require(`./config.shared.js`);
 const appHtml = require(`../app/server/appHtml`).default;
+const decorateData = require(`../app/utils/decorateData`).default;
 
 config.context = __dirname;
 
@@ -123,9 +124,20 @@ function compileWithWebpack() {
       const scriptFileName = jsonStats.assetsByChunkName.app[0];
 
       // get the hash for the data file and copy it to public
-      fsExtra.readFile(`./app/data/data.js`, `utf8`, (dataFileError, dataJson) => {
-        const dataHash = crypto.createHash(`md5`).update(dataJson).digest(`hex`);
-        const dataFileName = `data.${dataHash}.js`;
+      fsExtra.readFile(`./app/data/data.json`, `utf8`, (dataFileError, data) => {
+
+        const json = JSON.parse(data);
+        const itemList = decorateData(json);
+
+        const fileContents = (
+          `window.DATA = ${JSON.stringify(itemList)};`
+        );
+
+        const fileHash = crypto.createHash(`md5`).update(fileContents).digest(`hex`);
+        const dataFileName = `data.${fileHash}.js`;
+
+        // const dataHash = crypto.createHash(`md5`).update(dataJson).digest(`hex`);
+        // const dataFileName = `data.${dataHash}.js`;
 
         // generate the html with the correct paths
         const htmlString = appHtml({
@@ -148,7 +160,7 @@ function compileWithWebpack() {
         // this could be a copy/rename but we already
         // had the file loaded and perf doesn't matter here
         // when they're both done, generate the service worker
-        fsExtra.writeFile(`./public/${dataFileName}`, dataJson, `utf8`, (dataJsonError) => {
+        fsExtra.writeFile(`./public/${dataFileName}`, fileContents, `utf8`, (dataJsonError) => {
           if (dataJsonError) {
             reject(`Error writing data.js to disk: ${dataJsonError}`);
             return;

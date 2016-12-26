@@ -77,10 +77,10 @@ class TableRow extends Component {
       )
       : null;
 
-    const isNotCode = !!(props.item.tags || []).find(tag => (
-      tag.key === TAGS.ROOT.key ||
-      tag.key === TAGS.GROUPING.key ||
-      tag.key === TAGS.INFO.key
+    const isNotCode = !!(props.item.tags || []).find(tagKey => (
+      tagKey === TAGS.ROOT.key ||
+      tagKey === TAGS.GROUPING.key ||
+      tagKey === TAGS.INFO.key
     ));
 
     const className = classnames(
@@ -140,7 +140,6 @@ class TableRow extends Component {
 
             <Tags
               tagList={props.item.tags}
-              tagUid={props.item.tagUid}
             />
           </div>
 

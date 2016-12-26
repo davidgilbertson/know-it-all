@@ -22,7 +22,6 @@ function renderScoreButton(props, displayScore) {
       onClick={(e) => {
         e.stopPropagation();
         props.updateScore(props.item, displayScore.key);
-        {/*props.updateScore(props.item.pathString, displayScore.key);*/}
       }}
     >
       {displayScore.shortTitle}

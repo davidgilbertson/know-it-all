@@ -1,6 +1,5 @@
 import {
   SCORES,
-  TAGS,
 } from '../constants';
 
 let rowCount;
@@ -15,36 +14,40 @@ function parseData(items, path = [], parent) {
     // have the first two top-level modules expanded to one level
     // so I'm not producing too much DOM (that's still 43 rows)
     topLevelRow += depth === 0 ? 1 : 0;
-    item.expanded = depth < 1 && topLevelRow < 3;
-    item.row = rowCount;
-    item.depth = depth;
-    item.leaf = !item.children || !item.children.length;
-    item.scoreKey = SCORES.LEVEL_0.key;
-    item.tagUid = item.tags.join(); // used to memoize tag rendering
-    item.tags = item.tags.map(tagString => TAGS[tagString]).filter(tag => !!tag);
-
-    if (!parent || parent.expanded) {
-      item.visible = true;
-    }
+    item.expanded = depth < 1 && topLevelRow < 3; // need to mutate the item because children read it
 
     const pathArray = path.slice();
     pathArray.push(i);
-    item.pathString = pathArray.join(`.`);
 
-    itemList.push({
+    const newItem = {
       name: item.name,
       id: item.id,
-      row: item.row,
-      pathString: item.pathString,
-      leaf: item.leaf,
+      row: rowCount,
+      pathString: pathArray.join(`.`),
       tags: item.tags,
-      tagUid: item.tagUid,
-      scoreKey: item.scoreKey,
-      expanded: item.expanded,
-      visible: item.visible,
-      depth: item.depth,
-      parentId: parent ? parent.id : null,
-    });
+      depth,
+    };
+
+    if (!parent || parent.expanded) newItem.visible = true;
+    if (parent) newItem.parentId = parent.id;
+    if (depth < 1 && topLevelRow < 3) {
+      item.expanded = true;
+      newItem.expanded = true;
+    }
+
+    itemList.push(newItem);
+    // itemList.push({
+    //   name: item.name,
+    //   id: item.id,
+    //   row: rowCount,
+    //   pathString: pathArray.join(`.`),
+    //   tags: item.tags,
+    //   scoreKey: SCORES.LEVEL_0.key,
+    //   visible: !parent || parent.expanded,
+    //   parentId: parent ? parent.id : null,
+    //   expanded: item.expanded,
+    //   depth,
+    // });
 
     rowCount += 1;
 
@@ -63,16 +66,13 @@ function decorateData(originalItemTree) {
   depth = 0;
   itemList.length = 0;
 
-  const itemTree = parseData(originalItemTree.slice());
+  parseData(originalItemTree.slice());
   // console.log(`  --  >  decorateData.js:55 > decorateData > itemList:`, itemList);
   // console.time(`get-children-of`);
   // const childrenOfMedia = itemList.filter(item => item.parentId === `zf19pklN`);
   // console.timeEnd(`get-children-of`);
   // console.log(`  --  >  decorateData.js:59 > decorateData > childrenOfMedia:`, childrenOfMedia);
-  return {
-    itemTree,
-    itemList,
-  };
+  return itemList;
 }
 
 export default decorateData;
