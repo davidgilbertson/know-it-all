@@ -13,13 +13,6 @@ class App extends Component {
     };
 
     this.updateState = this.setState.bind(this);
-    this.hasUsedKeyboard = this.hasUsedKeyboard.bind(this);
-  }
-
-  hasUsedKeyboard() {
-    // TODO (davidg): show tip about shortcuts
-    // for arrow keys? For number keys?
-    // also, if user is navigating with keyboard, scroll the screen for them
   }
 
   render() {
