@@ -84,7 +84,8 @@ function generateServiceWorker() {
       stripPrefix: `public/`,
       staticFileGlobs: [
         `public/app.*.js`, // don't include the polyfills version
-        `public/*.{html,ico,json,png}`,
+        `public/data.*.js`, // don't include the polyfills version
+        `public/*.{html,ico,png}`,
       ],
       dontCacheBustUrlsMatching: [
         /\.(js|json)$/, // I'm cache busting js and json files myself
@@ -141,6 +142,7 @@ function compileWithWebpack() {
           dataFileName,
           scriptFileName,
           mode: `production`,
+          data: itemList,
         });
 
         // This does pretty much nothing ATM (17.5kb -> 17.4kb)

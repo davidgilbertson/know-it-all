@@ -8,9 +8,8 @@ import {
   WEBPACK_BUNDLE,
 } from '../constants';
 
-const data = require(`../data/data.json`);
-
-export default ({ dataFileName = `data.js`, scriptFileName, mode }) => {
+// generate-data.js is handled by a route to serve data in dev mode
+export default ({ dataFileName = `generate-data.js`, scriptFileName, mode, data }) => {
   let appScriptSrc;
   let polyfillScriptSrc = ``;
   let styleTag = ``;
