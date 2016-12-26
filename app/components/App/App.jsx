@@ -1,19 +1,11 @@
 import { h, Component } from 'preact'; /** @jsx h */
 import SkillTable from '../SkillTable/SkillTable';
 
-// import {
-//   decorateData,
-// } from '../../utils';
-
 if (process.env.IMPORT_SCSS) require(`./App.scss`); // eslint-disable-line global-require
 
 class App extends Component {
   constructor(props) {
     super(props);
-
-    // console.time(`decorateData()`);
-    // const decoratedData = decorateData(props.data);
-    // console.timeEnd(`decorateData()`);
 
     this.state = {
       itemList: props.data,

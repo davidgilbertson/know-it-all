@@ -28,6 +28,8 @@ function parseData(items, path = [], parent) {
       depth,
     };
 
+    // add the minimum number of props to the object
+    // because it affects the data size
     if (!parent || parent.expanded) newItem.visible = true;
     if (parent) newItem.parentId = parent.id;
     if (depth < 1 && topLevelRow < 3) {
@@ -36,18 +38,6 @@ function parseData(items, path = [], parent) {
     }
 
     itemList.push(newItem);
-    // itemList.push({
-    //   name: item.name,
-    //   id: item.id,
-    //   row: rowCount,
-    //   pathString: pathArray.join(`.`),
-    //   tags: item.tags,
-    //   scoreKey: SCORES.LEVEL_0.key,
-    //   visible: !parent || parent.expanded,
-    //   parentId: parent ? parent.id : null,
-    //   expanded: item.expanded,
-    //   depth,
-    // });
 
     rowCount += 1;
 
@@ -67,11 +57,7 @@ function decorateData(originalItemTree) {
   itemList.length = 0;
 
   parseData(originalItemTree.slice());
-  // console.log(`  --  >  decorateData.js:55 > decorateData > itemList:`, itemList);
-  // console.time(`get-children-of`);
-  // const childrenOfMedia = itemList.filter(item => item.parentId === `zf19pklN`);
-  // console.timeEnd(`get-children-of`);
-  // console.log(`  --  >  decorateData.js:59 > decorateData > childrenOfMedia:`, childrenOfMedia);
+
   return itemList;
 }
 

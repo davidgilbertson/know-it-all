@@ -136,9 +136,6 @@ function compileWithWebpack() {
         const fileHash = crypto.createHash(`md5`).update(fileContents).digest(`hex`);
         const dataFileName = `data.${fileHash}.js`;
 
-        // const dataHash = crypto.createHash(`md5`).update(dataJson).digest(`hex`);
-        // const dataFileName = `data.${dataHash}.js`;
-
         // generate the html with the correct paths
         const htmlString = appHtml({
           dataFileName,
