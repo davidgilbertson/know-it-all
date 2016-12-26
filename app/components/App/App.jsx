@@ -1,5 +1,4 @@
 import { h, Component } from 'preact'; /** @jsx h */
-import Immutable from 'immutable';
 import SkillTable from '../SkillTable/SkillTable';
 
 import {
@@ -14,16 +13,19 @@ class App extends Component {
 
     const decoratedData = decorateData(props.data);
 
-    // TODO (davidg): don't set currentNugget on load.
-    // but it will need to set it in any func that relies on it
     this.state = {
-      itemTree: Immutable.fromJS(decoratedData.itemTree),
-      currentNugget: decoratedData.itemTree[0],
+      itemList: decoratedData.itemList,
+      currentItem: decoratedData.itemList[0],
     };
 
-    this.nuggetList = decoratedData.itemList;
-
     this.updateState = this.setState.bind(this);
+    this.hasUsedKeyboard = this.hasUsedKeyboard.bind(this);
+  }
+
+  hasUsedKeyboard() {
+    // TODO (davidg): show tip about shortcuts
+    // for arrow keys? For number keys?
+    // also, if user is navigating with keyboard, scroll the screen for them
   }
 
   render() {
@@ -41,9 +43,8 @@ class App extends Component {
         </header>
 
         <SkillTable
-          itemTree={this.state.itemTree}
-          currentNugget={this.state.currentNugget}
-          nuggetList={this.nuggetList}
+          itemList={this.state.itemList}
+          currentItem={this.state.currentItem}
           updateState={this.updateState}
         />
       </div>

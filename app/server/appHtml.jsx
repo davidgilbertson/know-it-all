@@ -10,7 +10,7 @@ import {
 
 const data = require(`../data/data.json`);
 
-export default ({ dataFileName = `data.json`, scriptFileName, mode }) => {
+export default ({ dataFileName = `data.js`, scriptFileName, mode }) => {
   let appScriptSrc;
   let polyfillScriptSrc = ``;
   let styleTag = ``;
@@ -39,11 +39,8 @@ export default ({ dataFileName = `data.json`, scriptFileName, mode }) => {
       <meta name="theme-color" content="#bf360c">
       <meta name="description" content="A big list of all the props, values, methods, functions, interfaces, modules, constants, constructors, events, attributes, parameters, return values, variables, elements, statements, operators, declarations, types, primatives, selectors and units of all the APIs related to web development.">
 
-      <link rel="preload" href="${dataFileName}" />
+      <link rel="preload" href="${dataFileName}" as="script" />
       <link rel="preload" href="${appScriptSrc}" as="script" />
-
-      <link rel="prefetch" href="${dataFileName}" />
-      <link rel="prefetch" href="${appScriptSrc}" />
 
       <link rel="manifest" href="manifest.json">
       
@@ -56,11 +53,13 @@ export default ({ dataFileName = `data.json`, scriptFileName, mode }) => {
       <script>
         (function() {
           window.APP_DATA = {
-            dataFileName: '${dataFileName}',
             version: '${process.env.npm_package_version}',
           };
           
-          var scripts = ['${appScriptSrc}'];
+          var scripts = [
+            '${dataFileName}',
+            '${appScriptSrc}'
+          ];
           
           var newBrowser = (
             'fetch' in window &&

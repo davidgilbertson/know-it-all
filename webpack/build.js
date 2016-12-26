@@ -18,7 +18,7 @@ config.entry = {
   app: [
     path.resolve(__dirname, `../app/client/client.jsx`),
   ],
-  polyfills: [
+  polyfills: [ // TODO (davidg): polyfills shouldn't share a hash can webpack do individual hashes?
     `babel-polyfill`,
     `whatwg-fetch`,
   ],
@@ -123,9 +123,9 @@ function compileWithWebpack() {
       const scriptFileName = jsonStats.assetsByChunkName.app[0];
 
       // get the hash for the data file and copy it to public
-      fsExtra.readFile(`./app/data/data.json`, `utf8`, (dataFileError, dataJson) => {
+      fsExtra.readFile(`./app/data/data.js`, `utf8`, (dataFileError, dataJson) => {
         const dataHash = crypto.createHash(`md5`).update(dataJson).digest(`hex`);
-        const dataFileName = `data.${dataHash}.json`;
+        const dataFileName = `data.${dataHash}.js`;
 
         // generate the html with the correct paths
         const htmlString = appHtml({
@@ -150,7 +150,7 @@ function compileWithWebpack() {
         // when they're both done, generate the service worker
         fsExtra.writeFile(`./public/${dataFileName}`, dataJson, `utf8`, (dataJsonError) => {
           if (dataJsonError) {
-            reject(`Error writing data.json to disk: ${dataJsonError}`);
+            reject(`Error writing data.js to disk: ${dataJsonError}`);
             return;
           }
 

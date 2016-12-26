@@ -7,7 +7,7 @@ import {
 if (process.env.IMPORT_SCSS) require(`./ScoreButtons.scss`); // eslint-disable-line global-require
 
 function renderScoreButton(props, displayScore) {
-  const currentScoreKey = props.item.get(`scoreKey`);
+  const currentScoreKey = props.item.scoreKey;
   const selected = currentScoreKey === displayScore.key;
 
   const selectedStyle = selected
@@ -21,7 +21,8 @@ function renderScoreButton(props, displayScore) {
       style={selectedStyle}
       onClick={(e) => {
         e.stopPropagation();
-        props.updateScore(props.item.get(`pathString`), displayScore.key);
+        props.updateScore(props.item, displayScore.key);
+        {/*props.updateScore(props.item.pathString, displayScore.key);*/}
       }}
     >
       {displayScore.shortTitle}

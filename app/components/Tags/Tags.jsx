@@ -4,7 +4,7 @@ if (process.env.IMPORT_SCSS) require(`./Tags.scss`); // eslint-disable-line glob
 
 const cache = {};
 
-// memoizing the response is, like, a 2% speed improvement. Maybe.
+// memoizing the response is, like, a 2% speed improvement. On a good day.
 const Tags = ({ tagList, tagUid }) => {
   const cacheKey = cache[tagUid];
 
@@ -13,18 +13,17 @@ const Tags = ({ tagList, tagUid }) => {
   }
 
   // If no tags at all
-  if (!tagList.size) return null;
+  if (!tagList.length) return null;
 
   const tagSpans = tagList
-  .toArray()
-  .filter(tag => tag.get(`key`) !== `ROOT` && tag.get(`key`) !== `GROUPING`)
+  .filter(tag => tag.key !== `ROOT` && tag.key !== `GROUPING`)
   .map(tag => (
     <span
-      key={tag.get(`key`)}
+      key={tag.key}
       className="tags__tag"
-      title={tag.get(`value`)}
+      title={tag.value}
     >
-      {tag.get(`key`)}
+      {tag.value}
     </span>
   ));
 

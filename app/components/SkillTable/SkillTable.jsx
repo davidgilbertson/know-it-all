@@ -5,12 +5,22 @@ import {
   KEYS,
 } from '../../constants';
 
-import {
-  getItemByRow,
-  updateAtPath,
-} from '../../utils';
+const merge = (...items) => Object.assign({}, ...items); // God bless you, ES6
 
 if (process.env.IMPORT_SCSS) require(`./SkillTable.scss`); // eslint-disable-line global-require
+
+function getNextVisibleItem(currentRow, rowList) {
+  return rowList
+  .slice(currentRow.row + 1)
+  .find(item => item.visible);
+}
+
+function getPrevVisibleItem(currentRow, rowList) {
+  return rowList
+  .slice(0, currentRow.row)
+  .reverse()
+  .find(item => item.visible);
+}
 
 class SkillTable extends Component {
   constructor(props) {
@@ -18,9 +28,9 @@ class SkillTable extends Component {
 
     this.updateScore = this.updateScore.bind(this);
     this.onKeyDown = this.onKeyDown.bind(this);
-    this.expandCollapse = this.expandCollapse.bind(this);
-    this.goToNextKnowableRow = this.goToNextKnowableRow.bind(this);
-    this.goToRow = this.goToRow.bind(this);
+    this.selectItem = this.selectItem.bind(this);
+    this.expand = this.expand.bind(this);
+    this.collapse = this.collapse.bind(this);
   }
 
   componentDidMount() {
@@ -34,42 +44,37 @@ class SkillTable extends Component {
   onKeyDown(e) {
     const { props } = this;
 
-    const currentItem = getItemByRow({
-      itemTree: props.itemTree,
-      nuggetList: this.props.nuggetList,
-    }, props.currentNugget.row);
-
     if (e.keyCode === KEYS.UP) {
-      if (props.currentNugget.row <= 1) return; // rows are 1-indexed
+      if (props.currentItem.row < 1) return;
 
       e.preventDefault();
-      this.goToRow(props.currentNugget.row - 1);
+      this.selectItem(getPrevVisibleItem(props.currentItem, props.itemList));
     }
 
     if (e.keyCode === KEYS.DOWN) {
-      if (props.currentNugget.row >= this.props.nuggetList.length - 1) return;
+      if (props.currentItem.row >= props.itemList.length - 1) return;
 
       e.preventDefault();
-      this.goToRow(props.currentNugget.row + 1);
+
+      this.selectItem(getNextVisibleItem(props.currentItem, props.itemList));
     }
 
     if (e.keyCode === KEYS.LEFT) {
-      if (currentItem.get(`isExpanded`)) {
-        this.expandCollapse(currentItem.get(`pathString`), false);
+      if (props.currentItem.expanded) {
+        this.collapse(props.currentItem);
       }
       return;
     }
 
     if (e.keyCode === KEYS.RIGHT) {
-      if (!currentItem.get(`isExpanded`)) {
-        this.expandCollapse(currentItem.get(`pathString`), true);
+      if (!props.currentItem.expanded) {
+        this.expand(props.currentItem);
       }
       return;
     }
 
     const saveScore = (scoreKey) => {
-      this.updateScore(currentItem.get(`pathString`), scoreKey);
-      this.goToNextKnowableRow(); // move to the next one after scoring
+      this.updateScore(props.currentItem, scoreKey);
     };
 
     if (e.key === `0`) saveScore(`LEVEL_0`);
@@ -79,60 +84,130 @@ class SkillTable extends Component {
     if (e.key === `4`) saveScore(`LEVEL_4`);
   }
 
-  goToNextKnowableRow() {
-    const currentActiveRow = this.props.currentNugget.row;
-    const nextNugget = this.props.nuggetList.find(nugget => (
-      nugget.row > currentActiveRow
-    ));
+  // TODO (davidg): there is much duplication in expand(), collapse(), selectItem() and updateScore()
+  // do something smart.
+  expand(itemToExpand) {
+    const nextItemList = this.props.itemList.map((item) => {
+      // item is child, mark as visible
+      if (item.parentId === itemToExpand.id) {
+        return merge(item, { visible: true });
+      }
 
-    if (nextNugget) {
-      setTimeout(() => {
-        this.goToRow(nextNugget.row);
-      }, 150); // give the user time to see the score update
+      // item is ancestor, mark as changed
+      // so that shouldComponentUpdate is true for all ancestors
+      if (itemToExpand.pathString.startsWith(item.pathString)) {
+        return merge(item, { expanded: true });
+      }
+
+      return item;
+    });
+
+    this.props.updateState({
+      itemList: nextItemList,
+      currentItem: merge(this.props.currentItem, { expanded: true }),
+    });
+  }
+
+  collapse(itemToCollapse) {
+    const nextItemList = this.props.itemList.map((item) => {
+      if (item.id === itemToCollapse.id) {
+        return merge(item, { expanded: false });
+      }
+
+      // item is descendant, mark as not visible
+      if (item.pathString.startsWith(itemToCollapse.pathString)) {
+        return merge(item, { visible: false });
+      }
+
+      // item is ancestor, mark as changed
+      // so that shouldComponentUpdate is true for all ancestors
+      if (itemToCollapse.pathString.startsWith(item.pathString)) {
+        return merge(item);
+      }
+
+      return item;
+    });
+
+    this.props.updateState({
+      itemList: nextItemList,
+      currentItem: merge(this.props.currentItem, { expanded: false }),
+    });
+  }
+
+  selectItem(itemToSelect, ensureItemIsVisible) {
+    if (!itemToSelect) return;
+
+    // it auto-advancing to the next row, ensure that it's visible
+    // by expanding all ancestors
+    if (ensureItemIsVisible) {
+      const nextItemList = this.props.itemList.map((item) => {
+        // item is a match or an ancestor
+        // so that shouldComponentUpdate is true for all ancestors
+        if (itemToSelect.pathString.startsWith(item.pathString)) {
+          return merge(item, {
+            expanded: true,
+            visible: true,
+          });
+        }
+
+        return item;
+      });
+
+      this.props.updateState({ itemList: nextItemList });
     }
+
+    this.props.updateState({ currentItem: itemToSelect });
   }
 
-  goToRow(row) {
-    const currentNugget = this.props.nuggetList.find(nugget => nugget.row === row);
+  updateScore(itemToScore, scoreKey) {
+    const itemToSelect = this.props.itemList[itemToScore.row + 1];
 
-    const pathSteps = currentNugget.pathString.split(`.`);
+    const nextItemList = this.props.itemList.map((item) => {
+      if (item.id === itemToScore.id) {
+        return merge(item, {
+          scoreKey,
+          expanded: true, // you can score a non-expanded item
+        });
+      }
 
-    while (pathSteps.length > 1) {
-      pathSteps.pop();
-      const thisPath = pathSteps.join(`.`);
+      // expand the new selected item and all ancestors
+      if (itemToSelect && itemToSelect.pathString.startsWith(item.pathString)) {
+        return merge(item, {
+          expanded: true,
+          visible: true,
+        });
+      }
 
-      // TODO (davidg): room for performance improvement here.
-      // This is called when not needed.
-      this.props.updateState(({ itemTree }) => ({
-        itemTree: updateAtPath(itemTree, thisPath, `isExpanded`, true),
-      }));
+      // mark siblings of the new selected item visible
+      if (itemToSelect && item.parentId === itemToSelect.parentId) {
+        return merge(item, { visible: true });
+      }
+
+      return item;
+    });
+
+    this.props.updateState({ itemList: nextItemList });
+
+    if (itemToSelect) { // false for the very very last item
+      this.props.updateState({
+        currentItem: merge(itemToSelect, { expanded: true }),
+      });
     }
-
-    this.props.updateState({ currentNugget });
-  }
-
-  expandCollapse(nuggetPath, isExpanded) {
-    this.props.updateState(({ itemTree }) => ({
-      itemTree: updateAtPath(itemTree, nuggetPath, `isExpanded`, isExpanded),
-    }));
-  }
-
-  updateScore(nuggetPath, scoreKey) {
-    this.props.updateState(({ itemTree }) => ({
-      itemTree: updateAtPath(itemTree, nuggetPath, `scoreKey`, scoreKey),
-    }));
   }
 
   render() {
+    const childRows = this.props.itemList.filter(item => !item.parentId);
+
     return (
       <div className="skill-table">
         <TableRows
-          items={this.props.itemTree}
-          currentNugget={this.props.currentNugget}
-          goToRow={this.goToRow}
+          items={childRows}
+          currentItem={this.props.currentItem}
+          itemList={this.props.itemList}
+          selectItem={this.selectItem}
           updateScore={this.updateScore}
-          expandCollapse={this.expandCollapse}
-          goToNextKnowableRow={this.goToNextKnowableRow}
+          expand={this.expand}
+          collapse={this.collapse}
         />
       </div>
     );

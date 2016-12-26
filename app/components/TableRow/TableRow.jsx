@@ -16,18 +16,21 @@ class TableRow extends Component {
     super(props);
 
     this.onRowClick = this.onRowClick.bind(this);
+    this.toggleExpanded = this.toggleExpanded.bind(this);
   }
 
   shouldComponentUpdate(nextProps) {
     const thisProps = this.props;
 
-    if (nextProps.item !== thisProps.item) return true;
+    if (nextProps.item !== thisProps.item) {
+      return true;
+    }
 
-    const selectedItemChanged = thisProps.currentNugget.id !== nextProps.currentNugget.id;
+    const selectedItemChanged = thisProps.currentItem.id !== nextProps.currentItem.id;
 
     if (selectedItemChanged) {
-      const oldItemSelectedIsInTree = thisProps.currentNugget.pathString.startsWith(thisProps.item.get(`pathString`));
-      const newItemSelectedIsInTree = nextProps.currentNugget.pathString.startsWith(nextProps.item.get(`pathString`));
+      const oldItemSelectedIsInTree = thisProps.currentItem.pathString.startsWith(thisProps.item.pathString);
+      const newItemSelectedIsInTree = nextProps.currentItem.pathString.startsWith(nextProps.item.pathString);
 
       if (oldItemSelectedIsInTree || newItemSelectedIsInTree) {
         return true;
@@ -38,58 +41,67 @@ class TableRow extends Component {
   }
 
   onRowClick() {
-    const { props } = this;
-    // React will batch the setState()s that these two trigger
-    // so there will only be one render
-    props.goToRow(props.item.get(`row`));
-    props.expandCollapse(props.item.get(`pathString`), !props.item.get(`isExpanded`));
+    this.props.selectItem(this.props.item);
+  }
+
+  toggleExpanded(e) {
+    const { collapse, expand, item } = this.props;
+    e.stopPropagation(); // we don't want to row to be selected
+
+    if (item.expanded) {
+      collapse(item);
+    } else {
+      expand(item);
+    }
   }
 
   render() {
     const { props } = this;
 
-    const children = props.item.get(`children`);
+    const children = props.itemList.filter(item => item.parentId === props.item.id);
 
-    const hasChildren = !!children && !!children.size;
-    const isActiveRow = props.item.get(`row`) === props.currentNugget.row;
+    const hasChildren = !!children.length;
+    const isActiveRow = props.item.row === props.currentItem.row;
 
-    const childRows = hasChildren && props.item.get(`isExpanded`)
+    const childRows = hasChildren && props.item.expanded
       ? (
         <TableRows
           items={children}
-          currentNugget={props.currentNugget}
-          goToRow={props.goToRow}
+          currentItem={props.currentItem}
+          itemList={props.itemList}
+          selectItem={props.selectItem}
           updateScore={props.updateScore}
-          expandCollapse={props.expandCollapse}
-          goToNextKnowableRow={props.goToNextKnowableRow}
+          expand={props.expand}
+          collapse={props.collapse}
         />
       )
       : null;
 
-    const isNotCode = !!props.item.get(`tags`).find(tag => (
-      tag.get(`key`) === TAGS.ROOT.key ||
-      tag.get(`key`) === TAGS.GROUPING.key ||
-      tag.get(`key`) === TAGS.INFO.key
+    const isNotCode = !!(props.item.tags || []).find(tag => (
+      tag.key === TAGS.ROOT.key ||
+      tag.key === TAGS.GROUPING.key ||
+      tag.key === TAGS.INFO.key
     ));
 
     const className = classnames(
       `table-row`,
       { 'table-row--selected': isActiveRow },
       { 'table-row--has-no-children': !hasChildren },
-      { 'table-row--expanded': props.item.get(`isExpanded`) },
+      { 'table-row--expanded': props.item.expanded },
     );
 
     const tableRowNameStyle = !isNotCode ? {
       fontFamily: `"Courier New", monospace`,
     } : null;
 
-    const notes = props.item.get(`notes`);
+    const notes = props.item.notes;
     const notesText = notes
     ? (
       <span className="table-row__notes">
-        ({props.item.get(`notes`)})
+        ({props.item.notes})
       </span>
     ) : null;
+
 
     /* eslint-disable jsx-a11y/no-static-element-interactions */
     // because it's OK to have a <div> with role button clickable
@@ -101,7 +113,10 @@ class TableRow extends Component {
           className="table-row__content"
           onClick={this.onRowClick}
         >
-          <div className="table-row__triangle-wrapper">
+          <div
+            onClick={this.toggleExpanded}
+            className="table-row__triangle-wrapper"
+          >
             <Icon
               className="table-row__triangle-icon"
               icon={Icon.ICONS.downChevron}
@@ -116,7 +131,7 @@ class TableRow extends Component {
               <span
                 style={tableRowNameStyle}
               >
-                {props.item.get(`name`)}
+                {props.item.name}
               </span>
 
               {notesText}
@@ -124,8 +139,8 @@ class TableRow extends Component {
 
 
             <Tags
-              tagList={props.item.get(`tags`)}
-              tagUid={props.item.get(`tagUid`)}
+              tagList={props.item.tags}
+              tagUid={props.item.tagUid}
             />
           </div>
 

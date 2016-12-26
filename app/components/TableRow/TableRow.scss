@@ -37,7 +37,7 @@
   user-select: none;
 
   .table-row--has-no-children & {
-    display: none;
+    opacity: 0;
   }
 }
 
@@ -46,10 +46,10 @@
   width: 24px;
   overflow: hidden;
   transition: 300ms;
+  transform: rotateZ(-90deg);
 
   .table-row--expanded > .table-row__content & {
-    width: 0;
-    transform: rotateY(180deg);
+    transform: rotateZ(0deg);
   }
 }
 

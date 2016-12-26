@@ -1,6 +1,6 @@
 {
   "name": "know-it-all",
-  "version": "17.0.0",
+  "version": "18.0.0",
   "description": "If you don't know it all, at least know what you don't know",
   "main": "index.js",
   "scripts": {

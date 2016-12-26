@@ -8,13 +8,14 @@ const TableRows = (props) => {
   props.items.forEach((item) => {
     arr.push(
       <TableRow
-        key={item.get(`id`)}
+        key={item.id}
         item={item}
-        currentNugget={props.currentNugget}
-        goToRow={props.goToRow}
+        itemList={props.itemList}
+        currentItem={props.currentItem}
+        selectItem={props.selectItem}
         updateScore={props.updateScore}
-        expandCollapse={props.expandCollapse}
-        goToNextKnowableRow={props.goToNextKnowableRow}
+        expand={props.expand}
+        collapse={props.collapse}
       />,
     );
   });

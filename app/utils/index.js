@@ -1,8 +1,6 @@
 /* eslint-disable global-require */
 
 export const decorateData = require(`./decorateData`).default;
-export const getArrayPath = require(`./getArrayPath`).default;
-export const getItemByRow = require(`./getItemByRow`).default;
-export const updateAtPath = require(`./updateAtPath`).default;
+export const setInArray = require(`./setInArray`).default;
 
 /* eslint-enable global-require */
