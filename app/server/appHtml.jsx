@@ -9,7 +9,7 @@ import {
 } from '../constants';
 
 // generate-data.js is handled by a route to serve data in dev mode
-export default ({ dataFileName = `generate-data.js`, scriptFileName, mode, data }) => {
+export default ({ scriptFileName, mode, data, dataFileNames }) => {
   let appScriptSrc;
   let polyfillScriptSrc = ``;
   let styleTag = ``;
@@ -38,7 +38,7 @@ export default ({ dataFileName = `generate-data.js`, scriptFileName, mode, data 
       <meta name="theme-color" content="#bf360c">
       <meta name="description" content="A big list of all the props, values, methods, functions, interfaces, modules, constants, constructors, events, attributes, parameters, return values, variables, elements, statements, operators, declarations, types, primatives, selectors and units of all the APIs related to web development.">
 
-      <link rel="preload" href="${dataFileName}" as="script" />
+      <link rel="preload" href="${dataFileNames.main}" as="script" />
       <link rel="preload" href="${appScriptSrc}" as="script" />
 
       <link rel="manifest" href="manifest.json">
@@ -53,10 +53,11 @@ export default ({ dataFileName = `generate-data.js`, scriptFileName, mode, data 
         (function() {
           window.APP_DATA = {
             version: '${process.env.npm_package_version}',
+            otherModuleFileNames: ${JSON.stringify(dataFileNames.others)},
           };
           
           var scripts = [
-            '${dataFileName}',
+            '${dataFileNames.main}',
             '${appScriptSrc}'
           ];
           

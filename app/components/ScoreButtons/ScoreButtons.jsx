@@ -16,7 +16,7 @@ function renderScoreButton(props, displayScore) {
 
   return (
     <button
-      className="score-buttons__score-button"
+      class="score-buttons__score-button"
       title={displayScore.value}
       style={selectedStyle}
       onClick={(e) => {
@@ -30,7 +30,7 @@ function renderScoreButton(props, displayScore) {
 }
 
 const ScoreButtons = props => (
-  <div className="score-buttons__button-wrapper">
+  <div class="score-buttons__button-wrapper">
     {renderScoreButton(props, SCORES.LEVEL_1)}
     {renderScoreButton(props, SCORES.LEVEL_2)}
     {renderScoreButton(props, SCORES.LEVEL_3)}

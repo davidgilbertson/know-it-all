@@ -25,7 +25,7 @@ const Tags = ({ tagList }) => {
     return (
       <span
         key={tagKey}
-        className="tags__tag"
+        class="tags__tag"
         title={tagName}
       >
         {tagName}

@@ -12,19 +12,37 @@ class App extends Component {
       currentItem: props.data[0],
     };
 
-    this.updateState = this.setState.bind(this);
+    this.updateState = this.updateState.bind(this);
+  }
+
+  // componentDidMount() {
+    // setTimeout(() => {
+    //   const fetchPromises = window.APP_DATA.otherModuleFileNames.map((fileName) => {
+    //     return fetch(fileName).then(response => response.json());
+    //   });
+    //
+    //   Promise.all(fetchPromises).then((data) => {
+    //     this.setState(({ itemList }) => ({
+    //       itemList: itemList.concat(...data),
+    //     }));
+    //   });
+    // }, 10000);
+  // }
+
+  updateState(update) {
+    this.setState(update);
   }
 
   render() {
     return (
       <div id="app">
-        <header className="header">
-          <h1 className="header__title">Know It All</h1>
+        <header class="header">
+          <h1 class="header__title">Know It All</h1>
           <a
             href="https://hackernoon.com/what-you-dont-know-about-web-development-d7d631f5d468#.ex2yp6d64"
             target="_blank"
             rel="noopener noreferrer"
-            className="header__help"
+            class="header__help"
             title={`Find out more about know it all, version ${this.props.version}`}
           >What is this?</a>
         </header>

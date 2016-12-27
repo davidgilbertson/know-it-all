@@ -4,28 +4,34 @@ const path = require(`path`);
 const crypto = require(`crypto`);
 const decorateData = require(`./app/utils/decorateData`).default;
 
-fs.readFile(path.resolve(__dirname, `./app/data/data.json`), `utf8`, (readError, data) => {
-  const json = JSON.parse(data);
-  console.log(`  --  >  test.js:5 >  > json.length:`, json.length);
-  const itemList = decorateData(json);
-  console.log(`  --  >  test.js:8 >  > itemList.length:`, itemList.length);
+function saveModule(fileName, fileContents) {
+  const fileHash = crypto.createHash(`md5`).update(fileContents).digest(`hex`);
+  const hashedFileName = fileName.replace(`[hash]`, fileHash);
 
-  const dataMock = {
-    that: `this`,
-    num: 3,
-    notTrue: false,
-  };
+  fs.writeFile(path.resolve(__dirname, `./public/${hashedFileName}`), fileContents, `utf8`, (writeError) => {
+    console.log(`  --  >  test.js:25 > saved ${hashedFileName}`);
+    if (writeError) console.error(`Error writing data.js:`, writeError);
+  });
+}
+
+fs.readFile(path.resolve(__dirname, `./app/data/data.json`), `utf8`, (readError, data) => {
+  const fullItemTree = JSON.parse(data);
+
+  const dataFiles = [];
+  const firstModule = fullItemTree.shift();
+  const firstItemList = decorateData([firstModule]);
 
   const fileContents = (
-    `window.DATA = ${JSON.stringify(itemList)};`
+    `window.DATA = ${JSON.stringify(firstItemList)};`
   );
 
-  // console.log(`  --  >  test.js:17 >  > fileContents:`, fileContents);
+  saveModule(`firstModule.[hash].js`, fileContents);
 
-  const fileHash = crypto.createHash(`md5`).update(fileContents).digest(`hex`);
-
-  fs.writeFile(path.resolve(__dirname, `./public/test.${fileHash}.js`), fileContents, `utf8`, (writeError) => {
-    console.log(`  --  >  test.js:25 > DONE!!`);
-    if (writeError) console.error(`Error writing data.js:`, writeError);
+  fullItemTree.forEach((dataModule) => {
+    // TODO (davidg): change decorateData rather than wrap in array here and above
+    const itemList = decorateData([dataModule]);
+    const fileName = `${dataModule.name}.[hash].js`;
+    dataFiles.push(fileName);
+    saveModule(fileName, JSON.stringify(itemList));
   });
 });

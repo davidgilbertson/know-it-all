@@ -197,9 +197,10 @@ class SkillTable extends Component {
 
   render() {
     const childRows = this.props.itemList.filter(item => !item.parentId);
+    console.log(`  --  >  SkillTable.jsx:200 > render > childRows.length:`, childRows.length);
 
     return (
-      <div className="skill-table">
+      <div class="skill-table">
         <TableRows
           items={childRows}
           currentItem={this.props.currentItem}

@@ -2,8 +2,9 @@ import {
   SCORES,
 } from '../constants';
 
-let rowCount;
+let rowCount = 0;
 let depth = 0;
+let moduleCount = 0;
 const itemList = [];
 let topLevelRow = 0;
 
@@ -13,11 +14,12 @@ function parseData(items, path = [], parent) {
 
     // have the first two top-level modules expanded to one level
     // so I'm not producing too much DOM (that's still 43 rows)
-    topLevelRow += depth === 0 ? 1 : 0;
+    topLevelRow += depth === 0 ? 1 : 0; // TODO (davidg): this can go now I'm loading in chunks
     item.expanded = depth < 1 && topLevelRow < 3; // need to mutate the item because children read it
 
     const pathArray = path.slice();
-    pathArray.push(i);
+    pathArray.push(i); // TODO (davidg): this pushes an extra 0 at the start, do it after newItem
+    // pathArray.push(item.id);
 
     const newItem = {
       name: item.name,
@@ -52,13 +54,15 @@ function parseData(items, path = [], parent) {
 }
 
 function decorateData(originalItemTree) {
-  rowCount = 0;
+  // don't reset rowCount between runs. Multiple chunks will be passed through here
+  // rowCount = 0;
   depth = 0;
   itemList.length = 0;
 
-  parseData(originalItemTree.slice());
+  parseData(originalItemTree.slice(), [moduleCount]);
 
-  return itemList;
+  moduleCount += 1;
+  return itemList.slice(); // don't return a reference to the array
 }
 
 export default decorateData;

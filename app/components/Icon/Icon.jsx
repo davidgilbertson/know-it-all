@@ -5,7 +5,7 @@ if (process.env.IMPORT_SCSS) require(`./Icon.scss`); // eslint-disable-line glob
 const cache = {};
 
 const Icon = (props) => {
-  const key = `${props.icon}-${props.size}-${props.className}`;
+  const key = `${props.icon}-${props.size}-${props.class}`;
   const cacheKey = cache[key];
 
   if (cacheKey) {
@@ -15,11 +15,11 @@ const Icon = (props) => {
     <svg
       width={props.size}
       height={props.size}
-      className={`icon ${props.className || ``}`}
+      class={`icon ${props.class || ``}`}
       viewBox="0 0 128 128"
     >
       <path
-        className="icon__path"
+        class="icon__path"
         d={props.icon}
       />
     </svg>

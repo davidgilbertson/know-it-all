@@ -41,6 +41,7 @@ class TableRow extends Component {
   }
 
   onRowClick() {
+    console.log(`  --  >  TableRow.jsx:44 > onRowClick`, this.props.item.name);
     this.props.selectItem(this.props.item);
   }
 
@@ -57,7 +58,7 @@ class TableRow extends Component {
 
   render() {
     const { props } = this;
-
+    // console.log(`  --  >  TableRow.jsx:60 > render > props.item.id:`, props.item.id);
     const children = props.itemList.filter(item => item.parentId === props.item.id);
 
     const hasChildren = !!children.length;
@@ -97,7 +98,7 @@ class TableRow extends Component {
     const notes = props.item.notes;
     const notesText = notes
     ? (
-      <span className="table-row__notes">
+      <span class="table-row__notes">
         ({props.item.notes})
       </span>
     ) : null;
@@ -106,27 +107,27 @@ class TableRow extends Component {
     /* eslint-disable jsx-a11y/no-static-element-interactions */
     // because it's OK to have a <div> with role button clickable
     return (
-      <div className={className}>
+      <div class={className}>
         <div
           role="button"
           tabIndex="0"
-          className="table-row__content"
+          class="table-row__content"
           onClick={this.onRowClick}
         >
           <div
             onClick={this.toggleExpanded}
-            className="table-row__triangle-wrapper"
+            class="table-row__triangle-wrapper"
           >
             <Icon
-              className="table-row__triangle-icon"
+              class="table-row__triangle-icon"
               icon={Icon.ICONS.downChevron}
               size="20"
             />
           </div>
 
-          <div className="table-row__words">
+          <div class="table-row__words">
             <p
-              className="table-row__name"
+              class="table-row__name"
             >
               <span
                 style={tableRowNameStyle}

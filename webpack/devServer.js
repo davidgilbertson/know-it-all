@@ -1,4 +1,3 @@
-require(`babel-register`);
 const webpack = require(`webpack`);
 const WebpackDevServer = require(`webpack-dev-server`);
 const config = require(`./config.shared.js`);
