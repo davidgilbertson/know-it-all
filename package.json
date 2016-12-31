@@ -1,14 +1,17 @@
 {
   "name": "know-it-all",
-  "version": "19.0.0",
+  "version": "21.0.0",
   "description": "If you don't know it all, at least know what you don't know",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "build": "node webpack/build.js",
+    "start": "node ff/static-server.js",
+    "start-old": "node index.js",
+    "build": "node ff/buildTools/prod.js",
+    "build-old": "node webpack/build.js",
     "deploy": "firebase deploy",
     "build-deploy": "npm run build && npm run deploy",
-    "dev": "nodemon index.dev.js",
+    "dev": "nodemon ff/buildTools/dev.js",
+    "dev-old": "nodemon index.dev.js",
     "lint": "eslint ./app ./webpack --color --ext .jsx,.js"
   },
   "repository": {
@@ -62,6 +65,7 @@
     "extract-text-webpack-plugin": "1.0.1",
     "fs-extra": "1.0.0",
     "html-minifier": "3.2.3",
+    "jsdom": "9.9.1",
     "node-sass": "3.13.0",
     "nodemon": "^1.11.0",
     "react-addons-perf": "^15.4.1",
@@ -73,9 +77,11 @@
     "webpack-dev-server": "^1.14.1"
   },
   "babel": {
+    "plugins": [
+      "transform-object-rest-spread"
+    ],
     "presets": [
-      "latest",
-      "react"
+      "latest"
     ]
   },
   "engines": {

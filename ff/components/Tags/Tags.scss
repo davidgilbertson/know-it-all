@@ -1,0 +1,10 @@
+@import '../global';
+
+.tags__tag {
+  color: $GREY_900;
+  background: $BLUE_GREY_50;
+  padding: 2px 6px;
+  margin-left: 4px;
+  font-size: 12px;
+  letter-spacing: 1px;
+}

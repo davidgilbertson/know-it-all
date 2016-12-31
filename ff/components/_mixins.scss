@@ -1,0 +1,23 @@
+@mixin for-small-only {
+  @media (max-width: 600px) {
+    @content;
+  }
+}
+
+@mixin for-tablet-portrait-up {
+  @media (min-width: 601px) {
+    @content;
+  }
+}
+
+@mixin for-tablet-portrait-down {
+  @media (max-width: 900px) {
+    @content;
+  }
+}
+
+@mixin for-tablet-landscape-up {
+  @media (min-width: 901px) {
+    @content;
+  }
+}
