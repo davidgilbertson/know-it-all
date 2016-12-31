@@ -8,7 +8,7 @@ import {
 
 window.APP_META.BROWSER = true;
 
-store.init(window.DATA);
+store.init(window.APP_META.data);
 
 // console.time(`render-app`);
 const app = App({ version: window.APP_META.version });

@@ -41,7 +41,6 @@ export default ({ scriptFileName, mode, data, dataFileNames }) => {
       <meta name="theme-color" content="#bf360c">
       <meta name="description" content="A big list of all the props, values, methods, functions, interfaces, modules, constants, constructors, events, attributes, parameters, return values, variables, elements, statements, operators, declarations, types, primatives, selectors and units of all the APIs related to web development.">
 
-      <link rel="preload" href="${dataFileNames.main}" as="script" />
       <link rel="preload" href="${scriptFileName}" as="script" />
 
       <link rel="manifest" href="manifest.json">
@@ -55,12 +54,12 @@ export default ({ scriptFileName, mode, data, dataFileNames }) => {
       <script>
         (function() {
           window.APP_META = {
+            data: ${JSON.stringify(data)},
             version: '${version}',
             otherModuleFileNames: ${JSON.stringify(dataFileNames.others)},
           };
 
           var scripts = [
-            '${dataFileNames.main}',
             '${scriptFileName}'
           ];
 
