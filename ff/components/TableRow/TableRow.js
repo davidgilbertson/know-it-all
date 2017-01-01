@@ -59,8 +59,18 @@ const TableRow = (initialProps) => {
 
     let className = `table-row`;
     if (props.selected) className += ` table-row--selected`;
-    if (props.leaf) className += ` table-row--leaf`;
-    if (props.expanded) className += ` table-row--expanded`;
+
+    let buttonContent;
+    let buttonDisabled = false;
+
+    if (props.leaf) {
+      buttonContent = `●`;
+      buttonDisabled = true;
+    } else if (props.expanded) {
+      buttonContent = `▼`;
+    } else {
+      buttonContent = `▶`;
+    }
 
     return div({ className },
       div(
@@ -72,8 +82,9 @@ const TableRow = (initialProps) => {
           {
             onclick: e => expandOrCollapseRow(e, props),
             className: `table-row__triangle`,
+            disabled: buttonDisabled,
           },
-          `›`,
+          buttonContent,
         ),
 
         div({ className: `table-row__words` },

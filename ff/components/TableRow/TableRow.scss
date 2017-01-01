@@ -16,8 +16,8 @@
 .table-row__content {
   display: flex;
   align-items: center;
-  padding: 6px 6px 6px 4px;
-  min-height: 44px; // for decent tap size
+  padding: 6px 6px 6px 4px; // must be offset by triangle margin
+  min-height: 48px; // for decent tap size
   transition: 150ms;
   border-bottom: 1px solid $GREY_300;
 
@@ -33,56 +33,18 @@
 
 .table-row__triangle {
   color: $GREY_300;
-  width: 40px;
-  height: 40px;
-  font-size: 40px;
-  // because the chevron glyph isn't full height, shift things a bit
-  line-height: 20px;
-  padding-bottom: 6px;
+  width: 30px;
+  font-size: 12px;
+  padding: 0;
   overflow: hidden; // so the outline on hover doesn't go outside the button
-
-  .table-row--expanded > .table-row__content & {
-    transform: rotateZ(90deg);
-  }
-
-  .table-row--leaf & {
-    opacity: 0;
-  }
+  align-self: stretch;
+  margin: -6px 0 -6px -4px; // to break out of the content box padding
 }
-
-//.table-row__triangle-wrapper {
-//  display: flex;
-//  align-items: center;
-//  user-select: none;
-//
-//  .table-row--leaf & {
-//    opacity: 0;
-//  }
-//}
-//
-//.table-row__triangle-icon {
-//  color: $GREY_300;
-//  width: 24px;
-//  font-size: 40px;
-//  display: inline-block;
-//  text-align: center;
-//  overflow: hidden;
-//  transform: rotateZ(0deg);
-//  position: relative;
-//  top: -3px; // because the › glyph is not full height
-//
-//  .table-row--expanded > .table-row__content & {
-//    transform: rotateZ(90deg);
-//    top: 0;
-//    left: 3px;
-//  }
-//}
 
 .table-row__words {
   display: flex;
   align-items: center;
   flex: 1;
-  padding-left: 4px;
 }
 
 .table-row__name {
