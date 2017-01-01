@@ -93,7 +93,8 @@ function saveDataFiles() {
         fileNames.others.push(hashedFileName);
       }
 
-      fsExtra.writeFile(path.resolve(__dirname, `../../public/${hashedFileName}`), fileContents, `utf8`, (writeError) => {
+      const moduleFilePath = path.resolve(__dirname, `../../public/${hashedFileName}`);
+      fsExtra.writeFile(moduleFilePath, fileContents, `utf8`, (writeError) => {
         if (writeError) reject(`Error writing data.js:`, writeError);
 
         savedItemCount += 1;
@@ -115,11 +116,9 @@ function saveDataFiles() {
       const firstModule = fullItemTree.shift();
       mainModuleData = decorateData([firstModule]);
 
-      const fileContents = (
-        `window.DATA = ${JSON.stringify(mainModuleData)};`
-      );
-
-      saveModule(`firstModule.[hash].js`, fileContents, true);
+      // this is only saved to be picked up in dev mode. Hence no hash
+      // ATM is picked up by the service worker, should probably exclude it
+      saveModule(`firstModule.json`, JSON.stringify(mainModuleData), true);
 
       fullItemTree.forEach((dataModule) => {
         // TODO (davidg): change decorateData rather than wrap in array here and above
@@ -197,9 +196,7 @@ function generateServiceWorker() {
       filename: `service-worker.js`,
       stripPrefix: `public/`,
       staticFileGlobs: [
-        // don't include the polyfills
-        `public/app.*.js`,
-        `public/firstModule.*.js`,
+        `public/app.*.js`, // don't include the polyfills
         `public/*.{html,ico,json,png}`,
       ],
       dontCacheBustUrlsMatching: [

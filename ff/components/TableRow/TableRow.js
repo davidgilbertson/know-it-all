@@ -66,7 +66,6 @@ const TableRow = (initialProps) => {
       div(
         {
           className: `table-row__content`,
-          // onclick: () => selectRow(props),
           onclick: () => store.selectItemById(props.id),
         },
         button(

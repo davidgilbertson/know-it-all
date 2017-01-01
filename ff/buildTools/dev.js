@@ -11,6 +11,7 @@ const processPlugin = require(`./shared.config`).processPlugin;
 const hotPlugin = require(`./shared.config`).hotPlugin;
 const CONSTANTS = require(`../utils/constants.js`);
 const dataFileNames = require(`../data/dataFileNames.json`);
+const data = require(`../../public/firstModule.json`);
 
 process.env.NODE_ENV = process.env.NODE_ENV || `development`;
 
@@ -50,25 +51,16 @@ const devServer = new WebpackDevServer(compiler, devConfig);
 
 devServer.listen(CONSTANTS.DEV_PORT, (err) => {
   if (err) console.error(`Error starting the dev server: ${err}`);
-  console.info(`Webpack dev server running on port ${CONSTANTS.DEV_PORT}`);
 });
 
 // start the express server
 const app = express();
 
-let html = `NOT READY YET`;
-
-const mainModuleFilePath = path.resolve(__dirname, `../../public/${dataFileNames.main}`);
-fs.readFile(mainModuleFilePath, `utf8`, (dataFileErr, fileContents) => {
-  const jsonString = fileContents.replace(`window.DATA = `, ``).slice(0, -1); // dodgy
-  const data = JSON.parse(jsonString);
-
-  html = generateHtml({
-    data,
-    dataFileNames,
-    mode: `dev`,
-    scriptFileName: `${contentBase}/bundle.js`,
-  });
+const html = generateHtml({
+  data,
+  dataFileNames,
+  mode: `dev`,
+  scriptFileName: `${contentBase}/bundle.js`,
 });
 
 app.get(`/`, (req, res) => {
@@ -77,4 +69,7 @@ app.get(`/`, (req, res) => {
 
 app.use(express.static(`public`));
 
-app.listen(CONSTANTS.PORT);
+app.listen(CONSTANTS.PORT, (err) => {
+  if (err) console.error(`Error starting server:`, err);
+  console.info(`Server listening on port`, CONSTANTS.PORT);
+});

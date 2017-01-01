@@ -117,26 +117,13 @@ const store = {
       return;
     }
 
-    // const nextSelectedItem = this.getItemById(id);
-
     this.updateItem(id, { selected: true });
 
     if (this.selectedItem) {
       this.updateItem(this.selectedItem.id, { selected: false });
     }
-    // nextSelectedItem.selected = true;
 
     this.selectedItem = this.getItemById(id);
-    // const prevSelectedItem = this.selectedItem;
-
-    // this.selectedItem = nextSelectedItem;
-
-    // this.triggerListener(nextSelectedItem.id);
-
-    // if (prevSelectedItem) {
-    //   prevSelectedItem.selected = false;
-    //   this.triggerListener(prevSelectedItem.id);
-    // }
   },
 
   expandSelectedItem() {

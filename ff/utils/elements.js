@@ -1,4 +1,4 @@
-const attributeExeptions = [
+const attributeExceptions = [
   `role`,
 ];
 
@@ -45,7 +45,7 @@ function makeElement(type, textOrPropsOrChild, ...otherChildren) {
     appendText(el, textOrPropsOrChild);
   } else if (typeof textOrPropsOrChild === `object`) {
     Object.keys(textOrPropsOrChild).forEach((propName) => {
-      if (propName in el || attributeExeptions.includes(propName)) {
+      if (propName in el || attributeExceptions.includes(propName)) {
         const value = textOrPropsOrChild[propName];
 
         if (propName === `style`) {

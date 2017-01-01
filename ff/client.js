@@ -10,9 +10,7 @@ window.APP_META.BROWSER = true;
 
 store.init(window.APP_META.data);
 
-// console.time(`render-app`);
 const app = App({ version: window.APP_META.version });
-// console.timeEnd(`render-app`);
 
 const serverAppEl = document.getElementById(`app`);
 
@@ -22,8 +20,8 @@ if (app.isEqualNode(serverAppEl)) {
 } else {
   console.error(`The client markup did not match the server markup`);
 
-  console.info(`server:`, serverAppEl.innerHTML);
-  console.info(`client:`, app.innerHTML);
+  console.info(`server:`, serverAppEl.outerHTML);
+  console.info(`client:`, app.outerHTML);
 }
 
 // keydown feels a bit faster than keyup
