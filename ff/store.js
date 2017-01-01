@@ -62,11 +62,11 @@ const store = {
   updateItem(id, data, triggerListener = true) {
     const item = this.getItemById(id);
 
-    if (window.APP_DEBUG === true) {
-      console.info(`Updating`, item, `with data`, data);
-    }
-
     Object.assign(item, data); // gasp, mutability
+
+    if (window.APP_DEBUG === true) {
+      console.info(`Updated`, item, `with data`, data);
+    }
 
     if (triggerListener) this.triggerListener(id);
   },

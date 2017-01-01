@@ -32,14 +32,12 @@ const ScoreButton = (item, displayScore) => {
   );
 };
 
-const ScoreButtons = (props) => {
-  return div({ className: `score-buttons___button-wrapper` },
-    ScoreButton(props, SCORES.LEVEL_1),
-    ScoreButton(props, SCORES.LEVEL_2),
-    ScoreButton(props, SCORES.LEVEL_3),
-    ScoreButton(props, SCORES.LEVEL_4),
-  );
-};
-
+const ScoreButtons = props => div(
+  { className: `score-buttons__button-wrapper` },
+  ScoreButton(props, SCORES.LEVEL_1),
+  ScoreButton(props, SCORES.LEVEL_2),
+  ScoreButton(props, SCORES.LEVEL_3),
+  ScoreButton(props, SCORES.LEVEL_4),
+);
 
 export default ScoreButtons;

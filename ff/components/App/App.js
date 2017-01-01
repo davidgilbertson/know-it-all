@@ -21,11 +21,7 @@ const Header = props => (
   )
 );
 
-const Table = props => (
-  div({ className: `skill-table` },
-    props.rows,
-  )
-);
+const Table = props => div({ className: `skill-table` }, props.rows);
 
 const App = (props) => {
   const topChildren = store.getChildrenOf();
