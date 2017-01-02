@@ -24,8 +24,6 @@ if (app.isEqualNode(serverAppEl)) {
   console.info(`client:`, app.outerHTML);
 }
 
-// keydown feels a bit faster than keyup
-// TODO (davidg): cross browser stuff, keyCode? key?
 window.addEventListener(`keydown`, (e) => {
   if (e.keyCode === KEYS.DOWN) {
     store.selectNextVisibleRow();
@@ -35,15 +33,15 @@ window.addEventListener(`keydown`, (e) => {
     store.expandSelectedItem();
   } else if (e.keyCode === KEYS.LEFT) {
     store.collapseSelectedItem();
-  } else if (e.key === `0`) {
+  } else if (e.keyCode === KEYS.TOP_0 || e.keyCode === KEYS.NUM_0) {
     store.scoreSelectedItem(SCORES.LEVEL_0.key);
-  } else if (e.key === `1`) {
+  } else if (e.keyCode === KEYS.TOP_1 || e.keyCode === KEYS.NUM_1) {
     store.scoreSelectedItem(SCORES.LEVEL_1.key);
-  } else if (e.key === `2`) {
+  } else if (e.keyCode === KEYS.TOP_2 || e.keyCode === KEYS.NUM_2) {
     store.scoreSelectedItem(SCORES.LEVEL_2.key);
-  } else if (e.key === `3`) {
+  } else if (e.keyCode === KEYS.TOP_3 || e.keyCode === KEYS.NUM_3) {
     store.scoreSelectedItem(SCORES.LEVEL_3.key);
-  } else if (e.key === `4`) {
+  } else if (e.keyCode === KEYS.TOP_4 || e.keyCode === KEYS.NUM_4) {
     store.scoreSelectedItem(SCORES.LEVEL_4.key);
   }
 });
