@@ -1,8 +1,6 @@
 import store from '../../store';
-
 import Tags from '../Tags/Tags';
 import ScoreButtons from '../ScoreButtons/ScoreButtons';
-
 import swapNodes from '../../utils/swapNodes';
 
 import {
@@ -27,10 +25,6 @@ const expandOrCollapseRow = (e, item) => {
     store.expandItemById(item.id);
   }
 };
-
-// const selectRow = (item) => {
-//   store.selectItemById(item.id);
-// };
 
 const TableRow = (initialProps) => {
   let el = null;
