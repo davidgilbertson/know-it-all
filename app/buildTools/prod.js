@@ -5,14 +5,13 @@ import fsExtra from 'fs-extra';
 import swPrecache from 'sw-precache';
 import htmlMinifier from 'html-minifier';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
+import BabiliPlugin from 'babili-webpack-plugin';
 
 import generateHtml from './../generateHtml';
 import decorateData from '../utils/decorateData';
 import {
   jsLoader,
   processPlugin,
-  uglify,
-  dedupe,
 } from './shared.config';
 
 const config = {
@@ -40,8 +39,7 @@ const config = {
   bail: true,
   plugins: [
     processPlugin,
-    uglify,
-    dedupe,
+    new BabiliPlugin({ comments: false }),
     new ExtractTextPlugin(`styles.css`),
   ],
 };

@@ -19,9 +19,6 @@ export const sassLoader = {
   ],
 };
 
-export const uglify = new webpack.optimize.UglifyJsPlugin({ sourceMap: true });
-export const dedupe = new webpack.optimize.DedupePlugin();
-
 export const processPlugin = new webpack.DefinePlugin({
   'process.env': {
     IMPORT_SCSS: JSON.stringify(true),
