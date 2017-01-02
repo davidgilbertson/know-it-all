@@ -1,20 +1,19 @@
-require(`babel-register`);
-process.env.NODE_ENV = process.env.NODE_ENV || `production`;
+import path from 'path';
+import webpack from 'webpack';
+import crypto from 'crypto';
+import fsExtra from 'fs-extra';
+import swPrecache from 'sw-precache';
+import htmlMinifier from 'html-minifier';
+import ExtractTextPlugin from 'extract-text-webpack-plugin';
 
-const path = require(`path`);
-const webpack = require(`webpack`);
-const crypto = require(`crypto`);
-const fsExtra = require(`fs-extra`);
-const swPrecache = require(`sw-precache`);
-const htmlMinifier = require(`html-minifier`);
-const ExtractTextPlugin = require(`extract-text-webpack-plugin`);
-
-const generateHtml = require(`./../generateHtml`).default;
-const jsLoader = require(`./shared.config`).jsLoader;
-const processPlugin = require(`./shared.config`).processPlugin;
-const uglify = require(`./shared.config`).uglify;
-const dedupe = require(`./shared.config`).dedupe;
-const decorateData = require(`../utils`).decorateData;
+import generateHtml from './../generateHtml';
+import decorateData from '../utils/decorateData';
+import {
+  jsLoader,
+  processPlugin,
+  uglify,
+  dedupe,
+} from './shared.config';
 
 const config = {
   entry: {
@@ -37,9 +36,6 @@ const config = {
         loader: ExtractTextPlugin.extract(`style`, `css!sass`), // I hate you so much webpack
       },
     ],
-  },
-  resolve: {
-    extensions: [``, `.js`],
   },
   bail: true,
   plugins: [
@@ -156,15 +152,12 @@ function compileWithWebpack({ itemList, dataFileNames }) {
 
       // generate the html with the correct paths
       const htmlString = generateHtml({
-        // dataFileName,
-        // otherModuleFileNames,
-        dataFileNames,
-        scriptFileName,
-        mode: `production`,
         data: itemList,
+        dataFileNames,
+        mode: `production`,
+        scriptFileName,
       });
 
-      // This does pretty much nothing ATM (17.5kb -> 17.4kb)
       const minHtmlString = htmlMinifier.minify(htmlString, {
         caseSensitive: true,
         keepClosingSlash: true,

@@ -1,27 +1,29 @@
-require(`babel-register`);
-const fs = require(`fs`);
-const path = require(`path`);
-const webpack = require(`webpack`);
-const WebpackDevServer = require(`webpack-dev-server`);
-const express = require(`express`);
-const generateHtml = require(`./../generateHtml`).default;
-const jsLoader = require(`./shared.config`).jsLoader;
-const sassLoader = require(`./shared.config`).sassLoader;
-const processPlugin = require(`./shared.config`).processPlugin;
-const hotPlugin = require(`./shared.config`).hotPlugin;
-const CONSTANTS = require(`../utils/constants.js`);
+import path from 'path';
+import webpack from 'webpack';
+import WebpackDevServer from 'webpack-dev-server';
+import express from 'express';
+import generateHtml from './../generateHtml';
+import {
+  jsLoader,
+  sassLoader,
+  processPlugin,
+  hotPlugin,
+} from './shared.config';
+import {
+  DEV_PORT,
+  PORT,
+} from '../utils/constants';
+
 const dataFileNames = require(`../data/dataFileNames.json`);
 const data = require(`../../public/firstModule.json`);
 
-process.env.NODE_ENV = process.env.NODE_ENV || `development`;
-
-const contentBase = `http://localhost:${CONSTANTS.DEV_PORT}`;
+const contentBase = `http://localhost:${DEV_PORT}`;
 
 const config = {
   entry: [
     `webpack-dev-server/client?${contentBase}`,
     `webpack/hot/only-dev-server`,
-    `./ff/client.js`,
+    `./app/client.js`,
   ],
   output: {
     path: path.resolve(__dirname, `./public`),
@@ -49,7 +51,7 @@ const devConfig = {
 
 const devServer = new WebpackDevServer(compiler, devConfig);
 
-devServer.listen(CONSTANTS.DEV_PORT, (err) => {
+devServer.listen(DEV_PORT, (err) => {
   if (err) console.error(`Error starting the dev server: ${err}`);
 });
 
@@ -69,7 +71,7 @@ app.get(`/`, (req, res) => {
 
 app.use(express.static(`public`));
 
-app.listen(CONSTANTS.PORT, (err) => {
+app.listen(PORT, (err) => {
   if (err) console.error(`Error starting server:`, err);
-  console.info(`Server listening on port`, CONSTANTS.PORT);
+  console.info(`Server listening on port`, PORT);
 });

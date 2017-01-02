@@ -1,5 +1,5 @@
 import App from './components/App/App';
-import store from './store';
+import store from './data/store';
 import swapNodes from './utils/swapNodes';
 import {
   KEYS,

@@ -22,7 +22,7 @@
  *
  */
 
-import { EVENTS } from './utils/constants';
+import { EVENTS } from '../utils/constants';
 
 /* eslint-disable no-param-reassign */
 const store = {

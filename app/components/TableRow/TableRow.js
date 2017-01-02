@@ -1,4 +1,4 @@
-import store from '../../store';
+import store from '../../data/store';
 import Tags from '../Tags/Tags';
 import ScoreButtons from '../ScoreButtons/ScoreButtons';
 import swapNodes from '../../utils/swapNodes';

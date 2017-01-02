@@ -16,8 +16,8 @@
 .table-row__content {
   display: flex;
   align-items: center;
-  padding: 6px 6px 6px 4px;
-  min-height: 44px; // for decent tap size
+  padding: 6px 6px 6px 4px; // must be offset by triangle margin
+  min-height: 48px; // for decent tap size
   transition: 150ms;
   border-bottom: 1px solid $GREY_300;
 
@@ -31,33 +31,20 @@
   }
 }
 
-.table-row__triangle-wrapper {
-  display: flex;
-  align-items: center;
-  user-select: none;
-
-  .table-row--has-no-children & {
-    opacity: 0;
-  }
-}
-
-.table-row__triangle-icon {
+.table-row__triangle {
   color: $GREY_300;
-  width: 24px;
-  overflow: hidden;
-  transition: 300ms;
-  transform: rotateZ(-90deg);
-
-  .table-row--expanded > .table-row__content & {
-    transform: rotateZ(0deg);
-  }
+  width: 30px;
+  font-size: 12px;
+  padding: 0;
+  overflow: hidden; // so the outline on hover doesn't go outside the button
+  align-self: stretch;
+  margin: -6px 0 -6px -4px; // to break out of the content box padding
 }
 
 .table-row__words {
   display: flex;
   align-items: center;
   flex: 1;
-  padding-left: 4px;
 }
 
 .table-row__name {
@@ -68,3 +55,4 @@
   margin-left: 4px;
   color: $GREY_700;
 }
+

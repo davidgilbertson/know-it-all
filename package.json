@@ -1,18 +1,13 @@
 {
   "name": "know-it-all",
-  "version": "23.0.0",
+  "version": "24.0.0",
   "description": "If you don't know it all, at least know what you don't know",
-  "main": "index.js",
   "scripts": {
-    "start": "node ff/static-server.js",
-    "start-old": "node index.js",
-    "build": "node ff/buildTools/prod.js",
-    "build-old": "node webpack/build.js",
-    "deploy": "firebase deploy",
-    "build-deploy": "npm run build && npm run deploy",
-    "dev": "nodemon ff/buildTools/dev.js",
-    "dev-old": "nodemon index.dev.js",
-    "lint": "eslint ./app ./webpack --color --ext .jsx,.js"
+    "lint": "eslint ./app --color --ext .jsx,.js",
+    "dev": "nodemon app/buildTools/dev.entry.js",
+    "build": "node app/buildTools/prod.entry.js",
+    "start": "node app/static-server.js",
+    "deploy": "firebase deploy"
   },
   "repository": {
     "type": "git",
@@ -23,25 +18,10 @@
   "bugs": {
     "url": "https://github.com/davidgilbertson/know-it-all/issues"
   },
-  "homepage": "https://github.com/davidgilbertson/know-it-all",
+  "homepage": "https://knowitall-9a92e.firebaseapp.com/",
   "dependencies": {
-    "classnames": "2.2.5",
     "compression": "^1.6.2",
     "express": "^4.14.0",
-    "immutable": "3.8.1",
-    "json-loader": "^0.5.4",
-    "localforage": "^1.4.3",
-    "lodash": "^4.16.1",
-    "memoizee": "0.4.1",
-    "preact": "7.1.0",
-    "preact-compat": "3.9.4",
-    "preact-render-to-string": "3.3.0",
-    "react": "^15.3.0",
-    "react-dom": "^15.3.0",
-    "react-hot-loader": "^1.3.0",
-    "whatwg-fetch": "2.0.1"
-  },
-  "devDependencies": {
     "babel-core": "^6.11.4",
     "babel-loader": "^6.2.4",
     "babel-plugin-syntax-dynamic-import": "^6.18.0",
@@ -68,13 +48,13 @@
     "jsdom": "9.9.1",
     "node-sass": "3.13.0",
     "nodemon": "^1.11.0",
-    "react-addons-perf": "^15.4.1",
     "sass-loader": "4.0.2",
     "style-loader": "0.13.1",
     "stylelint": "7.6.0",
     "sw-precache": "4.2.3",
     "webpack": "^1.13.1",
-    "webpack-dev-server": "^1.14.1"
+    "webpack-dev-server": "^1.14.1",
+    "whatwg-fetch": "2.0.1"
   },
   "babel": {
     "plugins": [
@@ -83,9 +63,5 @@
     "presets": [
       "latest"
     ]
-  },
-  "engines": {
-    "node": "^6.3.0",
-    "npm": "^3.10.0"
   }
 }
