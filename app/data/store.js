@@ -43,8 +43,7 @@ const store = {
       this.data = this.data.concat(module);
     });
 
-    const callback = this.listeners[EVENTS.MODULES_ADDED];
-    if (callback) callback(topChildren);
+    this.triggerListener(EVENTS.MODULES_ADDED, topChildren);
   },
 
   getChildrenOf(id) {
@@ -61,6 +60,7 @@ const store = {
 
   updateItem(id, data, triggerListener = true) {
     const item = this.getItemById(id);
+    const scoreChanged = data.scoreKey && data.scoreKey !== item.scoreKey;
 
     Object.assign(item, data); // gasp, mutability
 
@@ -68,7 +68,13 @@ const store = {
       console.info(`Updated`, item, `with data`, data);
     }
 
-    if (triggerListener) this.triggerListener(id);
+    if (triggerListener) {
+      this.triggerListener(id, item);
+
+      if (scoreChanged) {
+        this.triggerListener(EVENTS.SCORE_CHANGED);
+      }
+    }
   },
 
   selectNextVisibleRow() {
@@ -81,31 +87,25 @@ const store = {
 
       if (!nextSelectedItem) return;
 
-      this.updateItem(this.selectedItem.id, { selected: false });
-
-      this.selectedItem = nextSelectedItem;
+      this.changeSelectedItem(nextSelectedItem);
     } else {
-      this.selectedItem = this.data[0];
+      this.changeSelectedItem(this.data[0]);
     }
-
-    this.updateItem(this.selectedItem.id, { selected: true });
   },
 
   selectPrevVisibleRow() {
     if (this.selectedItem) {
       if (this.selectedItem.row < 1) return;
 
-      this.updateItem(this.selectedItem.id, { selected: false });
-
-      this.selectedItem = this.data
+      const nextSelectedItem = this.data
       .slice(0, this.selectedItem.row)
       .reverse()
       .find(item => item.visible);
-    } else {
-      this.selectedItem = this.data[0];
-    }
 
-    this.updateItem(this.selectedItem.id, { selected: true });
+      this.changeSelectedItem(nextSelectedItem);
+    } else {
+      this.changeSelectedItem(this.data[0]);
+    }
   },
 
   getItemById(id) {
@@ -113,17 +113,25 @@ const store = {
   },
 
   selectItemById(id) {
-    if (this.selectedItem && this.selectedItem.id === id) {
-      return;
-    }
+    if (this.selectedItem && this.selectedItem.id === id) return;
 
-    this.updateItem(id, { selected: true });
+    this.changeSelectedItem(id);
+  },
+
+  changeSelectedItem(idOrItem) {
+    const selectedItem = typeof idOrItem === `string`
+      ? this.getItemById(idOrItem)
+      : idOrItem;
 
     if (this.selectedItem) {
       this.updateItem(this.selectedItem.id, { selected: false });
     }
 
-    this.selectedItem = this.getItemById(id);
+    this.updateItem(selectedItem.id, { selected: true });
+
+    this.selectedItem = selectedItem;
+
+    this.triggerListener(EVENTS.SELECTED_ITEM_CHANGED, this.selectedItem);
   },
 
   expandSelectedItem() {
@@ -154,7 +162,7 @@ const store = {
       });
     }
 
-    this.triggerListener(id);
+    this.triggerListener(id, item);
   },
 
   collapseItemById(id) {
@@ -171,7 +179,7 @@ const store = {
       });
     }
 
-    this.triggerListener(id);
+    this.triggerListener(id, item);
   },
 
   scoreSelectedItem(scoreKey) {
@@ -180,10 +188,10 @@ const store = {
     }
   },
 
-  triggerListener(id) {
-    const callback = this.listeners[id];
+  triggerListener(key, payload) {
+    const callback = this.listeners[key];
 
-    if (callback) callback(this.getItemById(id));
+    if (callback) callback(payload);
   },
 
   listen(id, callback) {

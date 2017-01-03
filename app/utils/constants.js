@@ -1,20 +1,21 @@
 export const PORT = 8080;
 export const DEV_PORT = 8081;
-export const WEBPACK_BUNDLE = `webpack-bundle.js`;
 
 export const COLORS = {
-  GREY_LIGHT: `#f5f5f5`,
-  GREY_MID: `#e0e0e0`,
-  GREY_DARK: `#455a64`,
+  GREY_100: `#F5F5F5`,
+  GREY_300: `#E0E0E0`,
+  GREY_700: `#616161`,
   GREEN: `#4caf50`,
   ORANGE: `#ff9800`,
   RED: `#f44336`,
-  PRIMARY: `#3f51b5`,
+  BLUE: `#3f51b5`,
   WHITE: `#fafafa`,
 };
 
 export const EVENTS = {
   MODULES_ADDED: `MODULES_ADDED`,
+  SELECTED_ITEM_CHANGED: `SELECTED_ITEM_CHANGED`,
+  SCORE_CHANGED: `SCORE_CHANGED`,
 };
 
 export const TAGS = {
@@ -80,7 +81,7 @@ export const TAGS = {
 export const SCORES = {
   LEVEL_0: {
     key: `LEVEL_0`,
-    color: COLORS.GREY_LIGHT,
+    color: COLORS.GREY_100,
     icon: `--`,
     shortTitle: `Unrated`,
     value: `Unrated`,
@@ -108,7 +109,7 @@ export const SCORES = {
   },
   LEVEL_4: {
     key: `LEVEL_4`,
-    color: COLORS.GREY_DARK,
+    color: COLORS.GREY_700,
     icon: `×`,
     shortTitle: `Don't care`,
     value: `I don't want to know it`,

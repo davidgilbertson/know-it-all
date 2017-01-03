@@ -10,6 +10,7 @@ body {
   color: $GREY_900;
   font-family: "Helvetica Neue", "Calibri Light", Roboto, sans-serif;
   overflow-y: scroll;
+  overflow-x: hidden;
   background: linear-gradient(-20deg, darken($DEEP_ORANGE_900, 10%), $DEEP_ORANGE_900 70%) fixed;
   font-synthesis: none;
   text-rendering: optimizeLegibility;

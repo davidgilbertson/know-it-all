@@ -1,6 +1,13 @@
 import Row from '../Row/Row';
+import ScoreBar from '../ScoreBar/ScoreBar';
 import store from '../../data/store';
-import { a, div, h1, header } from '../../utils/elements';
+import {
+  a,
+  div,
+  h1,
+  header,
+} from '../../utils/elements';
+
 import { EVENTS } from '../../utils/constants';
 
 if (process.env.IMPORT_SCSS) require(`./App.scss`); // eslint-disable-line global-require
@@ -53,6 +60,8 @@ const App = (props) => {
       ),
     ),
     table,
+
+    ScoreBar(),
   );
 };
 

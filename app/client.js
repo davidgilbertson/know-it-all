@@ -16,7 +16,7 @@ const serverAppEl = document.getElementById(`app`);
 
 // check that the server and client markup match, then switch them out
 if (app.isEqualNode(serverAppEl)) {
-  swapNodes(serverAppEl, app);
+  swapNodes(serverAppEl, app, true);
 } else {
   console.error(`The client markup did not match the server markup`);
 
@@ -24,6 +24,7 @@ if (app.isEqualNode(serverAppEl)) {
   console.info(`client:`, app.outerHTML);
 }
 
+// TODO (davidg): key up/down should scroll the page a smidge
 window.addEventListener(`keydown`, (e) => {
   if (e.keyCode === KEYS.DOWN) {
     store.selectNextVisibleRow();

@@ -63,7 +63,7 @@ const Row = (initialProps) => {
     } else if (props.expanded) {
       buttonContent = `▼`;
     } else {
-      buttonContent = `▶`;
+      buttonContent = `►`;
     }
 
     return div({ className },
@@ -92,29 +92,17 @@ const Row = (initialProps) => {
 
         Tags(props.tags),
 
-        ScoreButtons(props),
+        ScoreButtons({ item: props }),
       ),
       childRows,
     );
   };
 
-  const update = (prevEl, newData) => {
-    const nextEl = render(newData);
-
-    if (nextEl.isEqualNode(prevEl)) {
-      console.warn(`render() was called but there was no change in the rendered output`, el);
-    } else {
-      swapNodes(prevEl, nextEl); // replace the existing element with the new one
-    }
-
-    return nextEl;
-  };
+  store.listen(initialProps.id, (newData) => {
+    el = swapNodes(el, render(newData));
+  });
 
   el = render(initialProps);
-
-  store.listen(initialProps.id, (newData) => {
-    el = update(el, newData);
-  });
 
   return el;
 };
