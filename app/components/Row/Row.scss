@@ -1,9 +1,9 @@
 @import '../global';
 
-.table-row {
+.row {
   position: relative;
 
-  .table-row { // only second level down to be indented
+  .row { // only second level down to be indented
     margin-left: 12px;
     border-left: 1px solid #eee;
 
@@ -13,7 +13,7 @@
   }
 }
 
-.table-row__content {
+.row__content {
   display: flex;
   align-items: center;
   padding: 6px 6px 6px 4px; // must be offset by triangle margin
@@ -26,12 +26,12 @@
     outline: 0;
   }
 
-  .table-row--selected > & {
+  .row--selected > & {
     background: $GREY_50;
   }
 }
 
-.table-row__triangle {
+.row__triangle {
   color: $GREY_300;
   width: 30px;
   font-size: 12px;
@@ -41,17 +41,17 @@
   margin: -6px 0 -6px -4px; // to break out of the content box padding
 }
 
-.table-row__words {
+.row__words {
   display: flex;
   align-items: center;
   flex: 1;
 }
 
-.table-row__name {
+.row__name {
   flex: 1;
 }
 
-.table-row__notes {
+.row__notes {
   margin-left: 4px;
   color: $GREY_700;
 }

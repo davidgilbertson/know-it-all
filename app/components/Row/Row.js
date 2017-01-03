@@ -14,7 +14,7 @@ import {
   TAGS,
 } from '../../utils/constants';
 
-if (process.env.IMPORT_SCSS) require(`./TableRow.scss`); // eslint-disable-line global-require
+if (process.env.IMPORT_SCSS) require(`./Row.scss`); // eslint-disable-line global-require
 
 const expandOrCollapseRow = (e, item) => {
   e.stopPropagation();
@@ -26,12 +26,12 @@ const expandOrCollapseRow = (e, item) => {
   }
 };
 
-const TableRow = (initialProps) => {
+const Row = (initialProps) => {
   let el = null;
 
   const render = (props) => {
     const childRows = !props.leaf && props.expanded
-      ? div(store.getChildrenOf(props.id).map(child => TableRow(child)))
+      ? div(store.getChildrenOf(props.id).map(child => Row(child)))
       : null;
 
     const isNotCode = !!(props.tags || []).find(tagKey => (
@@ -40,19 +40,19 @@ const TableRow = (initialProps) => {
       tagKey === TAGS.INFO.key
     ));
 
-    const tableRowNameStyle = !isNotCode
+    const rowNameStyle = !isNotCode
       ? { fontFamily: `"Courier New", monospace` }
       : null;
 
     const notes = props.notes;
     const notesText = notes
-      ? span({ className: `table-row__notes` },
+      ? span({ className: `row__notes` },
         props.notes,
       )
       : null;
 
-    let className = `table-row`;
-    if (props.selected) className += ` table-row--selected`;
+    let className = `row`;
+    if (props.selected) className += ` row--selected`;
 
     let buttonContent;
     let buttonDisabled = false;
@@ -69,21 +69,21 @@ const TableRow = (initialProps) => {
     return div({ className },
       div(
         {
-          className: `table-row__content`,
+          className: `row__content`,
           onclick: () => store.selectItemById(props.id),
         },
         button(
           {
             onclick: e => expandOrCollapseRow(e, props),
-            className: `table-row__triangle`,
+            className: `row__triangle`,
             disabled: buttonDisabled,
           },
           buttonContent,
         ),
 
-        div({ className: `table-row__words` },
-          p({ className: `table-row__name` },
-            span({ style: tableRowNameStyle },
+        div({ className: `row__words` },
+          p({ className: `row__name` },
+            span({ style: rowNameStyle },
               props.name,
             ),
             notesText,
@@ -119,4 +119,4 @@ const TableRow = (initialProps) => {
   return el;
 };
 
-export default TableRow;
+export default Row;

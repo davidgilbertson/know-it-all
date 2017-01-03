@@ -1,4 +1,4 @@
-import Row from '../TableRow/TableRow';
+import Row from '../Row/Row';
 import store from '../../data/store';
 import { a, div, h1, header } from '../../utils/elements';
 import { EVENTS } from '../../utils/constants';
