@@ -1,18 +1,22 @@
 # Know it all
 
-https://knowitall-9a92e.firebaseapp.com/
+[know-it-all.io](https://know-it-all.io/)
 
 The goal of know-it-all is to help you discover things 
 that you don't know about web development.
 
 And maybe one day about other things too.
 
-At the moment, in November 2016, the data is ready, but
-not hooked up to the UI. It should all be done by
-the end of the year.
+## Planned stuff
+- View a list of all "Don't know" and/or "Know of it" items.
+- Counts of scores (e.g. Don't know: 43, unrated: 8,723, etc)
+- Links to docs for each item. Maybe.
+- Search the list (where on earth is xxx buried?!)
 
 ## Contributing
 I'd be delighted to get help from the greater community, I imagine
-in typing out all that data I made some mistakes. But
-please no contributions just yet. I'm still sussing out
-what the best format is going to be for the data.
+in typing out all that data I made some mistakes. Typos etc you
+can go right ahead and do a PR. For any architectural change open
+an issue and let's chat about it first.
+
+PRs that degrade performance will not be accepted.

@@ -1,5 +1,6 @@
 const attributeExceptions = [
   `role`,
+  `dataset`,
 ];
 
 function appendText(el, text) {
@@ -34,6 +35,13 @@ function setStyles(el, styles) {
   });
 }
 
+function setDataAttributes(el, dataAttributes) {
+  Object.keys(dataAttributes).forEach((dataAttribute) => {
+    // jsdom doesn't support element.dataset, so set them as named attributes
+    el.setAttribute(`data-${dataAttribute}`, dataAttributes[dataAttribute]);
+  });
+}
+
 function makeElement(type, textOrPropsOrChild, ...otherChildren) {
   const el = document.createElement(type);
 
@@ -50,6 +58,8 @@ function makeElement(type, textOrPropsOrChild, ...otherChildren) {
 
         if (propName === `style`) {
           setStyles(el, value);
+        } else if (propName === `dataset`) {
+          setDataAttributes(el, value);
         } else if (value) {
           el[propName] = value;
         }

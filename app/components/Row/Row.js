@@ -53,6 +53,7 @@ const Row = (initialProps) => {
 
     let className = `row`;
     if (props.selected) className += ` row--selected`;
+    if (props.expanded) className += ` row--expanded`;
 
     let buttonContent;
     let buttonDisabled = false;
@@ -60,10 +61,8 @@ const Row = (initialProps) => {
     if (props.leaf) {
       buttonContent = `●`;
       buttonDisabled = true;
-    } else if (props.expanded) {
-      buttonContent = `▼`;
     } else {
-      buttonContent = `►`;
+      buttonContent = `▼`;
     }
 
     return div({ className },

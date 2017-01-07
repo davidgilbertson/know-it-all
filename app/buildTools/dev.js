@@ -1,8 +1,13 @@
 import path from 'path';
+
 import webpack from 'webpack';
 import WebpackDevServer from 'webpack-dev-server';
 import express from 'express';
+
+window.APP_META = { BROWSER: false };
+
 import generateHtml from './../generateHtml';
+
 import {
   jsLoader,
   sassLoader,
@@ -35,6 +40,7 @@ const config = {
       jsLoader,
       sassLoader,
     ],
+    noParse: /localforage/,
   },
   bail: true,
   plugins: [hotPlugin, processPlugin],

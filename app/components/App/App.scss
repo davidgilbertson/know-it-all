@@ -22,17 +22,30 @@ body {
 .app__header {
   text-align: left;
   padding: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto;
+  max-width: $PAGE_WIDTH;
 
   @include for-tablet-portrait-up {
     text-align: center;
   }
 }
 
+.app__tweet {
+  width: 60px;
+  height: 20px;
+}
+
 .app__header-title {
+  flex: 1;
+  padding: 0 10px;
   font-size: 30px;
   color: $WHITE;
   letter-spacing: 2px;
   text-transform: uppercase;
+  text-align: center;
 
   @include for-tablet-portrait-up {
     font-size: 40px;
@@ -40,11 +53,7 @@ body {
 }
 
 .app__header-help {
-  position: absolute;
-  padding: 4px 6px 40px; // nice fat tap area
-  top: 0;
-  right: 0;
-  text-align: right;
+  padding: 15px 0; // nice fat tap area
   font-size: 14px;
   text-decoration: underline;
   color: rgba($WHITE, 0.8);
@@ -52,7 +61,7 @@ body {
 
 .app__table {
   margin: 0 auto;
-  max-width: 1024px; // so we see no red at iPad landscape
+  max-width: $PAGE_WIDTH;
   background: $WHITE;
 
   @include for-tablet-portrait-up {

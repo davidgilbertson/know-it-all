@@ -5,10 +5,6 @@ const jsdom = require(`jsdom`);
 const App = require(`./components/App/App`).default;
 const store = require(`./data/store`).default;
 
-global.document = jsdom.jsdom();
-global.window = document.defaultView;
-window.APP_META = { BROWSER: false };
-
 export default ({ scriptFileName, mode, data, dataFileNames }) => {
   store.init(data);
 

@@ -1,5 +1,6 @@
 import Row from '../Row/Row';
 import ScoreBar from '../ScoreBar/ScoreBar';
+import TwitterShareButton from '../TwitterShareButton/TwitterShareButton';
 import store from '../../data/store';
 import {
   a,
@@ -47,7 +48,6 @@ const App = (props) => {
 
   return div({ id: `app` },
     header({ className: `app__header` },
-      h1({ className: `app__header-title` }, `Know It All`),
       a(
         {
           className: `app__header-help`,
@@ -57,6 +57,10 @@ const App = (props) => {
           href: `https://hackernoon.com/what-you-dont-know-about-web-development-d7d631f5d468#.ex2yp6d64`,
         },
         `What is this?`,
+      ),
+      h1({ className: `app__header-title` }, `Know It All`),
+      div({ className: `app__tweet` },
+        TwitterShareButton(),
       ),
     ),
     table,

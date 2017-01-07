@@ -1,0 +1,7 @@
+@import '../global';
+
+// don't show the placeholder <a>
+// when the twitter library loads, this class is moved to an iFrame
+a.twitter-share-button {
+  display: none;
+}

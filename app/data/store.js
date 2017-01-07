@@ -23,6 +23,27 @@
  */
 
 import { EVENTS } from '../utils/constants';
+import localforage from 'localforage';
+
+localforage.ready().catch((err) => {
+  console.warn(`localforage threw an error. If this is during webpack build, everything is OK`);
+});
+
+const diskStore = localforage.createInstance({
+  name: 'know-it-all',
+  version: 1,
+});
+
+// this is used to define if an item should be re-rendered
+// it should contain anything that can be changed by a user
+const serializeItemState = (item) => {
+  return [
+    item.scoreKey,
+    !!item.visible,
+    !!item.expanded,
+    !!item.selected,
+  ].join(``);
+}
 
 /* eslint-disable no-param-reassign */
 const store = {
@@ -33,6 +54,21 @@ const store = {
 
   init(data) {
     this.data = data;
+    this.getScoresFromDisk();
+  },
+
+  getScoresFromDisk() {
+    diskStore.iterate((item, id) => {
+      // the only thing we want from the store is the score key
+      // future version maybe 'expanded' or 'selected'
+      if (item.scoreKey) {
+        this.updateItem(
+          id,
+          { scoreKey: item.scoreKey },
+          { saveToDisk: false }
+        );
+      }
+    });
   },
 
   addModules(newModules) {
@@ -44,6 +80,8 @@ const store = {
     });
 
     this.triggerListener(EVENTS.MODULES_ADDED, topChildren);
+
+    this.getScoresFromDisk();
   },
 
   getChildrenOf(id) {
@@ -58,21 +96,33 @@ const store = {
     return false;
   },
 
-  updateItem(id, data, triggerListener = true) {
+  updateItem(id, data, options = { saveToDisk: true }) {
     const item = this.getItemById(id);
-    const scoreChanged = data.scoreKey && data.scoreKey !== item.scoreKey;
 
-    Object.assign(item, data); // gasp, mutability
+    if (!item) return;
 
     if (window.APP_DEBUG === true) {
       console.info(`Updated`, item, `with data`, data);
     }
 
-    if (triggerListener) {
-      this.triggerListener(id, item);
+    const prevItemState = serializeItemState(item);
+    const scoreChanged = data.scoreKey && data.scoreKey !== item.scoreKey;
 
-      if (scoreChanged) {
-        this.triggerListener(EVENTS.SCORE_CHANGED);
+    Object.assign(item, data); // gasp, mutability
+
+    const nextItemState = serializeItemState(item);
+
+    // potentially trigger a re-render of the item
+    if (item.visible && prevItemState !== nextItemState) {
+      this.triggerListener(id, item);
+    }
+
+    // potentially trigger a re-render of the score bar
+    if (scoreChanged) {
+      if (options.saveToDisk) diskStore.setItem(id, data);
+
+      if (this.selectedItem && this.selectedItem.id === id) {
+        this.triggerListener(EVENTS.SCORE_CHANGED); // updates the score bar
       }
     }
   },

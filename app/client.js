@@ -24,11 +24,24 @@ if (app.isEqualNode(serverAppEl)) {
   console.info(`client:`, app.outerHTML);
 }
 
-// TODO (davidg): key up/down should scroll the page a smidge
+//  --  SORRY, BELOW IS A BIT OF A MISCELLANEOUS MESS  --  //
+// TODO (davidg): performance tests for splitting this out into modules (there's a webpack overhead per module)
+
+// row height doesn't change at different screen sizes, so it's enough to get it once
+const rowHeight = document.querySelector('.row__content').offsetHeight;
+function scrollPageOneRow(dir = 1) {
+  window.scrollBy(0, rowHeight * dir);
+}
+
+//  --  BIND CLICK EVENTS  --  //
 window.addEventListener(`keydown`, (e) => {
+  e.preventDefault(); // block the page from scrolling
+
   if (e.keyCode === KEYS.DOWN) {
     store.selectNextVisibleRow();
+    scrollPageOneRow(1);
   } else if (e.keyCode === KEYS.UP) {
+    scrollPageOneRow(-1);
     store.selectPrevVisibleRow();
   } else if (e.keyCode === KEYS.RIGHT) {
     store.expandSelectedItem();
@@ -47,6 +60,27 @@ window.addEventListener(`keydown`, (e) => {
   }
 });
 
+//  --  LOAD THE TWITTER WIDGET  --  //
+/* eslint-disable */
+window.twttr = (function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0],
+    t = window.twttr || {};
+  if (d.getElementById(id)) return t;
+  js = d.createElement(s);
+  js.id = id;
+  js.src = "https://platform.twitter.com/widgets.js";
+  fjs.parentNode.insertBefore(js, fjs);
+
+  t._e = [];
+  t.ready = function(f) {
+    t._e.push(f);
+  };
+
+  return t;
+}(document, "script", "twitter-wjs"));
+/* eslint-enable */
+
+//  --  GET THE SERVICE WORKER SCRIPT  --  //
 if (process.env.NODE_ENV === `production`) {
   if (`serviceWorker` in navigator) {
     navigator.serviceWorker.register(`service-worker.js`)

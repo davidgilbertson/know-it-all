@@ -36,6 +36,11 @@ const config = {
       },
     ],
   },
+  resolve: {
+    alias: {
+      localforage: `localforage/dist/localforage.nopromises.js`,
+    },
+  },
   bail: true,
   plugins: [
     processPlugin,

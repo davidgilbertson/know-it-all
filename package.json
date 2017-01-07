@@ -1,6 +1,6 @@
 {
   "name": "know-it-all",
-  "version": "26.0.0",
+  "version": "28.0.0",
   "description": "If you don't know it all, at least know what you don't know",
   "scripts": {
     "lint": "eslint ./app --color --ext .jsx,.js",
@@ -18,7 +18,7 @@
   "bugs": {
     "url": "https://github.com/davidgilbertson/know-it-all/issues"
   },
-  "homepage": "https://knowitall-9a92e.firebaseapp.com/",
+  "homepage": "https://know-it-all.io",
   "dependencies": {
     "babel-core": "^6.11.4",
     "babel-loader": "^6.2.4",
@@ -47,6 +47,7 @@
     "fs-extra": "1.0.0",
     "html-minifier": "3.2.3",
     "jsdom": "9.9.1",
+    "localforage": "^1.4.3",
     "node-sass": "3.13.0",
     "nodemon": "^1.11.0",
     "sass-loader": "4.0.2",
