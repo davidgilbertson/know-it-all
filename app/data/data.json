@@ -797,7 +797,7 @@
       { "name": "mask-composite", "id": "JoOaXjKt", "tags": ["PROP"], "children": [
         { "name": "add", "id": "jXlN3Zp2", "tags": ["VALUE"] },
         { "name": "subtract", "id": "lXJOxZRF", "tags": ["VALUE"] },
-        { "name": "instersect", "id": "6Dby8TW6", "tags": ["VALUE"] },
+        { "name": "intersect", "id": "6Dby8TW6", "tags": ["VALUE"] },
         { "name": "exclude", "id": "qvq25Vim", "tags": ["VALUE"] }] },
       { "name": "mask-border", "id": "wQ336Ldp", "tags": ["PROP"], "notes": "shorthand", "children": [
         { "name": "mask-border-source", "id": "C9fzfpNK", "tags": ["PROP"] },
@@ -855,7 +855,7 @@
           { "name": "open", "id": "H6KW9Ruf", "tags": ["VALUE"] },
           { "name": "dot", "id": "HG7oUtqr", "tags": ["VALUE"] },
           { "name": "circle", "id": "eTN1EJ7z", "tags": ["VALUE"] },
-          { "name": "cirlce-circle", "id": "nzDivzbN", "tags": ["VALUE"] },
+          { "name": "double-circle", "id": "nzDivzbN", "tags": ["VALUE"] },
           { "name": "triangle", "id": "85BxHkNk", "tags": ["VALUE"] },
           { "name": "sesame", "id": "pnPtmr6z", "tags": ["VALUE"] },
           { "name": "open sesame", "id": "bNjRCwbw", "tags": ["VALUE"], "notes": "(The most magical value in all of CSS)" }] },
@@ -868,7 +868,7 @@
       { "name": "text-shadow", "id": "zQTxtkfF", "tags": ["PROP"] }] },
     { "name": "CSS Speech module level 1", "id": "NAWyvEUZ", "tags": ["GROUPING"], "children": [
       { "name": "The CSS module that nobody loves", "id": "CfhO2Z5j", "tags": ["GROUPING"] },
-      { "name": "voice-volumne", "id": "EPgb9TZ8", "tags": ["PROP"], "children": [
+      { "name": "voice-volume", "id": "EPgb9TZ8", "tags": ["PROP"], "children": [
         { "name": "silent", "id": "bu7YNhwk", "tags": ["VALUE"] },
         { "name": "x-soft", "id": "9NV5MJD3", "tags": ["VALUE"] },
         { "name": "soft", "id": "wRwM8SFX", "tags": ["VALUE"] },
@@ -889,7 +889,7 @@
         { "name": "normal", "id": "XJqwi8PS", "tags": ["VALUE"] },
         { "name": "spell-out", "id": "UJctezvx", "tags": ["VALUE"] },
         { "name": "digits", "id": "DxcxqmKD", "tags": ["VALUE"] },
-        { "name": "literal-puncutaion", "id": "L9556FYp", "tags": ["VALUE"] },
+        { "name": "literal-punctuation", "id": "L9556FYp", "tags": ["VALUE"] },
         { "name": "no-punctuation", "id": "7lNFgYoQ", "tags": ["VALUE"] }] },
       { "name": "pause", "id": "28cjSEVv", "tags": ["PROP"], "notes": "shorthand", "children": [
         { "name": "pause-before", "id": "IX1WQPGN", "tags": ["PROP"], "children": [
@@ -1032,7 +1032,7 @@
         { "name": "left", "id": "vJYPVFZ4", "tags": ["VALUE"] },
         { "name": "right", "id": "MxHgcwIT", "tags": ["VALUE"] },
         { "name": "center", "id": "kXFZlRQB", "tags": ["VALUE"] },
-        { "name": "justiry", "id": "rLaJdNsw", "tags": ["VALUE"] },
+        { "name": "justify", "id": "rLaJdNsw", "tags": ["VALUE"] },
         { "name": "match-parent", "id": "T82LZRjU", "tags": ["VALUE"] }] },
       { "name": "text-align-last", "id": "RBY1qm2L", "tags": ["PROP"], "children": [
         { "name": "auto", "id": "ZI8OtvgQ", "tags": ["VALUE"] },
@@ -1473,7 +1473,7 @@
           { "name": "buffered", "id": "thOJXtPq", "tags": ["ATTR", "PROP", "MEDIA_SOURCE"] },
           { "name": "controller", "id": "vhJMngkQ", "tags": ["PROP"] },
           { "name": "controls", "id": "HXHC3pfG", "tags": ["ATTR", "PROP"] },
-          { "name": "corssorigin", "id": "dkXfCwHu", "tags": ["ATTR", "PROP"], "children": [
+          { "name": "crossorigin", "id": "dkXfCwHu", "tags": ["ATTR", "PROP"], "children": [
             { "name": "anonymous", "id": "yhaeK8BK", "tags": ["VALUE"] },
             { "name": "use-credentials", "id": "fff2hTxZ", "tags": ["VALUE"] }] },
           { "name": "currentSrc", "id": "9ejREgcj", "tags": ["PROP"] },
@@ -1587,12 +1587,12 @@
               { "name": "onremovetrack", "id": "ltWnneTx", "tags": ["EVENT"] }] },
             { "name": "TextTrack", "id": "RjkrQbqz", "tags": ["INTERFACE"], "children": [
               { "name": "kind", "id": "36pYZo86", "tags": ["PROP"], "children": [
-                { "name": "sutitles", "id": "LlO8Zf5n", "tags": ["VALUE"] },
+                { "name": "subtitles", "id": "LlO8Zf5n", "tags": ["VALUE"] },
                 { "name": "captions", "id": "UIFd93I5", "tags": ["VALUE"] },
                 { "name": "descriptions", "id": "Uv7OHHL4", "tags": ["VALUE"] },
                 { "name": "chapters", "id": "BnoMvS1q", "tags": ["VALUE"] },
                 { "name": "metadata", "id": "GhA6Ghhg", "tags": ["VALUE"] }] },
-              { "name": "lable", "id": "WxWZvxd6", "tags": ["PROP"] },
+              { "name": "label", "id": "WxWZvxd6", "tags": ["PROP"] },
               { "name": "language", "id": "GtkZ9fOa", "tags": ["PROP"] },
               { "name": "id", "id": "nMPPkkwd", "tags": ["PROP"] },
               { "name": "isBandMetadataTrackDispatchType", "id": "9GZfp6z9", "tags": ["PROP"] },
@@ -1757,7 +1757,7 @@
               { "name": "depth", "id": "op2ZxaOP", "tags": ["VALUE"] },
               { "name": "stencil", "id": "qA6lLXQx", "tags": ["VALUE"] },
               { "name": "antialias", "id": "Hbp15EdG", "tags": ["VALUE"] },
-              { "name": "preumultipliedAlpha", "id": "5pr9anZK", "tags": ["VALUE"] },
+              { "name": "premultipliedAlpha", "id": "5pr9anZK", "tags": ["VALUE"] },
               { "name": "preserveDrawingBuffer", "id": "YMZJ5QmF", "tags": ["VALUE"] },
               { "name": "preferLowPowerToHighPerformance", "id": "7f7D4idF", "tags": ["VALUE"] },
               { "name": "failIfMajorPerformanceCaveat", "id": "5aCyQaRM", "tags": ["VALUE"] }] }] },
@@ -1955,7 +1955,7 @@
             { "name": "given-name", "id": "TkF2zCaC", "tags": ["VALUE"] },
             { "name": "additional-name", "id": "jzu5FDQZ", "tags": ["VALUE"] },
             { "name": "family-name", "id": "4eynjYCg", "tags": ["VALUE"] },
-            { "name": "honorific-suffic", "id": "RXOXgSFi", "tags": ["VALUE"] },
+            { "name": "honorific-suffix", "id": "RXOXgSFi", "tags": ["VALUE"] },
             { "name": "nickname", "id": "BtRnLrNm", "tags": ["VALUE"] },
             { "name": "email", "id": "x2DhmVud", "tags": ["VALUE"] },
             { "name": "username", "id": "EnlrF7Kk", "tags": ["VALUE"] },
@@ -2092,7 +2092,7 @@
             { "name": "namedItem(name)", "id": "YdYaKXS1", "tags": ["METHOD"] }] },
           { "name": "selectedIndex", "id": "TGeKNeH7", "tags": ["PROP"] },
           { "name": "selectedOptions", "id": "H34uWZkU", "tags": ["PROP"] },
-          { "name": "validattionMessage", "id": "PnO7bPkn", "tags": ["PROP"] },
+          { "name": "validationMessage", "id": "PnO7bPkn", "tags": ["PROP"] },
           { "name": "validity", "id": "OMDCyZFz", "tags": ["PROP"] },
           { "name": "value", "id": "xnla7QmW", "tags": ["PROP"] },
           { "name": "willValidate", "id": "AQLwt1sc", "tags": ["PROP"] },
@@ -2156,7 +2156,7 @@
           { "name": "htmlFor", "id": "KkUtdp5e", "tags": ["PROP"] },
           { "name": "labels", "id": "oLu4bYR3", "tags": ["PROP"] },
           { "name": "type", "id": "qwtAHB4n", "tags": ["PROP"] },
-          { "name": "validateionMessage", "id": "15OaBRAL", "tags": ["PROP"] },
+          { "name": "validationMessage", "id": "15OaBRAL", "tags": ["PROP"] },
           { "name": "validity", "id": "3YRlPdAa", "tags": ["PROP"] },
           { "name": "value", "id": "3Rx9mHhw", "tags": ["PROP"] },
           { "name": "willValidate", "id": "KVZtAtRO", "tags": ["PROP"] },
@@ -2445,7 +2445,7 @@
         { "name": "getBattery()", "id": "iNEM4qpZ", "tags": ["METHOD", "NEW"], "children": [
           { "name": "BatteryManager", "id": "KYcFVMpf", "tags": ["RETURN_VALUE"], "notes": "instance", "children": [
             { "name": "charging", "id": "OoqyFNgn", "tags": ["PROP"] },
-            { "name": "charginTime", "id": "hNU9VyeW", "tags": ["PROP"] },
+            { "name": "chargingTime", "id": "hNU9VyeW", "tags": ["PROP"] },
             { "name": "dischargingTime", "id": "RPdgaecM", "tags": ["PROP"] },
             { "name": "level", "id": "l4TqE5np", "tags": ["PROP"] },
             { "name": "onchargingchange", "id": "qcCsySy5", "tags": ["EVENT"] },
@@ -2540,7 +2540,7 @@
           { "name": "getRegistration()", "id": "74o75cEb", "tags": ["METHOD"] },
           { "name": "getRegistration(clientURL)", "id": "5O9VObto", "tags": ["METHOD"] },
           { "name": "getRegistrations()", "id": "cjcKJixB", "tags": ["METHOD"] },
-          { "name": "oncontrollerchanger", "id": "SwNEdGQ6", "tags": ["EVENT"] },
+          { "name": "oncontrollerchange", "id": "SwNEdGQ6", "tags": ["EVENT"] },
           { "name": "onerror", "id": "Nhl3Dqdq", "tags": ["EVENT"] },
           { "name": "onmessage", "id": "pqqSaDnJ", "tags": ["EVENT"] },
           { "name": "Inside a service worker scope", "id": "md7SIYtQ", "tags": ["GROUPING"], "children": [
@@ -2648,9 +2648,9 @@
         { "name": "vendor", "id": "6O6j2JXh", "tags": ["PROP"] },
         { "name": "vendorSub", "id": "YvChzhsq", "tags": ["PROP"] },
         { "name": "mediaDevices", "id": "4lnMBcRT", "tags": ["PROP", "NEW"], "children": [
-          { "name": "getSupportedContraints()", "id": "ROF85P38", "tags": ["METHOD", "STATIC"] },
+          { "name": "getSupportedConstraints()", "id": "ROF85P38", "tags": ["METHOD", "STATIC"] },
           { "name": "enumerateDevices()", "id": "puDZGz4t", "tags": ["METHOD", "STATIC"], "children": [
-            { "name": "MediaDeviceInfo instanes", "id": "g8IrWP2g", "tags": ["RETURN_VALUE"], "children": [
+            { "name": "MediaDeviceInfo instances", "id": "g8IrWP2g", "tags": ["RETURN_VALUE"], "children": [
               { "name": "deviceId", "id": "7uyJBVOa", "tags": ["PROP"] },
               { "name": "kind", "id": "RlZXkyEK", "tags": ["PROP"], "children": [
                 { "name": "audioinput", "id": "pJDdhWav", "tags": ["PROP"] },
@@ -2660,7 +2660,7 @@
               { "name": "groupId", "id": "ySdBm6i4", "tags": ["PROP"] }] }] },
           { "name": "getUserMedia(constraints)", "id": "uQJwL8a5", "tags": ["METHOD", "STATIC"], "children": [
             { "name": "constraints", "id": "ZbwLZ2W3", "tags": ["PARAM"], "children": [
-              { "name": "MediaTrackContraints", "id": "TuIDTr1i", "tags": ["PROP"], "notes": "whatever is supported" },
+              { "name": "MediaTrackConstraints", "id": "TuIDTr1i", "tags": ["PROP"], "notes": "whatever is supported" },
               { "name": "advanced", "id": "QWLCq9Js", "tags": ["PROP"] },
               { "name": "peerIdentity", "id": "MTp5Btw6", "tags": ["PROP", "WEBRTC"] }] },
             { "name": "MediaStream", "id": "FtysptF9", "tags": ["RETURN_VALUE"], "notes": "instance", "children": [
@@ -2696,7 +2696,7 @@
               { "name": "getConstraints()", "id": "7N7QES5n", "tags": ["METHOD"], "children": [
                 { "name": "advanced", "id": "I97aLGtP", "tags": ["PROP"] }] },
               { "name": "getSettings()", "id": "61kMejYh", "tags": ["METHOD"] },
-              { "name": "applyContraints()", "id": "ojNRY6qN", "tags": ["METHOD"] },
+              { "name": "applyConstraints()", "id": "ojNRY6qN", "tags": ["METHOD"] },
               { "name": "applyConstraints(constraints)", "id": "jzGlQiHt", "tags": ["METHOD"] },
               { "name": "onoverconstrained", "id": "Qb533Xp3", "tags": ["EVENT"] },
               { "name": "additional props when returned from canvas.captureStream()", "id": "3HYZbDox", "tags": ["GROUPING"], "children": [
@@ -2704,7 +2704,7 @@
                 { "name": "requestFrame()", "id": "nrOFlvPO", "tags": ["METHOD"] }] },
               { "name": "isolated", "id": "DS9aNcNC", "tags": ["PROP", "WEBRTC"] },
               { "name": "onisolationchange", "id": "hZ82jQiF", "tags": ["EVENT", "WEBRTC"] }] },
-            { "name": "MediaTrackCapabilities or MediaTrackConstraintSet or MediaTrackContraints or MediaTrackSettings", "id": "V49XfeBe", "tags": ["INTERFACE"], "children": [
+            { "name": "MediaTrackCapabilities or MediaTrackConstraintSet or MediaTrackConstraints or MediaTrackSettings", "id": "V49XfeBe", "tags": ["INTERFACE"], "children": [
               { "name": "width", "id": "5aDp5eRM", "tags": ["PROP"] },
               { "name": "height", "id": "k9ndGZrR", "tags": ["PROP"] },
               { "name": "aspectRatio", "id": "MO7Y7iC7", "tags": ["PROP"] },
@@ -2765,7 +2765,7 @@
             { "name": "videoCapabilities", "id": "YEdQg1sW", "tags": ["PROP"], "children": [
               { "name": "contentType", "id": "ahQD1EcB", "tags": ["PROP"] },
               { "name": "robustness", "id": "k7lnGEpF", "tags": ["PROP"] }] },
-            { "name": "distinctiveIndentifier", "id": "wbhJv34I", "tags": ["PROP"], "children": [
+            { "name": "distinctiveIdentifier", "id": "wbhJv34I", "tags": ["PROP"], "children": [
               { "name": "required", "id": "dX5ZVmOA", "tags": ["VALUE"] },
               { "name": "optional", "id": "seBXx39c", "tags": ["VALUE"] },
               { "name": "not-allowed", "id": "Lp2qJS5B", "tags": ["VALUE"] }] },
@@ -2872,7 +2872,7 @@
             { "name": "id", "id": "iq17hkps", "tags": ["PROP"] },
             { "name": "index", "id": "TJdULXHU", "tags": ["PROP"] },
             { "name": "connected", "id": "cCzmZVc5", "tags": ["PROP"] },
-            { "name": "timestap", "id": "jpL68Esp", "tags": ["PROP"] },
+            { "name": "timestamp", "id": "jpL68Esp", "tags": ["PROP"] },
             { "name": "mapping", "id": "Jq1t9YVq", "tags": ["PROP"], "children": [
               { "name": "\"\"", "id": "bjANi5uH", "tags": ["VALUE"], "notes": "empty string" },
               { "name": "standard", "id": "YKsmpK9U", "tags": ["VALUE"] }] },
@@ -3092,7 +3092,7 @@
                 { "name": "IDBObjectStore", "id": "b81PbbIq", "tags": ["RETURN_VALUE"], "notes": "instance" },
                 { "name": "IDBIndex", "id": "LqZhqQV6", "tags": ["RETURN_VALUE"], "notes": "instance" },
                 { "name": "IDBCursor", "id": "ohL8ko9V", "tags": ["RETURN_VALUE"], "notes": "instance" }] },
-              { "name": "transation", "id": "bckTKrcx", "tags": ["PROP"] },
+              { "name": "transaction", "id": "bckTKrcx", "tags": ["PROP"] },
               { "name": "readyState", "id": "q6wRi5RG", "tags": ["PROP"] },
               { "name": "onsuccess", "id": "8lWXQsUq", "tags": ["PROP"] },
               { "name": "onerror", "id": "xLkHZKwy", "tags": ["PROP"] }] },
@@ -3283,7 +3283,7 @@
                   { "name": "audio-busy", "id": "VRGER9gF", "tags": ["VALUE"] },
                   { "name": "audio-hardware", "id": "lHG6Ium9", "tags": ["VALUE"] },
                   { "name": "network", "id": "JTLJ4IFL", "tags": ["VALUE"] },
-                  { "name": "synthess-unavailable", "id": "tN9iMLNh", "tags": ["VALUE"] },
+                  { "name": "synthesis-unavailable", "id": "tN9iMLNh", "tags": ["VALUE"] },
                   { "name": "synthesis-failed", "id": "9OUiPouH", "tags": ["VALUE"] },
                   { "name": "language-unavailable", "id": "vwRxMavE", "tags": ["VALUE"] },
                   { "name": "voice-unavailable", "id": "lxyWMlPO", "tags": ["VALUE"] },
@@ -3350,7 +3350,7 @@
             { "name": "no-referrer-when-downgrade", "id": "DEFWXDP1", "tags": ["VALUE"] },
             { "name": "same-origin", "id": "8m1mTpp7", "tags": ["VALUE"] },
             { "name": "origin", "id": "KIm5NMQ8", "tags": ["VALUE"] },
-            { "name": "strick-origin", "id": "B1RGI1HY", "tags": ["VALUE"] },
+            { "name": "strict-origin", "id": "B1RGI1HY", "tags": ["VALUE"] },
             { "name": "origin-when-cross-origin", "id": "6nJjs3q1", "tags": ["VALUE"] },
             { "name": "strict-origin-when-cross-origin", "id": "Kbx4fmAh", "tags": ["VALUE"] },
             { "name": "unsafe-url", "id": "8bKB99I8", "tags": ["VALUE"] }] },
@@ -4032,7 +4032,7 @@
           { "name": "webkitIsFullScreen", "id": "jaaoORS7", "tags": ["VENDOR_PREFIXED"] },
           { "name": "mozFullScreen", "id": "BiDzpHuc", "tags": ["VENDOR_PREFIXED"] }] },
         { "name": "fullscreenEnabled", "id": "9HE9dlXK", "tags": ["PROP"], "children": [
-          { "name": "webitFullscreenEnabled", "id": "pF3ByCk5", "tags": ["VENDOR_PREFIXED"] },
+          { "name": "webkitFullscreenEnabled", "id": "pF3ByCk5", "tags": ["VENDOR_PREFIXED"] },
           { "name": "mozFullScreenEnabled", "id": "9ymTo97V", "tags": ["VENDOR_PREFIXED"] },
           { "name": "msFullscreenEnabled", "id": "AksAnAF6", "tags": ["VENDOR_PREFIXED"] }] },
         { "name": "fullscreenElement", "id": "cI6WIU5N", "tags": ["PROP"], "children": [
@@ -4397,7 +4397,7 @@
       { "name": "log()", "id": "GucpSAIn", "tags": ["METHOD", "STATIC"] },
       { "name": "table(data, columns)", "id": "d7AzMyns", "tags": ["METHOD", "STATIC"], "children": [
         { "name": "data", "id": "FUaGc4uR", "tags": ["PARAM"] },
-        { "name": "coloumns", "id": "mYbuEptY", "tags": ["PARAM"] }] },
+        { "name": "columns", "id": "mYbuEptY", "tags": ["PARAM"] }] },
       { "name": "trace()", "id": "X3FuQWnC", "tags": ["METHOD", "STATIC"] },
       { "name": "warn()", "id": "weJ7iQfJ", "tags": ["METHOD", "STATIC"] },
       { "name": "group()", "id": "jC9RLPBY", "tags": ["METHOD", "STATIC"] },
@@ -4714,7 +4714,7 @@
           { "name": "childList", "id": "mq4Jouy1", "tags": ["PROP"] },
           { "name": "attributes", "id": "TPIW4ehx", "tags": ["PROP"] },
           { "name": "characterData", "id": "jIWqGfPR", "tags": ["PROP"] },
-          { "name": "subtee", "id": "tZIVb2IT", "tags": ["PROP"] },
+          { "name": "subtree", "id": "tZIVb2IT", "tags": ["PROP"] },
           { "name": "attributeOldValue", "id": "NWsL1CsE", "tags": ["PROP"] },
           { "name": "characterDataOldValue", "id": "bT9MIaCA", "tags": ["PROP"] },
           { "name": "attributeFilter", "id": "yGeGRYNf", "tags": ["PROP"] }] }] },
@@ -4722,7 +4722,7 @@
       { "name": "takeRecords()", "id": "MllY5xPp", "tags": ["METHOD"] }] },
     { "name": "Notification", "id": "q5Ci93iQ", "tags": ["INTERFACE"], "children": [
       { "name": "new Notification(title)", "id": "OH3cVocz", "tags": ["CONSTRUCTOR"] },
-      { "name": "new Notidication(title, options)", "id": "2b52hjf1", "tags": ["CONSTRUCTOR"], "children": [
+      { "name": "new Notification(title, options)", "id": "2b52hjf1", "tags": ["CONSTRUCTOR"], "children": [
         { "name": "options", "id": "ZK2DXiGi", "tags": ["PARAM"], "children": [
           { "name": "dir", "id": "dHHe5BX7", "tags": ["PROP"] },
           { "name": "lang", "id": "YTP1Bmjk", "tags": ["PROP"] },
@@ -4877,7 +4877,7 @@
         { "name": "onstatechange", "id": "5uqfMTUA", "tags": ["EVENT"] },
         { "name": "createBuffer(numberOfChannels, length, sampleRate)", "id": "7XHWjiet", "tags": ["METHOD"], "children": [
           { "name": "AudioBuffer", "id": "NlMjCKvz", "tags": ["RETURN_VALUE"], "notes": "instance", "children": [
-            { "name": "smapleRate", "id": "UNARugRq", "tags": ["PROP"] },
+            { "name": "sampleRate", "id": "UNARugRq", "tags": ["PROP"] },
             { "name": "length", "id": "giedKqMI", "tags": ["PROP"] },
             { "name": "duration", "id": "KhM1Gp3j", "tags": ["PROP"] },
             { "name": "numberOfChannels", "id": "mYdQiSEL", "tags": ["PROP"] },
@@ -5144,7 +5144,7 @@
       { "name": "getConfiguration()", "id": "kxEyLhjv", "tags": ["METHOD", "NEW"] },
       { "name": "setConfiguration(configuration)", "id": "gdbqXWzf", "tags": ["METHOD"] },
       { "name": "close()", "id": "RvZNuCNX", "tags": ["METHOD"] },
-      { "name": "onnegotiationNeeded", "id": "YCQnV5ge", "tags": ["EVENT"] },
+      { "name": "onnegotiationneeded", "id": "YCQnV5ge", "tags": ["EVENT"] },
       { "name": "onicecandidate", "id": "lktcJbNa", "tags": ["EVENT"], "children": [
         { "name": "candidate", "id": "s34IPWYz", "tags": ["PROP"] },
         { "name": "url", "id": "lNrS9btn", "tags": ["PROP"] }] },
@@ -5186,7 +5186,7 @@
               { "name": "maxBitrate", "id": "lrQPatCp", "tags": ["PROP"] },
               { "name": "maxFramerate", "id": "GodFARMK", "tags": ["PROP"] },
               { "name": "rid", "id": "3xJkvFe1", "tags": ["PROP"] },
-              { "name": "scaleResolutaionDownBy", "id": "3VMfwuWx", "tags": ["PROP"] }] },
+              { "name": "scaleResolutionDownBy", "id": "3VMfwuWx", "tags": ["PROP"] }] },
             { "name": "headerExtensions", "id": "DAvwMsdR", "tags": ["PROP"], "children": [
               { "name": "uri", "id": "iIVRyik3", "tags": ["PROP"] },
               { "name": "id", "id": "8U5kpGkK", "tags": ["PROP"] },
@@ -5360,7 +5360,7 @@
             { "name": "burstPacketsDiscarded", "id": "o6I2TgS8", "tags": ["PROP"] },
             { "name": "burstLossCount", "id": "Yzyh86kK", "tags": ["PROP"] },
             { "name": "burstDiscardCount", "id": "YfMbOccN", "tags": ["PROP"] },
-            { "name": "bursetLossRate", "id": "7YziuAmp", "tags": ["PROP"] },
+            { "name": "burstLossRate", "id": "7YziuAmp", "tags": ["PROP"] },
             { "name": "burstDiscardRate", "id": "O7KsTB3V", "tags": ["PROP"] },
             { "name": "gapLossRate", "id": "15ESNFPX", "tags": ["PROP"] },
             { "name": "gapDiscardRate", "id": "yBpUL3fb", "tags": ["PROP"] }] },
@@ -5497,7 +5497,7 @@
             { "name": "complete", "id": "n7KAx3zV", "tags": ["VALUE"] }] },
           { "name": "getLocalCandidates()", "id": "NDYzDoW8", "tags": ["METHOD"] },
           { "name": "getRemoteCandidates()", "id": "jAVj1Abd", "tags": ["METHOD"] },
-          { "name": "getSelectedCandicatePair()", "id": "o4tBsnft", "tags": ["METHOD"], "children": [
+          { "name": "getSelectedCandidatePair()", "id": "o4tBsnft", "tags": ["METHOD"], "children": [
             { "name": "local", "id": "GY6SjxM1", "tags": ["PROP"] },
             { "name": "remote", "id": "v7vd9s7h", "tags": ["PROP"] }] },
           { "name": "getLocalParameters()", "id": "R85aMu2M", "tags": ["METHOD"], "children": [
@@ -5694,7 +5694,7 @@
       { "name": "setTransform(a, b, c, d, e, f)", "id": "m2TLLkWs", "tags": ["METHOD"] },
       { "name": "resetTransform()", "id": "A3BGpmyj", "tags": ["METHOD", "NEW"] },
       { "name": "globalAlpha", "id": "EeT6E5oS", "tags": ["PROP"] },
-      { "name": "globalCompositieOperation", "id": "hCPsWBLD", "tags": ["PROP"], "children": [
+      { "name": "globalCompositeOperation", "id": "hCPsWBLD", "tags": ["PROP"], "children": [
         { "name": "source-atop", "id": "FuYsfuAi", "tags": ["VALUE"] },
         { "name": "source-in", "id": "3jhzKjkA", "tags": ["VALUE"] },
         { "name": "source-out", "id": "JYTbhRfe", "tags": ["VALUE"] },
@@ -5794,7 +5794,7 @@
           { "name": "label", "id": "AHhXDqGA", "tags": ["PROP"] },
           { "name": "role", "id": "pIUm2nBX", "tags": ["PROP"] }] }] },
       { "name": "removeHitRegion(id)", "id": "2V6hVJty", "tags": ["METHOD"] },
-      { "name": "clerHitRegions()", "id": "W5LatHka", "tags": ["METHOD"] },
+      { "name": "clearHitRegions()", "id": "W5LatHka", "tags": ["METHOD"] },
       { "name": "getImageData(sx, sy, sw, sh)", "id": "dQZcwsio", "tags": ["METHOD"], "children": [
         { "name": "width", "id": "Y4K1HTXe", "tags": ["PROP"] },
         { "name": "height", "id": "MeK9RDtc", "tags": ["PROP"] },
@@ -5855,7 +5855,7 @@
         { "name": "depth", "id": "yaiJYV6r", "tags": ["PROP"] },
         { "name": "stencil", "id": "Iuv6JzVL", "tags": ["PROP"] },
         { "name": "antialias", "id": "y6M9PSs1", "tags": ["PROP"] },
-        { "name": "preumultipliedAlpha", "id": "Vb4sEM4V", "tags": ["PROP"] },
+        { "name": "premultipliedAlpha", "id": "Vb4sEM4V", "tags": ["PROP"] },
         { "name": "preserveDrawingBuffer", "id": "2DyaJCAP", "tags": ["PROP"] },
         { "name": "preferLowPowerToHighPerformance", "id": "o9keb9Nk", "tags": ["PROP"] },
         { "name": "failIfMajorPerformanceCaveat", "id": "TLIxn3no", "tags": ["PROP"] }] },
@@ -6069,7 +6069,7 @@
           { "name": "FRONT", "id": "3JbM8MZ4", "tags": ["CONSTANT"] },
           { "name": "BACK", "id": "ciDQUysC", "tags": ["CONSTANT"] },
           { "name": "FRONT_AND_BACK", "id": "JWS6nc8u", "tags": ["CONSTANT"] }] }] },
-      { "name": "sencilOp(fail, zfail, zpass)", "id": "sXD92AnM", "tags": ["METHOD"], "children": [
+      { "name": "stencilOp(fail, zfail, zpass)", "id": "sXD92AnM", "tags": ["METHOD"], "children": [
         { "name": "fail", "id": "AIcJom1B", "tags": ["PARAM"], "children": [
           { "name": "KEEP", "id": "kDANKeYi", "tags": ["CONSTANT"] },
           { "name": "ZERO", "id": "lSIjHm3v", "tags": ["CONSTANT"] },
@@ -6378,7 +6378,7 @@
                 { "name": "TRIANGLE_STRIP", "id": "uyXY6D2m", "tags": ["CONSTANT"] },
                 { "name": "TRIANGLE_FAN", "id": "AuYdtbAn", "tags": ["CONSTANT"] },
                 { "name": "TRIANGLES", "id": "GMzwBj59", "tags": ["CONSTANT"] }] }] },
-            { "name": "drawElementsInstanedANGLE(mode, count, type, offset, primcount)", "id": "USzMbhoL", "tags": ["METHOD"] },
+            { "name": "drawElementsInstancedANGLE(mode, count, type, offset, primcount)", "id": "USzMbhoL", "tags": ["METHOD"] },
             { "name": "vertexAttribDivisorANGLE(index, divisor)", "id": "tkg1KppV", "tags": ["METHOD"] }] },
           { "name": "Extends getVertexAttrib()", "id": "JJkIb7DF", "tags": ["GROUPING"], "children": [
             { "name": "New constant for pname parameter", "id": "QPa6ppqB", "tags": ["GROUPING"], "children": [
@@ -6406,18 +6406,18 @@
             { "name": "New constants for pname parameter", "id": "nQejeVBi", "tags": ["GROUPING"], "children": [
               { "name": "MAX_TEXTURE_MAX_ANISOTROPY_EXT", "id": "NVK7P39v", "tags": ["CONSTANT"] },
               { "name": "TEXTURE_MAX_ANISOTROPY_EXT", "id": "kCIbyUSG", "tags": ["CONSTANT"] }] }] },
-          { "name": "Extends texParamete", "id": "kzwZmgwf", "tags": ["GROUPING"], "children": [
+          { "name": "Extends texParameter", "id": "kzwZmgwf", "tags": ["GROUPING"], "children": [
             { "name": "New constant for pname parameter", "id": "VuwLcLM6", "tags": ["GROUPING"], "children": [
               { "name": "TEXTURE_MAX_ANISOTROPY_EXT", "id": "8wpPk4rf", "tags": ["CONSTANT"] }] }] }] },
         { "name": "OES_element_index_uint", "id": "ClKlomHz", "tags": ["EXTENSION"], "children": [
           { "name": "Extends drawElements()", "id": "n3lPkJbt", "tags": ["GROUPING"], "children": [
-            { "name": "New consnt for type parameter", "id": "TdovWVL3", "tags": ["GROUPING"], "children": [
+            { "name": "New const for type parameter", "id": "TdovWVL3", "tags": ["GROUPING"], "children": [
               { "name": "UNSIGNED_INT", "id": "lxAEpAo6", "tags": ["CONSTANT"] }] }] }] },
         { "name": "OES_standard_derivatives", "id": "SC4H3bDj", "tags": ["EXTENSION"], "children": [
           { "name": "Extends hint()", "id": "VikXcXhh", "tags": ["GROUPING"], "children": [
             { "name": "New constant for target parameter", "id": "xcbJ42eR", "tags": ["INFO"], "children": [
               { "name": "FRAGMENT_SHADER_DERIVATIVE_HINT_OES", "id": "jyIq4wdq", "tags": ["CONSTANT"] }] }] },
-          { "name": "Extends getParamter()", "id": "8BOgZuZj", "tags": ["GROUPING"], "children": [
+          { "name": "Extends getParameter()", "id": "8BOgZuZj", "tags": ["GROUPING"], "children": [
             { "name": "New constant for pname parameter", "id": "9BU3iiQ2", "tags": ["GROUPING"], "children": [
               { "name": "FRAGMENT_SHADER_DERIVATIVE_HINT_OES", "id": "bvbvxNrX", "tags": ["CONSTANT"] }] }] },
           { "name": "New functions in shaders", "id": "MlyQjyGk", "tags": ["GROUPING"], "children": [
@@ -6488,8 +6488,8 @@
           { "name": "New method", "id": "EA83zoZP", "tags": ["GROUPING"], "children": [
             { "name": "drawBuffersWEBGL()", "id": "a7tHGxM8", "tags": ["METHOD"] }] },
           { "name": "Extends framebufferRenderbuffer(), framebufferTexture2D(), getFramebufferAttachmentParameter(), drawBuffersWEBGL()", "id": "WiTtV77Y", "tags": ["GROUPING"], "children": [
-            { "name": "COLOR_ATTACHMEN", "id": "9KnqgyUp", "tags": ["CONSTANT"] },
-            { "name": "DRAW_BUFFE", "id": "6H6seBBI", "tags": ["CONSTANT"] },
+            { "name": "COLOR_ATTACHMENT", "id": "9KnqgyUp", "tags": ["CONSTANT"] },
+            { "name": "DRAW_BUFFER", "id": "6H6seBBI", "tags": ["CONSTANT"] },
             { "name": "MAX_COLOR_ATTACHMENTS_WEBGL", "id": "uGJ4ESYW", "tags": ["CONSTANT"] },
             { "name": "MAX_DRAW_BUFFERS_WEBGL", "id": "NVYP9gAr", "tags": ["CONSTANT"] }] }] },
         { "name": "WEBGL_lose_context", "id": "pguGjjU9", "tags": ["EXTENSION"], "children": [
@@ -6521,7 +6521,7 @@
       { "name": "create(proto, properties)", "id": "oT6OZItp", "tags": ["METHOD", "STATIC"] },
       { "name": "defineProperty(obj, prop, descriptor)", "id": "aouiXg8G", "tags": ["METHOD", "STATIC"], "children": [
         { "name": "descriptor", "id": "xxalelVV", "tags": ["PARAM"], "children": [
-          { "name": "configuratble", "id": "qsk8cgC4", "tags": ["PROP"] },
+          { "name": "configurable", "id": "qsk8cgC4", "tags": ["PROP"] },
           { "name": "enumerable", "id": "o2dzBv5g", "tags": ["PROP"] },
           { "name": "value", "id": "AJLj8fgs", "tags": ["PROP"] },
           { "name": "writable", "id": "xutN1ELO", "tags": ["PROP"] },
@@ -6596,7 +6596,7 @@
         { "name": "EvalError", "id": "cxxZlu4x", "tags": ["OBJECT", "OLD"] },
         { "name": "RangeError", "id": "1YdlRRE2", "tags": ["OBJECT"] },
         { "name": "ReferenceError", "id": "jGup65mW", "tags": ["OBJECT"] },
-        { "name": "SytaxError", "id": "MzEFbJD4", "tags": ["OBJECT"] },
+        { "name": "SyntaxError", "id": "MzEFbJD4", "tags": ["OBJECT"] },
         { "name": "TypeError", "id": "rsVGSiuG", "tags": ["OBJECT"] },
         { "name": "URIError", "id": "4pcf9Pge", "tags": ["OBJECT"] }] }] },
     { "name": "Number", "id": "4TLaJliy", "tags": ["OBJECT"], "children": [
@@ -7085,7 +7085,7 @@
       { "name": "subarray(begin)", "id": "Oqo48VYq", "tags": ["METHOD", "NEW"] },
       { "name": "subarray(begin, end)", "id": "aDLjEPld", "tags": ["METHOD", "NEW"] },
       { "name": "values()", "id": "R64JBuHi", "tags": ["METHOD", "NEW"] },
-      { "name": "toLocalteString()", "id": "425odK8T", "tags": ["METHOD", "NEW"] },
+      { "name": "toLocaleString()", "id": "425odK8T", "tags": ["METHOD", "NEW"] },
       { "name": "toString()", "id": "fOJJ66jp", "tags": ["METHOD", "NEW"] }] },
     { "name": "Map", "id": "4iSFJpfn", "tags": ["OBJECT"], "children": [
       { "name": "new Map()", "id": "1mFQEfsB", "tags": ["CONSTRUCTOR"] },
@@ -7377,7 +7377,7 @@
       { "name": "break", "id": "KSIRJs6B", "tags": ["STATEMENT"] },
       { "name": "break someLabelName", "id": "cuQA2KHQ", "tags": ["STATEMENT"] },
       { "name": "continue", "id": "s9ghW5Di", "tags": ["STATEMENT"] },
-      { "name": "coninute someLabelName", "id": "K8A593iJ", "tags": ["STATEMENT"] },
+      { "name": "continue someLabelName", "id": "K8A593iJ", "tags": ["STATEMENT"] },
       { "name": "if ...", "id": "q59R97Ct", "tags": ["STATEMENT"] },
       { "name": "if ... else ...", "id": "R6AUflhY", "tags": ["STATEMENT"] },
       { "name": "if ... else if ... else", "id": "31gTLnTQ", "tags": ["STATEMENT"] },
@@ -7521,7 +7521,7 @@
             { "name": "diffuseConstant", "id": "6yHQAmkX", "tags": ["ATTR"] }] },
           { "name": "<feSpecularLighting>", "id": "SOnoLkdg", "tags": ["ELEMENT"], "children": [
             { "name": "specularConstant", "id": "op8aPT2b", "tags": ["ATTR"] },
-            { "name": "specularExponenet", "id": "TJgxrSO7", "tags": ["ATTR"] }] },
+            { "name": "specularExponent", "id": "TJgxrSO7", "tags": ["ATTR"] }] },
           { "name": "Light source elements", "id": "cJF6uaFz", "tags": ["GROUPING"], "children": [
             { "name": "<feDistantLight>", "id": "38dQyNu5", "tags": ["ELEMENT"], "children": [
               { "name": "azimuth", "id": "dyWCkfpx", "tags": ["ATTR"] },
@@ -8356,7 +8356,7 @@
               { "name": "ascii", "id": "caFvvTvv", "tags": ["VALUE"] },
               { "name": "latin1", "id": "agmQyHVQ", "tags": ["VALUE"] }] }] }] }] },
       { "name": "createDecipheriv(algorithm, key, iv)", "id": "vZ3Ghfzz", "tags": ["METHOD", "STATIC"] },
-      { "name": "createDiffeHellman(prime)", "id": "ERlTvEPJ", "tags": ["METHOD", "STATIC"], "children": [
+      { "name": "createDiffieHellman(prime)", "id": "ERlTvEPJ", "tags": ["METHOD", "STATIC"], "children": [
         { "name": "crypto.DiffieHellman", "id": "JSpwGXxf", "tags": ["RETURN_VALUE"], "notes": "instance", "children": [
           { "name": "verifyError", "id": "BRhSlrw6", "tags": ["PROP"] },
           { "name": "computeSecret(other_public_key)", "id": "Cj3nqWCG", "tags": ["METHOD"] },
@@ -8376,15 +8376,15 @@
           { "name": "setPrivateKey(private_key, encoding)", "id": "zyeQbDdK", "tags": ["METHOD"] },
           { "name": "setPublicKey(public_key)", "id": "jP8S6Onz", "tags": ["METHOD"] },
           { "name": "setPublicKey(public_key, encoding)", "id": "4LWKDq9s", "tags": ["METHOD"] }] }] },
-      { "name": "createDiffeHellman(prime, prime_encoding)", "id": "29vJ4oDq", "tags": ["METHOD", "STATIC"], "children": [
+      { "name": "createDiffieHellman(prime, prime_encoding)", "id": "29vJ4oDq", "tags": ["METHOD", "STATIC"], "children": [
         { "name": "prime_encoding", "id": "xufYRipq", "tags": ["PARAM"], "children": [
           { "name": "latin1", "id": "Uu4Ev6V9", "tags": ["VALUE"] },
           { "name": "hex", "id": "Nh1aWTRD", "tags": ["VALUE"] },
           { "name": "base64", "id": "LeLkTrrm", "tags": ["VALUE"] }] }] },
-      { "name": "createDiffeHellman(prime, prime_encoding, generator)", "id": "zbUM9JpY", "tags": ["METHOD", "STATIC"] },
-      { "name": "createDiffeHellman(prime, prime_encoding, generator, generator_encoding)", "id": "8ZdTRmD5", "tags": ["METHOD", "STATIC"] },
-      { "name": "createDiffeHellman(prime_length)", "id": "Caq8I3Ce", "tags": ["METHOD", "STATIC"] },
-      { "name": "createDiffeHellman(prime_length, generator)", "id": "IjxTPkag", "tags": ["METHOD", "STATIC"] },
+      { "name": "createDiffieHellman(prime, prime_encoding, generator)", "id": "zbUM9JpY", "tags": ["METHOD", "STATIC"] },
+      { "name": "createDiffieHellman(prime, prime_encoding, generator, generator_encoding)", "id": "8ZdTRmD5", "tags": ["METHOD", "STATIC"] },
+      { "name": "createDiffieHellman(prime_length)", "id": "Caq8I3Ce", "tags": ["METHOD", "STATIC"] },
+      { "name": "createDiffieHellman(prime_length, generator)", "id": "IjxTPkag", "tags": ["METHOD", "STATIC"] },
       { "name": "createECDH(curve_name)", "id": "VVUcvKKo", "tags": ["METHOD", "STATIC"], "children": [
         { "name": "crypto.ECDH", "id": "5FowesRi", "tags": ["RETURN_VALUE"], "notes": "instance", "children": [
           { "name": "computeSecret(other_public_key)", "id": "GCvlgSF7", "tags": ["METHOD"] },
@@ -8924,7 +8924,7 @@
         { "name": "write(chunk, callback)", "id": "VuQK89Ka", "tags": ["METHOD"] },
         { "name": "write(chunk, encoding)", "id": "5cWtL7xj", "tags": ["METHOD"] },
         { "name": "write(chunk, encoding, callback)", "id": "gFajTUOJ", "tags": ["METHOD"] },
-        { "name": "writecontinue()", "id": "VuW55Opx", "tags": ["METHOD"] },
+        { "name": "writeContinue()", "id": "VuW55Opx", "tags": ["METHOD"] },
         { "name": "writeHead(statusCode)", "id": "LSZyukHo", "tags": ["METHOD"] },
         { "name": "writeHead(statusCode, statusMessage)", "id": "l14AQLxu", "tags": ["METHOD"] },
         { "name": "writeHead(statusCode, headers)", "id": "VMgSDpaL", "tags": ["METHOD"] },
@@ -9391,8 +9391,8 @@
       { "name": "uptime()", "id": "NtZMC1oG", "tags": ["METHOD", "STATIC"] },
       { "name": "hrtime()", "id": "mZgltcYN", "tags": ["METHOD", "STATIC"] },
       { "name": "hrtime(previousHrtime)", "id": "We1lZ5KQ", "tags": ["METHOD", "STATIC"] },
-      { "name": "nextTick(bacllback)", "id": "5P4YKvmH", "tags": ["METHOD", "STATIC"] },
-      { "name": "nextTick(bacllback, ...args)", "id": "hXh7hwLL", "tags": ["METHOD", "STATIC"] },
+      { "name": "nextTick(callback)", "id": "5P4YKvmH", "tags": ["METHOD", "STATIC"] },
+      { "name": "nextTick(callback, ...args)", "id": "hXh7hwLL", "tags": ["METHOD", "STATIC"] },
       { "name": "send(message)", "id": "I19zurrN", "tags": ["METHOD", "STATIC"] },
       { "name": "send(message, callback)", "id": "eq91sfUn", "tags": ["METHOD", "STATIC"] },
       { "name": "send(message, sendHandle)", "id": "ldcyeydo", "tags": ["METHOD", "STATIC"] },
@@ -9434,7 +9434,7 @@
       { "name": "once()", "id": "YvuJP7lx", "tags": ["METHOD", "STATIC"] }] },
     { "name": "punycode", "id": "bklRwASu", "tags": ["MODULE", "OLD"] },
     { "name": "querystring", "id": "rm7pB94d", "tags": ["MODULE"], "children": [
-      { "name": "excape(str)", "id": "x34Ul7gu", "tags": ["METHOD", "STATIC"] },
+      { "name": "escape(str)", "id": "x34Ul7gu", "tags": ["METHOD", "STATIC"] },
       { "name": "unescape(str)", "id": "UarIsUzu", "tags": ["METHOD", "STATIC"] },
       { "name": "parse(str)", "id": "LkSlXSyw", "tags": ["METHOD", "STATIC"] },
       { "name": "parse(str, sep)", "id": "MxXmL5m3", "tags": ["METHOD", "STATIC"] },
@@ -9655,7 +9655,7 @@
           { "name": "cert", "id": "XWmYQNnr", "tags": ["PROP"] },
           { "name": "ca", "id": "8OYMtb2B", "tags": ["PROP"] },
           { "name": "ciphers", "id": "LIv1gmAf", "tags": ["PROP"] },
-          { "name": "rejectUnuthorized", "id": "ihfTOnlT", "tags": ["PROP"] },
+          { "name": "rejectUnauthorized", "id": "ihfTOnlT", "tags": ["PROP"] },
           { "name": "NPNProtocols", "id": "6MzVBlbX", "tags": ["PROP"] },
           { "name": "ALPNProtocols", "id": "LnJxei7l", "tags": ["PROP"] },
           { "name": "servername", "id": "12icXzMV", "tags": ["PROP"] },
@@ -9757,7 +9757,7 @@
                 { "name": "requestCert", "id": "W2lMkmoe", "tags": ["PROP"] }] }] },
             { "name": "setMaxSendFragment(size)", "id": "LwfI2ZX7", "tags": ["METHOD"] },
             { "name": "on()", "id": "5pSdbi9p", "tags": ["METHOD"], "children": [
-              { "name": "OCSPReponse", "id": "Bv3R56Np", "tags": ["EVENT"] },
+              { "name": "OCSPResponse", "id": "Bv3R56Np", "tags": ["EVENT"] },
               { "name": "secureConnect", "id": "aDjI7ii1", "tags": ["EVENT"] }] },
             { "name": "once()", "id": "egw1hcG4", "tags": ["METHOD"] }] }] }] },
       { "name": "tls.CryptoStream", "id": "5f2H1We7", "tags": ["CLASS", "OLD"] },
@@ -9894,8 +9894,8 @@
               { "name": "displayErrors", "id": "JbA333gQ", "tags": ["PROP"] },
               { "name": "timeout", "id": "qdieFBBD", "tags": ["PROP"] },
               { "name": "breakOnSigint", "id": "AfVqZKT1", "tags": ["PROP"] }] }] },
-          { "name": "runInNewContext(sanbox)", "id": "DALLVxRv", "tags": ["METHOD"] },
-          { "name": "runInNewContext(sanbox, options)", "id": "49OCveik", "tags": ["METHOD"], "children": [
+          { "name": "runInNewContext(sandbox)", "id": "DALLVxRv", "tags": ["METHOD"] },
+          { "name": "runInNewContext(sandbox, options)", "id": "49OCveik", "tags": ["METHOD"], "children": [
             { "name": "options", "id": "KGR5MFmy", "tags": ["PARAM"], "children": [
               { "name": "filename", "id": "hJAoivhq", "tags": ["PROP"] },
               { "name": "lineOffset", "id": "GboEwiq3", "tags": ["PROP"] },
