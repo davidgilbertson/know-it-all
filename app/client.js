@@ -35,12 +35,12 @@ function scrollPageOneRow(dir = 1) {
 
 //  --  BIND CLICK EVENTS  --  //
 window.addEventListener(`keydown`, (e) => {
-  e.preventDefault(); // block the page from scrolling
-
   if (e.keyCode === KEYS.DOWN) {
     store.selectNextVisibleRow();
+    e.preventDefault(); // block the page from scrolling
     scrollPageOneRow(1);
   } else if (e.keyCode === KEYS.UP) {
+    e.preventDefault(); // block the page from scrolling
     scrollPageOneRow(-1);
     store.selectPrevVisibleRow();
   } else if (e.keyCode === KEYS.RIGHT) {
