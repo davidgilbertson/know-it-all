@@ -77,7 +77,7 @@ const InfoModal = () => {
           a(
             {
               className: `info-modal__info-link`,
-              href: `https://hackernoon.com/what-you-dont-know-about-web-development-d7d631f5d468#.ex2yp6d64`,
+              href: `https://medium.com/@david.gilbertson/master-web-development-with-these-9-985-weird-tricks-77c71d1d96f3#.6fz456o44`, // eslint-disable-line max-len
               rel: `noopener noreferrer`,
               target: `_blank`,
             },
