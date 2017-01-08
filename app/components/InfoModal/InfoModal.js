@@ -70,7 +70,7 @@ const InfoModal = () => {
                 store.closeModal();
               },
             },
-            `✖`,
+            `✕`,
           ),
         ),
         div({ className: `info-modal__body` },
