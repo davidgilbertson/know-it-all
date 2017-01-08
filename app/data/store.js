@@ -22,31 +22,29 @@
  *
  */
 
+import localforage from 'localforage';
 import {
   EVENTS,
   SCORES,
 } from '../utils/constants';
-import localforage from 'localforage';
 
-localforage.ready().catch((err) => {
+localforage.ready().catch(() => {
   console.warn(`localforage threw an error. If this is during webpack build, everything is OK`);
 });
 
 const diskStore = localforage.createInstance({
-  name: 'know-it-all',
+  name: `know-it-all`,
   version: 1,
 });
 
 // this is used to define if an item should be re-rendered
 // it should contain anything that can be changed by a user
-const serializeItemState = (item) => {
-  return [
-    item.scoreKey,
-    !!item.visible,
-    !!item.expanded,
-    !!item.selected,
-  ].join(``);
-}
+const serializeItemState = item => [
+  item.scoreKey,
+  !!item.visible,
+  !!item.expanded,
+  !!item.selected,
+].join(``);
 
 /* eslint-disable no-param-reassign */
 const store = {
@@ -83,17 +81,16 @@ const store = {
     const getItemPath = (item) => {
       if (item.parentId) {
         const parent = this.getItemById(item.parentId);
-        return getItemPath(parent) + ` » ` + item.name
-      } else {
-        return item.name;
+        return `${getItemPath(parent)} » ${item.name}`;
       }
-    }
+
+      return item.name;
+    };
 
     this.data.forEach((item) => {
       if (item.scoreKey === SCORES.LEVEL_1.key) {
-        // const itemPath = ` > ${item.name}`; // TODO (davidg): path > of > things
         const path = getItemPath(item);
-        const topLevel = path.substr(0, path.indexOf(' » ', -2))
+        const topLevel = path.substr(0, path.indexOf(` » `, -2));
         const searchTerm = `${topLevel} ${item.name}`;
         const url = `https://www.google.com.au/search?q=${encodeURIComponent(searchTerm)}`;
         unknowns.push({
@@ -145,7 +142,7 @@ const store = {
         this.updateItem(
           id,
           { scoreKey: item.scoreKey },
-          { saveToDisk: false }
+          { saveToDisk: false },
         );
       }
     });
@@ -281,7 +278,6 @@ const store = {
     this.isModalVisible = false;
 
     this.triggerListener(EVENTS.MODAL_VISIBILITY_CHANGED);
-
   },
 
   triggerListener(key, payload) {
@@ -296,19 +292,6 @@ const store = {
     }
 
     this.listeners[id] = callback;
-  },
-
-  showModal() {
-    this.isModalVisible = true;
-
-    this.triggerListener(EVENTS.MODAL_VISIBILITY_CHANGED);
-  },
-
-  closeModal() {
-    this.isModalVisible = false;
-
-    this.triggerListener(EVENTS.MODAL_VISIBILITY_CHANGED);
-
   },
 };
 

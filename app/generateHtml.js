@@ -1,7 +1,6 @@
 /* eslint-disable max-len */
 const fs = require(`fs`);
 const path = require(`path`);
-const jsdom = require(`jsdom`);
 const App = require(`./components/App/App`).default;
 const store = require(`./data/store`).default;
 

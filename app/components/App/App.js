@@ -4,7 +4,6 @@ import TwitterShareButton from '../TwitterShareButton/TwitterShareButton';
 import InfoModal from '../InfoModal/InfoModal';
 import store from '../../data/store';
 import {
-  a,
   button,
   div,
   h1,
@@ -14,7 +13,6 @@ import {
 } from '../../utils/elements';
 
 import { EVENTS } from '../../utils/constants';
-import swapNodes from '../../utils/swapNodes';
 
 if (process.env.IMPORT_SCSS) require(`./App.scss`); // eslint-disable-line global-require
 
@@ -70,7 +68,7 @@ const App = (props) => {
           className: `app__header-title`,
           title: `Know It All, version ${props.version}`,
         },
-        `Know It All`
+        `Know It All`,
       ),
 
       div({ className: `app__tweet` },

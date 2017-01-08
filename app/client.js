@@ -28,7 +28,7 @@ if (app.isEqualNode(serverAppEl)) {
 // TODO (davidg): performance tests for splitting this out into modules (there's a webpack overhead per module)
 
 // row height doesn't change at different screen sizes, so it's enough to get it once
-const rowHeight = document.querySelector('.row__content').offsetHeight;
+const rowHeight = document.querySelector(`.row__content`).offsetHeight;
 function scrollPageOneRow(dir = 1) {
   window.scrollBy(0, rowHeight * dir);
 }

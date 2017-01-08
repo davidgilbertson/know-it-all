@@ -11,7 +11,7 @@ const TwitterShareButton = () => a(
       hashtags: `webdev #css #html #javascript #nodejs`,
     },
   },
-  `Tweet`
+  `Tweet`,
 );
 
 export default TwitterShareButton;
