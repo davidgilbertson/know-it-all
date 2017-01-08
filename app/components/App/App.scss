@@ -19,6 +19,13 @@ body {
   letter-spacing: 0.02em;
 }
 
+body.block-scroll {
+  overflow: hidden;
+  overflow-y: scroll !important;
+  position: fixed;
+  width: 100%;
+}
+
 .app__header {
   text-align: left;
   padding: 8px;
@@ -27,10 +34,6 @@ body {
   align-items: center;
   margin: 0 auto;
   max-width: $PAGE_WIDTH;
-
-  @include for-tablet-portrait-up {
-    text-align: center;
-  }
 }
 
 .app__tweet {
@@ -52,11 +55,16 @@ body {
   }
 }
 
-.app__header-help {
-  padding: 15px 0; // nice fat tap area
-  font-size: 14px;
-  text-decoration: underline;
-  color: rgba($WHITE, 0.8);
+.app__hamburger {
+  padding: 10px 0;
+
+  svg {
+    vertical-align: middle;
+  }
+
+  path {
+    fill: $WHITE;
+  }
 }
 
 .app__table {

@@ -1,15 +1,20 @@
 import Row from '../Row/Row';
 import ScoreBar from '../ScoreBar/ScoreBar';
 import TwitterShareButton from '../TwitterShareButton/TwitterShareButton';
+import InfoModal from '../InfoModal/InfoModal';
 import store from '../../data/store';
 import {
   a,
+  button,
   div,
   h1,
   header,
+  svg,
+  path,
 } from '../../utils/elements';
 
 import { EVENTS } from '../../utils/constants';
+import swapNodes from '../../utils/swapNodes';
 
 if (process.env.IMPORT_SCSS) require(`./App.scss`); // eslint-disable-line global-require
 
@@ -48,17 +53,26 @@ const App = (props) => {
 
   return div({ id: `app` },
     header({ className: `app__header` },
-      a(
+      button(
         {
-          className: `app__header-help`,
-          target: `_blank`,
-          rel: `noopener noreferrer`,
-          title: `Find out more about know it all, version ${props.version}`,
-          href: `https://hackernoon.com/what-you-dont-know-about-web-development-d7d631f5d468#.ex2yp6d64`,
+          className: `app__hamburger`,
+          onclick: () => {
+            store.showModal();
+          },
         },
-        `What is this?`,
+        svg({ width: 30, height: 30, viewBox: `0 0 21 21` },
+          path({ d: `M0 3 h21 v3 h-21 v-3 M0 9 h21 v3 h-21 v-3 M0 15 h21 v3 h-21 v-3` }),
+        ),
       ),
-      h1({ className: `app__header-title` }, `Know It All`),
+
+      h1(
+        {
+          className: `app__header-title`,
+          title: `Know It All, version ${props.version}`,
+        },
+        `Know It All`
+      ),
+
       div({ className: `app__tweet` },
         TwitterShareButton(),
       ),
@@ -66,6 +80,8 @@ const App = (props) => {
     table,
 
     ScoreBar(),
+
+    InfoModal(),
   );
 };
 

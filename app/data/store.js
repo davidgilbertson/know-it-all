@@ -22,7 +22,10 @@
  *
  */
 
-import { EVENTS } from '../utils/constants';
+import {
+  EVENTS,
+  SCORES,
+} from '../utils/constants';
 import localforage from 'localforage';
 
 localforage.ready().catch((err) => {
@@ -51,37 +54,15 @@ const store = {
   listeners: {},
   selectedItem: null,
   childrenCache: {},
+  isModalVisible: false,
 
   init(data) {
     this.data = data;
     this.getScoresFromDisk();
   },
 
-  getScoresFromDisk() {
-    diskStore.iterate((item, id) => {
-      // the only thing we want from the store is the score key
-      // future version maybe 'expanded' or 'selected'
-      if (item.scoreKey) {
-        this.updateItem(
-          id,
-          { scoreKey: item.scoreKey },
-          { saveToDisk: false }
-        );
-      }
-    });
-  },
-
-  addModules(newModules) {
-    const topChildren = [];
-
-    newModules.forEach((module) => {
-      topChildren.push(module[0]); // first of each module is the top level, e.g. "SVG"
-      this.data = this.data.concat(module);
-    });
-
-    this.triggerListener(EVENTS.MODULES_ADDED, topChildren);
-
-    this.getScoresFromDisk();
+  getItemById(id) {
+    return this.data.find(item => item.id === id);
   },
 
   getChildrenOf(id) {
@@ -94,6 +75,35 @@ const store = {
     if (children && children.length) return children;
 
     return false;
+  },
+
+  getUnknowns() {
+    const unknowns = [];
+
+    const getItemPath = (item) => {
+      if (item.parentId) {
+        const parent = this.getItemById(item.parentId);
+        return getItemPath(parent) + ` » ` + item.name
+      } else {
+        return item.name;
+      }
+    }
+
+    this.data.forEach((item) => {
+      if (item.scoreKey === SCORES.LEVEL_1.key) {
+        // const itemPath = ` > ${item.name}`; // TODO (davidg): path > of > things
+        const path = getItemPath(item);
+        const topLevel = path.substr(0, path.indexOf(' » ', -2))
+        const searchTerm = `${topLevel} ${item.name}`;
+        const url = `https://www.google.com.au/search?q=${encodeURIComponent(searchTerm)}`;
+        unknowns.push({
+          path,
+          url,
+        });
+      }
+    });
+
+    return unknowns;
   },
 
   updateItem(id, data, options = { saveToDisk: true }) {
@@ -127,6 +137,33 @@ const store = {
     }
   },
 
+  getScoresFromDisk() {
+    diskStore.iterate((item, id) => {
+      // the only thing we want from the store is the score key
+      // future version maybe 'expanded' or 'selected'
+      if (item.scoreKey) {
+        this.updateItem(
+          id,
+          { scoreKey: item.scoreKey },
+          { saveToDisk: false }
+        );
+      }
+    });
+  },
+
+  addModules(newModules) {
+    const topChildren = [];
+
+    newModules.forEach((module) => {
+      topChildren.push(module[0]); // first of each module is the top level, e.g. "SVG"
+      this.data = this.data.concat(module);
+    });
+
+    this.triggerListener(EVENTS.MODULES_ADDED, topChildren);
+
+    this.getScoresFromDisk();
+  },
+
   selectNextVisibleRow() {
     if (this.selectedItem) {
       if (this.selectedItem.row >= this.data.length - 1) return;
@@ -156,10 +193,6 @@ const store = {
     } else {
       this.changeSelectedItem(this.data[0]);
     }
-  },
-
-  getItemById(id) {
-    return this.data.find(item => item.id === id);
   },
 
   selectItemById(id) {
@@ -238,6 +271,19 @@ const store = {
     }
   },
 
+  showModal() {
+    this.isModalVisible = true;
+
+    this.triggerListener(EVENTS.MODAL_VISIBILITY_CHANGED);
+  },
+
+  closeModal() {
+    this.isModalVisible = false;
+
+    this.triggerListener(EVENTS.MODAL_VISIBILITY_CHANGED);
+
+  },
+
   triggerListener(key, payload) {
     const callback = this.listeners[key];
 
@@ -250,6 +296,19 @@ const store = {
     }
 
     this.listeners[id] = callback;
+  },
+
+  showModal() {
+    this.isModalVisible = true;
+
+    this.triggerListener(EVENTS.MODAL_VISIBILITY_CHANGED);
+  },
+
+  closeModal() {
+    this.isModalVisible = false;
+
+    this.triggerListener(EVENTS.MODAL_VISIBILITY_CHANGED);
+
   },
 };
 

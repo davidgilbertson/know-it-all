@@ -1,7 +1,13 @@
 const attributeExceptions = [
   `role`,
   `dataset`,
+  `d`,
+  `width`,
+  `height`,
+  `viewBox`,
 ];
+
+const SVG_NAMESPACE = `http://www.w3.org/2000/svg`;
 
 function appendText(el, text) {
   const textNode = document.createTextNode(text);
@@ -42,8 +48,14 @@ function setDataAttributes(el, dataAttributes) {
   });
 }
 
+function isSvg(type) {
+  return [`path`, `svg`].includes(type);
+}
+
 function makeElement(type, textOrPropsOrChild, ...otherChildren) {
-  const el = document.createElement(type);
+  const el = isSvg(type)
+    ? document.createElementNS(SVG_NAMESPACE, type)
+    : document.createElement(type);
 
   if (Array.isArray(textOrPropsOrChild)) {
     appendArray(el, textOrPropsOrChild);
@@ -60,8 +72,10 @@ function makeElement(type, textOrPropsOrChild, ...otherChildren) {
           setStyles(el, value);
         } else if (propName === `dataset`) {
           setDataAttributes(el, value);
+        } else if (typeof value === `function` || propName === `className`) {
+          el[propName] = value; // e.g. onclick
         } else if (value) {
-          el[propName] = value;
+          el.setAttribute(propName, value); // need this for SVG elements
         }
       } else {
         console.warn(`${propName} is not a valid property of a <${type}>`);
@@ -78,6 +92,11 @@ export const a = (...args) => makeElement(`a`, ...args);
 export const button = (...args) => makeElement(`button`, ...args);
 export const div = (...args) => makeElement(`div`, ...args);
 export const h1 = (...args) => makeElement(`h1`, ...args);
+export const h2 = (...args) => makeElement(`h2`, ...args);
 export const header = (...args) => makeElement(`header`, ...args);
 export const p = (...args) => makeElement(`p`, ...args);
 export const span = (...args) => makeElement(`span`, ...args);
+export const ul = (...args) => makeElement(`ul`, ...args);
+export const li = (...args) => makeElement(`li`, ...args);
+export const svg = (...args) => makeElement(`svg`, ...args);
+export const path = (...args) => makeElement(`path`, ...args);

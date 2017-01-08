@@ -1,0 +1,98 @@
+@import '../global';
+
+// don't show the placeholder <a>
+// when the twitter library loads, this class is moved to an iFrame
+.info-modal__background {
+  background: rgba($GREY_900, 0.5);
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.info-modal {
+  background: white;
+  width: 96vw;
+  height: 87vh; // any bigger is too big on iOS (9?)
+  max-height: 800px;
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+}
+
+.info-modal__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid $GREY_300;
+  height: 60px;
+  padding: 0 0 0 10px;
+
+  @include for-tablet-landscape-up {
+    padding: 0 0 0 20px;
+  }
+}
+
+.info-modal__title {
+  font-size: 30px;
+  color: $DEEP_ORANGE_900;
+}
+
+.info-modal__body {
+  flex: 1;
+  padding: 10px;
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  @include for-tablet-landscape-up {
+    padding: 10px 20px 20px;
+  }
+}
+
+.info-modal__info-link {
+  display: block;
+  color: $BLUE;
+  padding: 8px 0;
+  text-decoration: underline;
+  font-size: 18px;
+}
+
+.info-modal__unknown-items-title {
+  color: $DEEP_ORANGE_900;
+  border-bottom: 1px solid $GREY_300;
+  font-size: 19px;
+  font-weight: 400;
+  margin-top: 20px;
+}
+
+.info-modal__unknown-item {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid $GREY_50;
+}
+
+.info-modal__unknown-item-text {
+  flex: 1;
+}
+
+.info-modal__unknown-item-link {
+  padding: 10px;
+
+  svg {
+    vertical-align: middle;
+  }
+
+  path {
+    fill: $BLUE;
+  }
+}
+
+.info-modal__close {
+  font-size: 30px;
+  padding: 8px 15px 8px;
+  color: $GREY_700;
+}
