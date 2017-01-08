@@ -2212,7 +2212,7 @@
             { "name": "command", "id": "756ohwPf", "tags": ["VALUE"] },
             { "name": "checkbox", "id": "vwyQYJbL", "tags": ["VALUE"] },
             { "name": "radio", "id": "osdjs1e5", "tags": ["VALUE"] }] }] },
-        { "name": "<dialog>", "id": "4M2tZLF8", "tags": ["ELEMENT", "OLD"], "children": [
+        { "name": "<dialog>", "id": "4M2tZLF8", "tags": ["ELEMENT"], "children": [
           { "name": "open", "id": "kvSloPb4", "tags": ["ATTR", "PROP"] },
           { "name": "returnValue", "id": "tuaMlZxP", "tags": ["PROP"] },
           { "name": "close()", "id": "9uacCSg1", "tags": ["METHOD"] },
