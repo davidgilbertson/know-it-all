@@ -26,6 +26,8 @@ const contentBase = `http://localhost:${DEV_PORT}`;
 
 const config = {
   entry: [
+    `babel-polyfill`, // polyfills in dev mode so Safari/IE work
+    `whatwg-fetch`,
     `webpack-dev-server/client?${contentBase}`,
     `webpack/hot/only-dev-server`,
     `./app/client.js`,
