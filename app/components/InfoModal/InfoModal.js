@@ -74,16 +74,6 @@ const InfoModal = () => {
           ),
         ),
         div({ className: `info-modal__body` },
-          h2({ className: `info-modal__section-title` },
-            `Scores`,
-          ),
-
-          ScoreBoard(),
-
-          h2({ className: `info-modal__section-title` },
-            `Words`,
-          ),
-
           a(
             {
               className: `info-modal__info-link`,
@@ -103,6 +93,12 @@ const InfoModal = () => {
             },
             `Log an issue, make a suggestion`,
           ),
+
+          h2({ className: `info-modal__section-title` },
+            `Scores`,
+          ),
+
+          ScoreBoard(),
 
           h2({ className: `info-modal__section-title` },
             `Things you don't know`,

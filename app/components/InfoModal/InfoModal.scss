@@ -3,7 +3,7 @@
 // don't show the placeholder <a>
 // when the twitter library loads, this class is moved to an iFrame
 .info-modal__background {
-  background: rgba($GREY_900, 0.5);
+  background: rgba($GREY_900, 0.7);
   position: fixed;
   display: flex;
   align-items: center;
@@ -15,13 +15,14 @@
 }
 
 .info-modal {
-  background: white;
+  display: flex;
+  flex-direction: column;
   width: 96vw;
   height: 87vh; // any bigger is too big on iOS (9?)
   max-height: 800px;
   max-width: 800px;
-  display: flex;
-  flex-direction: column;
+  background: white;
+  box-shadow: 0 0 30px $GREY_900;
 }
 
 .info-modal__header {
@@ -68,10 +69,6 @@
   margin-top: 30px;
   padding: 5px 0;
   text-align: center;
-}
-
-.info-modal__section-title:first-of-type {
-  margin-top: 0;
 }
 
 .info-modal__unknown-item {
