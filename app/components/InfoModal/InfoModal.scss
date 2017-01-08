@@ -28,9 +28,9 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid $GREY_300;
   height: 60px;
   padding: 0 0 0 10px;
+  background: $GREY_300;
 
   @include for-tablet-landscape-up {
     padding: 0 0 0 20px;
@@ -39,7 +39,6 @@
 
 .info-modal__title {
   font-size: 30px;
-  color: $DEEP_ORANGE_900;
 }
 
 .info-modal__body {
@@ -56,17 +55,23 @@
 .info-modal__info-link {
   display: block;
   color: $BLUE;
-  padding: 8px 0;
+  padding: 5px 0;
   text-decoration: underline;
-  font-size: 18px;
+  font-size: 17px;
 }
 
-.info-modal__unknown-items-title {
+.info-modal__section-title {
   color: $DEEP_ORANGE_900;
   border-bottom: 1px solid $GREY_300;
   font-size: 19px;
   font-weight: 400;
-  margin-top: 20px;
+  margin-top: 30px;
+  padding: 5px 0;
+  text-align: center;
+}
+
+.info-modal__section-title:first-of-type {
+  margin-top: 0;
 }
 
 .info-modal__unknown-item {

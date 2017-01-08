@@ -82,7 +82,7 @@ export const TAGS = {
 export const SCORES = {
   LEVEL_0: {
     key: `LEVEL_0`,
-    color: COLORS.GREY_100,
+    color: COLORS.GREY_900,
     icon: `--`,
     shortTitle: `Unrated`,
     value: `Unrated`,

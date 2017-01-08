@@ -20,7 +20,7 @@ function appendArray(el, children) {
       appendArray(el, child);
     } else if (child instanceof window.Element) {
       el.appendChild(child);
-    } else if (typeof child === `string`) {
+    } else if (typeof child === `string` || typeof child === `number`) {
       appendText(el, child);
     }
   });
@@ -61,7 +61,7 @@ function makeElement(type, textOrPropsOrChild, ...otherChildren) {
     appendArray(el, textOrPropsOrChild);
   } else if (textOrPropsOrChild instanceof window.Element) {
     el.appendChild(textOrPropsOrChild);
-  } else if (typeof textOrPropsOrChild === `string`) {
+  } else if (typeof textOrPropsOrChild === `string` || typeof textOrPropsOrChild === `number`) {
     appendText(el, textOrPropsOrChild);
   } else if (typeof textOrPropsOrChild === `object`) {
     Object.keys(textOrPropsOrChild).forEach((propName) => {

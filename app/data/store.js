@@ -75,6 +75,29 @@ const store = {
     return false;
   },
 
+  getScoreCounts() {
+    const scoreCounts = Object.keys(SCORES).reduce((result, scoreKey) => {
+      result[scoreKey] = {
+        score: SCORES[scoreKey],
+        count: 0,
+      };
+      return result;
+    }, {});
+
+    this.data.forEach((item) => {
+      const scoreKey = item.scoreKey || SCORES.LEVEL_0.key; // "unrated"
+
+      if (!scoreCounts[scoreKey]) {
+        console.warn(`${scoreKey} is not a valid score`);
+      } else {
+        scoreCounts[scoreKey].count += 1;
+      }
+    });
+
+    // turn the object into an array
+    return Object.keys(scoreCounts).map(scoreKey => scoreCounts[scoreKey]);
+  },
+
   getUnknowns() {
     const unknowns = [];
 

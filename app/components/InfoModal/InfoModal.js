@@ -10,7 +10,7 @@ import {
   svg,
   path,
 } from '../../utils/elements';
-
+import ScoreBoard from '../ScoreBoard/ScoreBoard';
 import { EVENTS } from '../../utils/constants';
 import swapNodes from '../../utils/swapNodes';
 
@@ -74,6 +74,16 @@ const InfoModal = () => {
           ),
         ),
         div({ className: `info-modal__body` },
+          h2({ className: `info-modal__section-title` },
+            `Scores`,
+          ),
+
+          ScoreBoard(),
+
+          h2({ className: `info-modal__section-title` },
+            `Words`,
+          ),
+
           a(
             {
               className: `info-modal__info-link`,
@@ -83,15 +93,7 @@ const InfoModal = () => {
             },
             `A blog post about know it all`,
           ),
-          a(
-            {
-              className: `info-modal__info-link`,
-              href: `https://github.com/davidgilbertson/know-it-all`,
-              rel: `noopener noreferrer`,
-              target: `_blank`,
-            },
-            `Source on Github`,
-          ),
+
           a(
             {
               className: `info-modal__info-link`,
@@ -101,9 +103,11 @@ const InfoModal = () => {
             },
             `Log an issue, make a suggestion`,
           ),
-          h2({ className: `info-modal__unknown-items-title` },
+
+          h2({ className: `info-modal__section-title` },
             `Things you don't know`,
           ),
+
           ul({ className: `info-modal__unknown-items` },
             unknownItemsDom,
           ),
