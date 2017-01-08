@@ -39,10 +39,10 @@
   overflow: hidden; // so the outline on hover doesn't go outside the button
   align-self: stretch;
   margin: -6px 0 -6px -4px; // to break out of the content box padding
-  transform: rotateZ(-90deg);
+  transform: rotateZ(0deg);
 
   .row--expanded > .row__content & {
-    transform: rotateZ(0);
+    transform: rotateZ(90deg);
   }
 }
 

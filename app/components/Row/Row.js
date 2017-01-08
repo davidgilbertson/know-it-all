@@ -59,10 +59,10 @@ const Row = (initialProps) => {
     let buttonDisabled = false;
 
     if (props.leaf) {
-      buttonContent = `●`;
+      buttonContent = `○`;
       buttonDisabled = true;
     } else {
-      buttonContent = `▼`;
+      buttonContent = `▷`;
     }
 
     return div({ className },
