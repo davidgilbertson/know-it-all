@@ -10,12 +10,20 @@ const ScoreBar = () => {
   let el;
 
   const render = () => {
-    const buttons = store.selectedItem
-      ? ScoreButtons({
+    let buttons;
+
+    if (!store.selectedItem) {
+      document.body.classList.remove(`score-bar-open`);
+
+      buttons = null;
+    } else {
+      document.body.classList.add(`score-bar-open`);
+
+      buttons = ScoreButtons({
         item: store.selectedItem,
         isScoreBar: true,
-      })
-      : null;
+      });
+    }
 
     return div({ className: `score-bar` }, buttons);
   };

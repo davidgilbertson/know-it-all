@@ -25,6 +25,7 @@ a:focus {
 button {
   background-color: transparent;
   border: 0;
+  margin: 0; // safari does margin 2
   color: inherit;
   font-family: inherit;
   font-weight: inherit;

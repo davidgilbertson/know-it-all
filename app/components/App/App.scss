@@ -11,12 +11,15 @@ body {
   font-family: "Helvetica Neue", "Calibri Light", Roboto, sans-serif;
   overflow-y: scroll;
   overflow-x: hidden;
-  background: linear-gradient(-20deg, darken($DEEP_ORANGE_900, 10%), $DEEP_ORANGE_900 70%) fixed;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   letter-spacing: 0.02em;
+
+  @include for-tablet-landscape-up {
+    background: linear-gradient(-20deg, darken($DEEP_ORANGE_900, 10%), $DEEP_ORANGE_900 70%) fixed;
+  }
 }
 
 body.block-scroll {
@@ -27,13 +30,23 @@ body.block-scroll {
 }
 
 .app__header {
-  text-align: left;
   padding: 8px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin: 0 auto;
   max-width: $PAGE_WIDTH;
+  height: $HEADER_HEIGHT;
+
+  @include for-tablet-portrait-down {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    background: $DEEP_ORANGE_900;
+    z-index: $Z_INDEX_HEADER;
+    box-shadow: 0 1px 2px rgba($GREY_900, 0.5);
+  }
 }
 
 .app__tweet {
@@ -43,13 +56,13 @@ body.block-scroll {
 
 .app__header-title {
   flex: 1;
-  padding: 0 10px;
-  font-size: 30px;
+  font-size: 28px;
   color: $WHITE;
   letter-spacing: 2px;
   text-transform: uppercase;
   text-align: center;
   font-weight: 300;
+  white-space: nowrap;
 
   @include for-tablet-portrait-up {
     font-size: 40px;
@@ -72,8 +85,17 @@ body.block-scroll {
   margin: 0 auto;
   max-width: $PAGE_WIDTH;
   background: $WHITE;
+  transition: margin-top 300ms;
 
-  @include for-tablet-portrait-up {
+  @include for-tablet-portrait-down {
+    margin-top: $HEADER_HEIGHT;
+
+    body.score-bar-open & {
+      margin-top: $HEADER_HEIGHT + $SCORE_BAR_HEIGHT;
+    }
+  }
+
+  @include for-tablet-landscape-up {
     box-shadow: 0 27px 55px 0 rgba(0, 0, 0, 0.3), 0 17px 17px 0 rgba(0, 0, 0, 0.15);
   }
 }

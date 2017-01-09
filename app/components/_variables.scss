@@ -18,3 +18,9 @@ $RED: #f44336;
 $BLUE: #3f51b5;
 
 $PAGE_WIDTH: 1024px;
+$HEADER_HEIGHT: 60px;
+$SCORE_BAR_HEIGHT: 54px;
+
+$Z_INDEX_HEADER: 1;
+$Z_INDEX_SCORE_BAR: 2; // just to put it above the header's shadow
+$Z_INDEX_MODAL: 3;

@@ -11,19 +11,21 @@ import {
 
 if (process.env.IMPORT_SCSS) require(`./ScoreButtons.scss`); // eslint-disable-line global-require
 
-const ScoreButton = (item, displayScore) => {
+const ScoreButton = (item, displayScore, isScoreBar) => {
   const currentScoreKey = item.scoreKey;
   const selected = currentScoreKey === displayScore.key;
 
   const selectedStyle = selected
     ? {
+      background: displayScore.color,
       borderColor: displayScore.color,
-      outlineColor: displayScore.color,
     }
     : null;
 
   let className = `score-buttons__score-button`;
   if (selected) className += ` score-buttons__score-button--selected`;
+
+  const buttonText = isScoreBar ? displayScore.splitTitle : displayScore.shortTitle;
 
   return button(
     {
@@ -36,7 +38,7 @@ const ScoreButton = (item, displayScore) => {
         store.updateItem(item.id, { scoreKey: displayScore.key });
       },
     },
-    displayScore.shortTitle,
+    buttonText,
   );
 };
 
@@ -49,10 +51,10 @@ const ScoreButtons = ({ item, isScoreBar }) => {
 
   return div(
       { className },
-      ScoreButton(item, SCORES.LEVEL_1),
-      ScoreButton(item, SCORES.LEVEL_2),
-      ScoreButton(item, SCORES.LEVEL_3),
-      ScoreButton(item, SCORES.LEVEL_4),
+      ScoreButton(item, SCORES.LEVEL_1, isScoreBar),
+      ScoreButton(item, SCORES.LEVEL_2, isScoreBar),
+      ScoreButton(item, SCORES.LEVEL_3, isScoreBar),
+      ScoreButton(item, SCORES.LEVEL_4, isScoreBar),
     );
 };
 

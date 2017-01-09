@@ -85,6 +85,7 @@ export const SCORES = {
     color: COLORS.GREY_900,
     icon: `--`,
     shortTitle: `Unrated`,
+    splitTitle: `Unrated`,
     value: `Unrated`,
   },
   LEVEL_1: {
@@ -92,6 +93,7 @@ export const SCORES = {
     color: COLORS.RED,
     icon: `¯\\_(ツ)_/¯`,
     shortTitle: `Don't know it`,
+    splitTitle: `Don't\nknow it`,
     value: `I've never heard of it`,
   },
   LEVEL_2: {
@@ -99,6 +101,7 @@ export const SCORES = {
     color: COLORS.ORANGE,
     icon: `ʘ‿ʘ`,
     shortTitle: `Know of it`,
+    splitTitle: `Know\nof it`,
     value: `I've heard of it, but I could know it better`,
   },
   LEVEL_3: {
@@ -106,6 +109,7 @@ export const SCORES = {
     color: COLORS.GREEN,
     icon: `(⌐■_■)`,
     shortTitle: `Know it`,
+    splitTitle: `Know\nit`,
     value: `I know it completely`,
   },
   LEVEL_4: {
@@ -113,6 +117,7 @@ export const SCORES = {
     color: COLORS.GREY_700,
     icon: `×`,
     shortTitle: `Don't care`,
+    splitTitle: `Don't\ncare`,
     value: `I don't want to know it`,
   },
 };

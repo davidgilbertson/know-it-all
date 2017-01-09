@@ -3,8 +3,9 @@
 .score-bar {
   position: fixed;
   left: 0;
-  bottom: 0;
+  top: $HEADER_HEIGHT;
   width: 100%;
+  z-index: $Z_INDEX_SCORE_BAR;
 
   @include for-tablet-landscape-up {
     display: none;

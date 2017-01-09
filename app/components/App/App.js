@@ -50,7 +50,10 @@ const App = (props) => {
   }
 
   return div({ id: `app` },
-    header({ className: `app__header` },
+    header({
+      className: `app__header`,
+      onclick: () => { store.selectNoItem(); },
+    },
       button(
         {
           className: `app__hamburger`,

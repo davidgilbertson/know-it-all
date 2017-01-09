@@ -15,8 +15,10 @@
   }
 
   &--score-bar {
+    border-top: 1px solid $WHITE;
+    height: $SCORE_BAR_HEIGHT;
     background: $BLACK;
-    border: 2px solid black; // to allow the highlight surround to show nicely
+    box-shadow: 0 1px 2px rgba($GREY_900, 0.5);
   }
 }
 
@@ -25,7 +27,6 @@
   color: $WHITE;
   user-select: none;
   padding: 7px 10px;
-  border: 1px solid black; // border all way round so it doesn't move when selected
 
   // the buttons that show in each row on a big screen
   .score-buttons--in-row & {
@@ -35,14 +36,18 @@
     border: 1px solid $GREY_300;
     margin-left: 10px;
 
+    &--selected {
+      color: $WHITE;
+    }
+
     @include for-tablet-portrait-down {
       display: none;
       white-space: nowrap; // stop the text pushing the height up
       overflow: hidden;
-      width: 1px; // 0px seems to have no effect on iOS
+      width: 5px; // 0px seems to have no effect on iOS
       padding: 0;
-      margin: 2px 0; // top margin to counteract the outline
-      outline: 3px solid;
+      margin: 1px; // top margin to counteract the outline
+      color: transparent; // stop tiny bits of text showing
 
       &--selected {
         display: block;
@@ -50,18 +55,12 @@
     }
   }
 
-  // the buttons at the bottom of the screen on small screens
+  // the buttons at the top of the screen on small screens
   .score-buttons--score-bar & {
     flex: 1;
     text-transform: uppercase;
-    // keep them pretty fat because there's always other tappy stuff near the bottom of phones
-    padding: 6px 3px;
-
-    &--selected {
-      outline: 2px solid; // colors set on style
-      border: 1px solid; // colors set on style
-      z-index: 2;
-    }
+    white-space: pre; // so I can control the text going to two lines
+    padding: 0;
 
     &:not(:first-of-type) {
       border-left: 1px solid $GREY_700;

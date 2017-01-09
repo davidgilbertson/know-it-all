@@ -221,6 +221,10 @@ const store = {
     this.changeSelectedItem(id);
   },
 
+  selectNoItem() {
+    this.changeSelectedItem(null);
+  },
+
   changeSelectedItem(idOrItem) {
     const selectedItem = typeof idOrItem === `string`
       ? this.getItemById(idOrItem)
@@ -230,11 +234,13 @@ const store = {
       this.updateItem(this.selectedItem.id, { selected: false });
     }
 
-    this.updateItem(selectedItem.id, { selected: true });
+    if (selectedItem) { // might be null
+      this.updateItem(selectedItem.id, { selected: true });
+    }
 
     this.selectedItem = selectedItem;
 
-    this.triggerListener(EVENTS.SELECTED_ITEM_CHANGED, this.selectedItem);
+    this.triggerListener(EVENTS.SELECTED_ITEM_CHANGED);
   },
 
   expandSelectedItem() {
