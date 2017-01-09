@@ -62,7 +62,7 @@ const Row = (initialProps) => {
       buttonContent = `○`;
       buttonDisabled = true;
     } else {
-      buttonContent = `▷`;
+      buttonContent = `▼`;
     }
 
     return div({ className },
