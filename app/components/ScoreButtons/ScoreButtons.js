@@ -33,9 +33,9 @@ const ScoreButton = (item, displayScore, isScoreBar) => {
       style: selectedStyle,
       onclick: (e) => {
         e.stopPropagation(); // don't want the item to be selected and trigger an update
-        if (selected) return;
+        const newScore = selected ? SCORES.LEVEL_0.key : displayScore.key;
 
-        store.updateItem(item.id, { scoreKey: displayScore.key });
+        store.updateItem(item.id, { scoreKey: newScore });
       },
     },
     buttonText,
