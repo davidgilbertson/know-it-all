@@ -9381,7 +9381,7 @@
         { "name": "modules", "id": "M5gaGA5Z", "tags": ["PROP"] },
         { "name": "openssl", "id": "TXP6VwHq", "tags": ["PROP"] }] },
       { "name": "chdir(directory)", "id": "vUDV8CtF", "tags": ["METHOD", "STATIC"] },
-      { "name": "cdw()", "id": "aNQqkMOA", "tags": ["METHOD", "STATIC"] },
+      { "name": "cwd()", "id": "aNQqkMOA", "tags": ["METHOD", "STATIC"] },
       { "name": "cpuUsage()", "id": "kTX6i2n2", "tags": ["METHOD", "STATIC"] },
       { "name": "cpuUsage(previousCpuUsage)", "id": "9wTXGxSE", "tags": ["METHOD", "STATIC"] },
       { "name": "memoryUsage()", "id": "IIYrQOZs", "tags": ["METHOD", "STATIC"], "children": [
