@@ -47,23 +47,76 @@ const serializeItemState = item => [
 ].join(``);
 
 /* eslint-disable no-param-reassign */
+
 const store = {
-  data: null,
+  data: [],
   listeners: {},
   selectedItem: null,
   childrenCache: {},
+  itemCache: {},
   isModalVisible: false,
+  scoresLoadedFromDisk: false,
+  scoreSummary: {},
 
   init(data) {
-    this.data = data;
-    this.getScoresFromDisk();
+    this.addData(data);
+
+    if (window.APP_META.BROWSER) {
+      this.getScoresFromDisk().then(() => {
+        console.info(`First module scores loaded:`, performance.now());
+      });
+    }
   },
 
-  getItemById(id) {
-    return this.data.find(item => item.id === id);
+  addData(newData) {
+    this.data = this.data.concat(newData);
+
+    newData.forEach((item) => {
+      this.updateScoreSummary(item);
+    });
+  },
+
+  addModules(newModules) {
+    const topChildren = [];
+
+    newModules.forEach((module) => {
+      topChildren.push(module[0]); // first of each module is the top level, e.g. "SVG"
+      this.addData(module);
+    });
+
+    this.triggerListener(EVENTS.MODULES_ADDED, topChildren);
+
+    this.getScoresFromDisk().then(() => {
+      console.info(`All scores loaded:`, performance.now());
+    });
+  },
+
+  getItem(idOrItem) {
+    // this caches a reference to the item if found
+    if (typeof idOrItem === `string`) {
+      if (this.itemCache[idOrItem]) return this.itemCache[idOrItem];
+
+      const foundItem = this.data.find(item => item.id === idOrItem);
+
+      this.itemCache[idOrItem] = foundItem;
+
+      return foundItem;
+    }
+
+    return idOrItem;
+  },
+
+  getParent(item) {
+    // this caches a reference to an item's parent for performance
+    if (item.parentItem) return item.parentItem;
+    if (!item.parentId) return null;
+
+    item.parentItem = this.getItem(item.parentId);
+    return item.parentItem;
   },
 
   getChildrenOf(id) {
+    // TODO (davidg): actually store references to the children on the item
     if (id in this.childrenCache) {
       return this.childrenCache[id];
     }
@@ -103,7 +156,7 @@ const store = {
 
     const getItemPath = (item) => {
       if (item.parentId) {
-        const parent = this.getItemById(item.parentId);
+        const parent = this.getItem(item.parentId);
         return `${getItemPath(parent)} » ${item.name}`;
       }
 
@@ -126,8 +179,11 @@ const store = {
     return unknowns;
   },
 
-  updateItem(id, data, options = { saveToDisk: true }) {
-    const item = this.getItemById(id);
+  updateItem(idOrItem, data, options = {}) {
+    const saveToDisk = (typeof options.saveToDisk !== `undefined`) ? options.saveToDisk : true;
+    const updateDom = (typeof options.updateDom !== `undefined`) ? options.updateDom : true;
+
+    const item = this.getItem(idOrItem);
 
     if (!item) return;
 
@@ -140,48 +196,117 @@ const store = {
 
     Object.assign(item, data); // gasp, mutability
 
+    if (!updateDom) return;
+
     const nextItemState = serializeItemState(item);
 
     // potentially trigger a re-render of the item
     if (item.visible && prevItemState !== nextItemState) {
-      this.triggerListener(id, item);
+      this.triggerListener(item.id); // TODO (davidg): `ROW-${item.id}`
     }
 
     // potentially trigger a re-render of the score bar
     if (scoreChanged) {
-      if (options.saveToDisk) diskStore.setItem(id, data);
+      if (saveToDisk) diskStore.setItem(item.id, data);
 
-      if (this.selectedItem && this.selectedItem.id === id) {
+      if (this.selectedItem && this.selectedItem.id === idOrItem.id) {
         this.triggerListener(EVENTS.SCORE_CHANGED); // updates the score bar
       }
     }
   },
 
-  getScoresFromDisk() {
-    diskStore.iterate((item, id) => {
-      // the only thing we want from the store is the score key
-      // future version maybe 'expanded' or 'selected'
-      if (item.scoreKey) {
-        this.updateItem(
-          id,
-          { scoreKey: item.scoreKey },
-          { saveToDisk: false },
-        );
-      }
-    });
+  updateScore(id, scoreKey, options = {}) {
+    const updateDom = (typeof options.updateDom !== `undefined`) ? options.updateDom : true;
+    const item = this.getItem(id);
+    if (!item) return;
+
+    // caution: update the score summary before updating the item
+    const updatedItems = this.updateScoreSummary(item, scoreKey, item.scoreKey);
+
+    this.updateItem(item, { scoreKey }, options);
+
+    if (updateDom) {
+      updatedItems.forEach((updatedItem) => {
+        this.triggerListener(`PIE-${updatedItem.id}`);
+      });
+    }
   },
 
-  addModules(newModules) {
-    const topChildren = [];
+  updateScoreSummary(item, newScoreKey, oldScoreKey) {
+    // TODO (davidg): this is pretty CPU intensive - web worker?
+    const newItem = !newScoreKey && !oldScoreKey;
+    // the score summary holds the aggregate scores for non-leaf nodes
+    newScoreKey = newScoreKey || SCORES.LEVEL_0.key;
+    oldScoreKey = oldScoreKey || SCORES.LEVEL_0.key;
+    const updatedItems = [];
 
-    newModules.forEach((module) => {
-      topChildren.push(module[0]); // first of each module is the top level, e.g. "SVG"
-      this.data = this.data.concat(module);
+    const updateParentScore = (child) => {
+      const parent = this.getParent(child);
+      if (!parent) return; // we're at the top
+      updatedItems.push(parent);
+
+      this.scoreSummary[parent.id] = this.scoreSummary[parent.id] || {};
+      this.scoreSummary[parent.id][newScoreKey] = this.scoreSummary[parent.id][newScoreKey] || 0;
+      this.scoreSummary[parent.id][newScoreKey] += 1;
+
+      if (!newItem) {
+        this.scoreSummary[parent.id][oldScoreKey] -= 1;
+      }
+
+      updateParentScore(parent);
+    };
+
+    // we don't update the item directly, only its ancestors
+    updateParentScore(item);
+
+    return updatedItems;
+  },
+
+  getScoreSummary(id) {
+    const scoreSummary = this.scoreSummary[id];
+    if (!scoreSummary) return false;
+
+    const scoreOrder = [4, 1, 2, 3, 0];
+    const results = [];
+    let total = 0;
+
+    scoreOrder.forEach((scoreInt) => {
+      const score = SCORES[`LEVEL_${scoreInt}`];
+      const scoreCount = scoreSummary[score.key];
+
+      if (scoreCount) {
+        total += scoreCount;
+
+        results.push({
+          count: scoreCount,
+          score,
+        });
+      }
     });
 
-    this.triggerListener(EVENTS.MODULES_ADDED, topChildren);
+    return { total, results };
+  },
 
-    this.getScoresFromDisk();
+  getScoresFromDisk() {
+    return diskStore.iterate((data, id) => {
+      // the only thing we want from the store is the score key
+      // future version maybe 'expanded' or 'selected'
+      if (data.scoreKey) {
+        this.updateScore(
+          id,
+          data.scoreKey,
+          { saveToDisk: false, updateDom: false },
+        );
+      }
+    }).then(() => {
+      this.scoresLoadedFromDisk = true;
+
+      this.data.forEach((item) => {
+        // since potentially every row/pie chart may have changed
+        // just re-render each of the top level items
+        if (!item.parentId) this.triggerListener(item.id);
+      });
+    });
   },
 
   selectNextVisibleRow() {
@@ -226,9 +351,7 @@ const store = {
   },
 
   changeSelectedItem(idOrItem) {
-    const selectedItem = typeof idOrItem === `string`
-      ? this.getItemById(idOrItem)
-      : idOrItem;
+    const selectedItem = this.getItem(idOrItem);
 
     if (this.selectedItem) {
       this.updateItem(this.selectedItem.id, { selected: false });
@@ -259,7 +382,7 @@ const store = {
     const children = this.getChildrenOf(id);
     if (!children) return;
 
-    const item = this.getItemById(id);
+    const item = this.getItem(id);
 
     if (item.expanded) return;
 
@@ -275,7 +398,7 @@ const store = {
   },
 
   collapseItemById(id) {
-    const item = this.getItemById(id);
+    const item = this.getItem(id);
 
     if (item.expanded === false) return;
 
@@ -293,7 +416,7 @@ const store = {
 
   scoreSelectedItem(scoreKey) {
     if (this.selectedItem && this.selectedItem.scoreKey !== scoreKey) {
-      this.updateItem(this.selectedItem.id, { scoreKey });
+      this.updateScore(this.selectedItem.id, scoreKey);
     }
   },
 
@@ -309,10 +432,12 @@ const store = {
     this.triggerListener(EVENTS.MODAL_VISIBILITY_CHANGED);
   },
 
-  triggerListener(key, payload) {
-    const callback = this.listeners[key];
+  triggerListener(id, payload) {
+    const callbacks = this.listeners[id];
 
-    if (callback) callback(payload);
+    if (callbacks && callbacks.length) {
+      callbacks.forEach(callback => callback(payload));
+    }
   },
 
   listen(id, callback) {
@@ -320,7 +445,8 @@ const store = {
       console.warn(`You must pass a function as the second argument to store.listen()`);
     }
 
-    this.listeners[id] = callback;
+    this.listeners[id] = this.listeners[id] || [];
+    this.listeners[id].push(callback);
   },
 };
 

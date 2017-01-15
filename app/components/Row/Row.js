@@ -1,6 +1,7 @@
 import store from '../../data/store';
 import Tags from '../Tags/Tags';
 import ScoreButtons from '../ScoreButtons/ScoreButtons';
+import PieChart from '../PieChart/PieChart';
 import swapNodes from '../../utils/swapNodes';
 
 import {
@@ -28,13 +29,17 @@ const expandOrCollapseRow = (e, item) => {
 
 const Row = (initialProps) => {
   let el = null;
+  const itemId = initialProps.id;
 
-  const render = (props) => {
-    const childRows = !props.leaf && props.expanded
-      ? div(store.getChildrenOf(props.id).map(child => Row(child)))
+  const render = () => {
+    // for every render, get the latest data from the store
+    const item = store.getItem(itemId);
+
+    const childRows = !item.leaf && item.expanded
+      ? div(store.getChildrenOf(item.id).map(child => Row(child)))
       : null;
 
-    const isNotCode = !!(props.tags || []).find(tagKey => (
+    const isNotCode = !!(item.tags || []).find(tagKey => (
       tagKey === TAGS.ROOT.key ||
       tagKey === TAGS.GROUPING.key ||
       tagKey === TAGS.INFO.key
@@ -44,21 +49,21 @@ const Row = (initialProps) => {
       ? { fontFamily: `"Courier New", monospace` }
       : null;
 
-    const notes = props.notes;
+    const notes = item.notes;
     const notesText = notes
       ? span({ className: `row__notes` },
-        props.notes,
+        item.notes,
       )
       : null;
 
     let className = `row`;
-    if (props.selected) className += ` row--selected`;
-    if (props.expanded) className += ` row--expanded`;
+    if (item.selected) className += ` row--selected`;
+    if (item.expanded) className += ` row--expanded`;
 
     let buttonContent;
     let buttonDisabled = false;
 
-    if (props.leaf) {
+    if (item.leaf) {
       buttonContent = `○`;
       buttonDisabled = true;
     } else {
@@ -69,11 +74,11 @@ const Row = (initialProps) => {
       div(
         {
           className: `row__content`,
-          onclick: () => store.selectItemById(props.id),
+          onclick: () => store.selectItemById(item.id),
         },
         button(
           {
-            onclick: e => expandOrCollapseRow(e, props),
+            onclick: e => expandOrCollapseRow(e, item),
             className: `row__triangle`,
             disabled: buttonDisabled,
           },
@@ -83,25 +88,27 @@ const Row = (initialProps) => {
         div({ className: `row__words` },
           p({ className: `row__name` },
             span({ style: rowNameStyle },
-              props.name,
+              item.name,
             ),
             notesText,
           ),
         ),
 
-        Tags(props.tags),
+        Tags(item.tags),
 
-        ScoreButtons({ item: props }),
+        ScoreButtons({ item }),
+
+        PieChart(item),
       ),
       childRows,
     );
   };
 
-  store.listen(initialProps.id, (newData) => {
-    el = swapNodes(el, render(newData));
+  store.listen(itemId, () => {
+    el = swapNodes(el, render());
   });
 
-  el = render(initialProps);
+  el = render();
 
   return el;
 };

@@ -5,6 +5,9 @@ const jsdom = require(`jsdom`);
 
 global.document = jsdom.jsdom();
 global.window = document.defaultView;
+global.performance = {
+  now: () => Date.now(),
+};
 
 window.APP_META = { BROWSER: false };
 

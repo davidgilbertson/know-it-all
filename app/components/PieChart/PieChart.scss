@@ -1,0 +1,16 @@
+@import '../global';
+
+.pie-chart {
+  padding: 0 5px 0 10px;
+  width: 39px;
+
+  svg {
+    transform: rotate(-90deg); // so slices are top-center-based
+    vertical-align: middle;
+  }
+
+  path,
+  circle {
+    fill: $GREY_50;
+  }
+}

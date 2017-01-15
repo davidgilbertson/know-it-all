@@ -2,9 +2,13 @@ const attributeExceptions = [
   `role`,
   `dataset`,
   `d`,
+  `r`,
+  `cx`,
+  `cy`,
   `width`,
   `height`,
   `viewBox`,
+  `fill`,
 ];
 
 const SVG_NAMESPACE = `http://www.w3.org/2000/svg`;
@@ -49,7 +53,7 @@ function setDataAttributes(el, dataAttributes) {
 }
 
 function isSvg(type) {
-  return [`path`, `svg`].includes(type);
+  return [`path`, `svg`, `circle`].includes(type);
 }
 
 function makeElement(type, textOrPropsOrChild, ...otherChildren) {
@@ -100,3 +104,4 @@ export const ul = (...args) => makeElement(`ul`, ...args);
 export const li = (...args) => makeElement(`li`, ...args);
 export const svg = (...args) => makeElement(`svg`, ...args);
 export const path = (...args) => makeElement(`path`, ...args);
+export const circle = (...args) => makeElement(`circle`, ...args);

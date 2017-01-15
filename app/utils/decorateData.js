@@ -17,7 +17,6 @@ function parseData(items, path = [], parent) {
       name: item.name,
       id: item.id,
       row: rowCount,
-      pathString: pathArray.join(`.`),
       tags: item.tags,
       leaf: !hasChildren,
       expanded: item.expanded,

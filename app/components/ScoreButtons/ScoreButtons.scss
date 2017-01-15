@@ -11,6 +11,7 @@
     @include for-tablet-portrait-down {
       margin: -6px -6px -6px 6px;
       align-self: stretch;
+      order: 5; // put the bar to the right of the pie
     }
   }
 

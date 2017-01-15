@@ -6,6 +6,8 @@ import {
   SCORES,
 } from './utils/constants';
 
+console.info(`JS started:`, performance.now());
+
 window.APP_META.BROWSER = true;
 
 store.init(window.APP_META.data);
@@ -17,6 +19,7 @@ const serverAppEl = document.getElementById(`app`);
 // check that the server and client markup match, then switch them out
 if (app.isEqualNode(serverAppEl)) {
   swapNodes(serverAppEl, app, true);
+  console.info(`Interactive:`, performance.now());
 } else {
   console.error(`The client markup did not match the server markup`);
 

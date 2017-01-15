@@ -45,6 +45,7 @@ export default ({ scriptFileName, mode, data, dataFileNames }) => {
       ${app.outerHTML}
 
       <script>
+        console.info('HTML rendered:', performance.now());
         (function() {
           window.APP_META = {
             data: ${JSON.stringify(data)},
