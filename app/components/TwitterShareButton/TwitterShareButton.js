@@ -7,7 +7,7 @@ const TwitterShareButton = () => a(
     className: `twitter-share-button`,
     href: `https://twitter.com/share`,
     dataset: {
-      text: `If you love web development, check out this site by @D__Gilbertson`,
+      text: `Find out what you don't know about web development. @D__Gilbertson`,
       hashtags: `webdev #css #html #javascript #nodejs`,
     },
   },
