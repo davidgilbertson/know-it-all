@@ -1,12 +1,12 @@
 import App from './components/App/App';
 import store from './data/store';
 import swapNodes from './utils/swapNodes';
+import now from './utils/now';
 import {
+  ANALYTICS_STRINGS,
   KEYS,
   SCORES,
 } from './utils/constants';
-
-console.info(`JS started:`, performance.now());
 
 window.APP_META.BROWSER = true;
 
@@ -19,7 +19,13 @@ const serverAppEl = document.getElementById(`app`);
 // check that the server and client markup match, then switch them out
 if (app.isEqualNode(serverAppEl)) {
   swapNodes(serverAppEl, app, true);
-  console.info(`Interactive:`, performance.now());
+  console.info(ANALYTICS_STRINGS.TTI, now());
+  ga(`send`, {
+    hitType: `timing`,
+    timingCategory: ANALYTICS_STRINGS.PERFORMANCE,
+    timingVar: ANALYTICS_STRINGS.TTI,
+    timingValue: now(),
+  });
 } else {
   console.error(`The client markup did not match the server markup`);
 
@@ -35,6 +41,36 @@ const rowHeight = document.querySelector(`.row__content`).offsetHeight;
 function scrollPageOneRow(dir = 1) {
   window.scrollBy(0, rowHeight * dir);
 }
+
+//  --  SEND TIMING EVENT FOR FIRST HUMAN INTERACTION  --  //
+function handleFirstHumanInteraction() {
+  window.removeEventListener(`click`, handleFirstHumanInteraction, true);
+  window.removeEventListener(`keydown`, handleFirstHumanInteraction, true);
+  window.removeEventListener(`touchstart`, handleFirstHumanInteraction, true);
+  window.removeEventListener(`scroll`, handleFirstHumanInteraction, true);
+
+  let sent = false;
+
+  // in case some browser fires click and touchstart together...
+  const sendOnce = () => {
+    if (sent) return;
+    sent = true;
+
+    ga(`send`, {
+      hitType: `timing`,
+      timingCategory: ANALYTICS_STRINGS.PERFORMANCE,
+      timingVar: ANALYTICS_STRINGS.FIRST_HUMAN_INTERACTION,
+      timingValue: now(),
+    });
+  };
+
+  sendOnce();
+}
+
+window.addEventListener(`click`, handleFirstHumanInteraction, true);
+window.addEventListener(`keydown`, handleFirstHumanInteraction, true);
+window.addEventListener(`touchstart`, handleFirstHumanInteraction, true);
+window.addEventListener(`scroll`, handleFirstHumanInteraction, true);
 
 //  --  BIND CLICK EVENTS  --  //
 window.addEventListener(`keydown`, (e) => {

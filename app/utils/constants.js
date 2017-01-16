@@ -12,6 +12,15 @@ export const COLORS = {
   WHITE: `#fafafa`,
 };
 
+// don't ever change these, it will mess up analytics
+export const ANALYTICS_STRINGS = {
+  PERFORMANCE: `Performance`,
+  TTI: `App interactive (ms)`,
+  FIRST_MODULE_SCORES: `First module's scores loaded (ms)`,
+  ALL_MODULE_SCORES: `All module's scores loaded (ms)`,
+  FIRST_HUMAN_INTERACTION: `First human interaction (ms)`,
+};
+
 export const EVENTS = {
   MODULES_ADDED: `MODULES_ADDED`,
   SELECTED_ITEM_CHANGED: `SELECTED_ITEM_CHANGED`,

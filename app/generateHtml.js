@@ -45,13 +45,15 @@ export default ({ scriptFileName, mode, data, dataFileNames }) => {
       ${app.outerHTML}
 
       <script>
-        console.info('HTML rendered:', performance.now());
+        window.APP_META = {};
+        
+        window.APP_META.htmlRendered = Math.round(performance.now());
+        console.info('HTML rendered (ms)', window.APP_META.htmlRendered);
+
         (function() {
-          window.APP_META = {
-            data: ${JSON.stringify(data)},
-            version: '${version}',
-            otherModuleFileNames: ${JSON.stringify(dataFileNames.others)},
-          };
+          window.APP_META.data = ${JSON.stringify(data)};
+          window.APP_META.version = '${version}';
+          window.APP_META.otherModuleFileNames = ${JSON.stringify(dataFileNames.others)};
 
           var scripts = [
             '${scriptFileName}'
@@ -84,6 +86,12 @@ export default ({ scriptFileName, mode, data, dataFileNames }) => {
       
         ga('create', 'UA-89696437-1', 'auto');
         ga('send', 'pageview');
+        ga('send', {
+          hitType: 'timing',
+          timingCategory: 'Performance',
+          timingVar: 'HTML rendered (ms)',
+          timingValue: window.APP_META.htmlRendered,
+        });
       </script>
     </body>
   </html>

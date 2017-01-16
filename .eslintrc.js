@@ -3,6 +3,9 @@ module.exports = {
     browser: true,
     node: true
   },
+  globals: {
+    ga: true,
+  },
   extends: `airbnb`,
   rules: {
     quotes: [`error`, `backtick`],

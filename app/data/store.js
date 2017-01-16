@@ -24,9 +24,11 @@
 
 import localforage from 'localforage';
 import {
+  ANALYTICS_STRINGS,
   EVENTS,
   SCORES,
 } from '../utils/constants';
+import now from '../utils/now';
 
 localforage.ready().catch(() => {
   console.warn(`localforage threw an error. If this is during webpack build, everything is OK`);
@@ -63,7 +65,13 @@ const store = {
 
     if (window.APP_META.BROWSER) {
       this.getScoresFromDisk().then(() => {
-        console.info(`First module scores loaded:`, performance.now());
+        console.info(ANALYTICS_STRINGS.FIRST_MODULE_SCORES, now());
+        ga(`send`, {
+          hitType: `timing`,
+          timingCategory: ANALYTICS_STRINGS.PERFORMANCE,
+          timingVar: ANALYTICS_STRINGS.FIRST_MODULE_SCORES,
+          timingValue: now(),
+        });
       });
     }
   },
@@ -87,7 +95,13 @@ const store = {
     this.triggerListener(EVENTS.MODULES_ADDED, topChildren);
 
     this.getScoresFromDisk().then(() => {
-      console.info(`All scores loaded:`, performance.now());
+      console.info(ANALYTICS_STRINGS.ALL_MODULE_SCORES, now());
+      ga(`send`, {
+        hitType: `timing`,
+        timingCategory: ANALYTICS_STRINGS.PERFORMANCE,
+        timingVar: ANALYTICS_STRINGS.ALL_MODULE_SCORES,
+        timingValue: now(),
+      });
     });
   },
 
