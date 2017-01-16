@@ -11,14 +11,9 @@ if (process.env.IMPORT_SCSS) require(`./PieChart.scss`); // eslint-disable-line 
 
 const PieChart = (item) => {
   let el;
-  const radius = 12;
-  const diameter = radius * 2;
-  const sweepFlag = 1;
 
   const render = () => {
     const scoreSummary = store.getScoreSummary(item.id);
-    let cumulativeRadians = 0;
-
     const total = scoreSummary.total;
 
     if (
@@ -34,32 +29,32 @@ const PieChart = (item) => {
     if (scoreSummary.results && scoreSummary.results.length === 1) {
       // if there's only one slice, that's a circle
       slices = circle({
-        r: radius,
+        r: 1,
         style: {
           fill: scoreSummary.results[0].score.color,
         },
       });
     } else {
       // if there's more than one slice, render paths/arcs
+      let cumulativeRadians = 0;
+
       slices = scoreSummary.results.map((slice) => {
         const percent = slice.count / total;
 
-        const startX = Math.cos(cumulativeRadians) * radius;
-        const startY = Math.sin(cumulativeRadians) * radius;
+        const startX = Math.cos(cumulativeRadians);
+        const startY = Math.sin(cumulativeRadians);
 
         cumulativeRadians += 2 * Math.PI * percent;
 
-        const endX = Math.cos(cumulativeRadians) * radius;
-        const endY = Math.sin(cumulativeRadians) * radius;
+        const endX = Math.cos(cumulativeRadians);
+        const endY = Math.sin(cumulativeRadians);
 
-        const largeFlag = percent > 0.5 ? 1 : 0;
-
-        const arc = [radius, radius, 0, largeFlag, sweepFlag, endX, endY].join(` `);
+        const largeArcFlag = percent > 0.5 ? 1 : 0;
 
         const d = [
           `M ${startX} ${startY}`,
-          `A ${arc}`,
-          `L 0 0`, // the center of the SVG
+          `A 1 1 0 ${largeArcFlag} 1 ${endX} ${endY}`,
+          `L 0 0`,
         ].join(` `);
 
         return path({
@@ -72,12 +67,7 @@ const PieChart = (item) => {
     }
 
     const result = div({ className: `pie-chart` },
-      svg(
-        {
-          width: diameter,
-          height: diameter,
-          viewBox: `-${radius} -${radius} ${diameter} ${diameter}`,
-        },
+      svg({ viewBox: `-1 -1 2 2` },
         slices,
       ),
     );
