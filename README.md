@@ -10,9 +10,10 @@ And maybe one day about other things too.
 ## Running it locally
 1. fork it/clone it `git clone https://github.com/davidgilbertson/know-it-all.git`
 2. `npm i`
-3. `npm run dev` to start up the webpack dev server, then head to `localhost:8080`
-4. `npm run build` to build the production bundles
-5. `npm start` to start in production mode, also at `localhost:8080`. Not that this
+3. Before running in dev mode for the very first time, you must do a build (`npm run build`)
+4. `npm run dev` to start up the webpack dev server, then head to `localhost:8080`
+5. `npm run build` to build the production bundles
+6. `npm start` to start in production mode, also at `localhost:8080`. Not that this
 is hosted as a static site, so the production build just starts a very simple little NodeJS server.
 
 ## Planned stuff
