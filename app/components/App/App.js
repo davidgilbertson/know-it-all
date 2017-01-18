@@ -28,10 +28,8 @@ const App = (props) => {
 
   const table = div({ className: `app__table` }, rows);
 
-  store.listen(EVENTS.MODULES_ADDED, (newTopChildren) => {
-    newTopChildren.forEach((child) => {
-      table.appendChild(Row(child));
-    });
+  store.listen(EVENTS.MODULE_ADDED, (child) => {
+    table.appendChild(Row(child));
   });
 
   if (window.APP_META.BROWSER) {

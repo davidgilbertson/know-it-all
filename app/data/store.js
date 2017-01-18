@@ -85,22 +85,24 @@ const store = {
   },
 
   addModules(newModules) {
-    const topChildren = [];
+    newModules.forEach((module, i) => {
+      // it can take a few seconds to load all the scores on slow devices
+      // break it up into smaller chunks by calling requestIdleCallback()
+      requestIdleCallback(() => {
+        this.addData(module);
+        this.triggerListener(EVENTS.MODULE_ADDED, module[0]);
 
-    newModules.forEach((module) => {
-      topChildren.push(module[0]); // first of each module is the top level, e.g. "SVG"
-      this.addData(module);
-    });
-
-    this.triggerListener(EVENTS.MODULES_ADDED, topChildren);
-
-    this.getScoresFromDisk().then(() => {
-      console.info(ANALYTICS_STRINGS.ALL_MODULE_SCORES, now());
-      ga(`send`, {
-        hitType: `timing`,
-        timingCategory: ANALYTICS_STRINGS.PERFORMANCE,
-        timingVar: ANALYTICS_STRINGS.ALL_MODULE_SCORES,
-        timingValue: now(),
+        if (i === newModules.length - 1) {
+          this.getScoresFromDisk().then(() => {
+            console.info(ANALYTICS_STRINGS.ALL_MODULE_SCORES, now());
+            ga(`send`, {
+              hitType: `timing`,
+              timingCategory: ANALYTICS_STRINGS.PERFORMANCE,
+              timingVar: ANALYTICS_STRINGS.ALL_MODULE_SCORES,
+              timingValue: now(),
+            });
+          });
+        }
       });
     });
   },

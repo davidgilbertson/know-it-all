@@ -10,6 +10,11 @@ import {
 
 window.APP_META.BROWSER = true;
 
+// dodgy polyfill
+window.requestIdleCallback = window.requestIdleCallback || function requestIdleCallbackPoly(callback) {
+  callback();
+};
+
 store.init(window.APP_META.data);
 
 const app = App({ version: window.APP_META.version });
