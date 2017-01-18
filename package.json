@@ -7,6 +7,7 @@
     "dev": "nodemon app/buildTools/dev.entry.js",
     "build": "node app/buildTools/prod.entry.js",
     "start": "node app/static-server.js",
+    "bump": "npm version major && npm run build",
     "deploy": "firebase deploy"
   },
   "repository": {
