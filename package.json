@@ -1,6 +1,6 @@
 {
   "name": "know-it-all",
-  "version": "31.0.0",
+  "version": "32.0.0",
   "description": "If you don't know it all, at least know what you don't know",
   "scripts": {
     "lint": "eslint ./app --color --ext .jsx,.js",
