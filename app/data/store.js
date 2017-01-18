@@ -80,6 +80,10 @@ const store = {
     this.data = this.data.concat(newData);
 
     newData.forEach((item) => {
+      this.itemCache[item.id] = item;
+    });
+
+    newData.forEach((item) => {
       this.updateScoreSummary(item);
     });
   },
@@ -108,15 +112,8 @@ const store = {
   },
 
   getItem(idOrItem) {
-    // this caches a reference to the item if found
     if (typeof idOrItem === `string`) {
-      if (this.itemCache[idOrItem]) return this.itemCache[idOrItem];
-
-      const foundItem = this.data.find(item => item.id === idOrItem);
-
-      this.itemCache[idOrItem] = foundItem;
-
-      return foundItem;
+      return this.itemCache[idOrItem];
     }
 
     return idOrItem;
@@ -232,9 +229,9 @@ const store = {
   },
 
   updateScore(id, scoreKey, options = {}) {
-    const updateDom = (typeof options.updateDom !== `undefined`) ? options.updateDom : true;
     const item = this.getItem(id);
     if (!item) return;
+    const updateDom = (typeof options.updateDom !== `undefined`) ? options.updateDom : true;
 
     // caution: update the score summary before updating the item
     const updatedItems = this.updateScoreSummary(item, scoreKey, item.scoreKey);
