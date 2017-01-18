@@ -85,6 +85,7 @@ export default ({ scriptFileName, mode, data, dataFileNames }) => {
         })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
       
         ga('create', 'UA-89696437-1', 'auto');
+        ga('set', 'appVersion', '${version}');
         ga('send', 'pageview');
         ga('send', {
           hitType: 'timing',
