@@ -59,8 +59,8 @@ const App = (props) => {
             store.showModal();
           },
         },
-        svg({ width: 30, height: 30, viewBox: `0 0 21 21` },
-          path({ d: `M0 3 h21 v3 h-21 v-3 M0 9 h21 v3 h-21 v-3 M0 15 h21 v3 h-21 v-3` }),
+        svg({ width: 30, height: 30, viewBox: `0 0 11 11` },
+          path({ d: `M0 2 h21 v1 h-21 v-1 M0 5 h21 v1 h-21 v1 M0 8 h21 v1 h-21 v-1` }),
         ),
       ),
 
