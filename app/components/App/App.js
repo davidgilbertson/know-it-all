@@ -8,8 +8,6 @@ import {
   div,
   h1,
   header,
-  svg,
-  path,
 } from '../../utils/elements';
 
 import { EVENTS } from '../../utils/constants';
@@ -59,9 +57,6 @@ const App = (props) => {
             store.showModal();
           },
         },
-        svg({ width: 30, height: 30, viewBox: `0 0 11 11` },
-          path({ d: `M0 2 h21 v1 h-21 v-1 M0 5 h21 v1 h-21 v1 M0 8 h21 v1 h-21 v-1` }),
-        ),
       ),
 
       h1(

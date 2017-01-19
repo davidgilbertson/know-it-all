@@ -46,6 +46,10 @@ body.block-scroll {
     z-index: $Z_INDEX_HEADER;
     box-shadow: 0 1px 2px rgba($GREY_900, 0.5);
   }
+
+  @include for-tablet-portrait-up {
+    padding: 8px 17px;
+  }
 }
 
 .app__tweet {
@@ -56,6 +60,8 @@ body.block-scroll {
 .app__header-title {
   flex: 1;
   font-size: 28px;
+  line-height: 28px;
+  padding-bottom: 2px; // to align in nicely with the hamburger
   color: $WHITE;
   letter-spacing: 2px;
   text-transform: uppercase;
@@ -70,14 +76,15 @@ body.block-scroll {
 
 .app__hamburger {
   padding: 10px 0;
-
-  svg {
-    vertical-align: middle;
-  }
-
-  path {
-    fill: $WHITE;
-  }
+  width: 30px;
+  height: 30px;
+  background-image: repeating-linear-gradient(
+    180deg,
+    transparent,
+    transparent 6px,
+    $WHITE 6px,
+    $WHITE 8px
+  );
 }
 
 .app__table {
