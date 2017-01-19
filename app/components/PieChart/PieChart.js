@@ -31,7 +31,7 @@ const PieChart = (item) => {
       slices = circle({
         r: 1,
         style: {
-          fill: scoreSummary.results[0].score.color,
+          fill: scoreSummary.results[0].score.color || ``, // set empty string to make iOS ignore fill
         },
       });
     } else {
@@ -60,7 +60,7 @@ const PieChart = (item) => {
         return path({
           d,
           style: {
-            fill: slice.score.color,
+            fill: slice.score.color || ``, // set empty string to make iOS ignore fill
           },
         });
       });
