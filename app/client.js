@@ -90,7 +90,7 @@ window.addEventListener(`keydown`, (e) => {
   } else if (e.keyCode === KEYS.RIGHT) {
     store.expandSelectedItem();
   } else if (e.keyCode === KEYS.LEFT) {
-    store.collapseSelectedItem();
+    store.collapseOrNavigateToParent();
   } else if (e.keyCode === KEYS.TOP_0 || e.keyCode === KEYS.NUM_0) {
     store.scoreSelectedItem(SCORES.LEVEL_0.key);
   } else if (e.keyCode === KEYS.TOP_1 || e.keyCode === KEYS.NUM_1) {
