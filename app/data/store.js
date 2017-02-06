@@ -363,14 +363,6 @@ const store = {
     this.changeSelectedItem(null);
   },
 
-  collapseOrNavigateToParent() {
-    if (this.selectedItem && this.selectedItem.expanded) {
-      this.collapseItemById(this.selectedItem.id);
-    } else if (this.selectedItem && this.selectedItem.parentId) {
-      this.changeSelectedItem(this.selectedItem.parentId);
-    }
-  },
-
   changeSelectedItem(idOrItem) {
     const selectedItem = this.getItem(idOrItem);
 
@@ -387,15 +379,19 @@ const store = {
     this.triggerListener(EVENTS.SELECTED_ITEM_CHANGED);
   },
 
-  expandSelectedItem() {
+  expandOrNavigateToChild() {
     if (this.selectedItem && !this.selectedItem.expanded && !this.selectedItem.leaf) {
       this.expandItemById(this.selectedItem.id);
+    } else if (this.selectedItem && !this.selectedItem.leaf) {
+      this.selectNextVisibleRow();
     }
   },
 
-  collapseSelectedItem() {
+  collapseOrNavigateToParent() {
     if (this.selectedItem && this.selectedItem.expanded) {
       this.collapseItemById(this.selectedItem.id);
+    } else if (this.selectedItem && this.selectedItem.parentId) {
+      this.changeSelectedItem(this.selectedItem.parentId);
     }
   },
 

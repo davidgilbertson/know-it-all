@@ -88,7 +88,7 @@ window.addEventListener(`keydown`, (e) => {
     scrollPageOneRow(-1);
     store.selectPrevVisibleRow();
   } else if (e.keyCode === KEYS.RIGHT) {
-    store.expandSelectedItem();
+    store.expandOrNavigateToChild();
   } else if (e.keyCode === KEYS.LEFT) {
     store.collapseOrNavigateToParent();
   } else if (e.keyCode === KEYS.TOP_0 || e.keyCode === KEYS.NUM_0) {
