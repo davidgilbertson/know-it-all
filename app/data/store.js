@@ -394,7 +394,6 @@ const store = {
   },
 
   collapseSelectedItem() {
-    console.log(this.selectedItem);
     if (this.selectedItem && this.selectedItem.expanded) {
       this.collapseItemById(this.selectedItem.id);
     }
