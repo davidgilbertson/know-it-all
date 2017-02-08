@@ -21,6 +21,7 @@ module.exports = {
         ],
       },
     ],
+    'func-style': ['error', 'declaration', { 'allowArrowFunctions': true }],
     'react/prop-types': 0,
     'react/no-unknown-property': 0,
     'max-len': [`error`, 120],
