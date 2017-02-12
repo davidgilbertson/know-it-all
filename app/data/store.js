@@ -28,7 +28,7 @@ import {
   EVENTS,
   SCORES,
 } from '../utils/constants';
-import now from '../utils/now';
+import logTiming from '../utils/logTiming';
 
 localforage.ready().catch(() => {
   console.warn(`localforage threw an error. If this is during webpack build, everything is OK`);
@@ -65,13 +65,7 @@ const store = {
 
     if (window.APP_META.BROWSER) {
       this.getScoresFromDisk().then(() => {
-        console.info(ANALYTICS_STRINGS.FIRST_MODULE_SCORES, now());
-        ga(`send`, {
-          hitType: `timing`,
-          timingCategory: ANALYTICS_STRINGS.PERFORMANCE,
-          timingVar: ANALYTICS_STRINGS.FIRST_MODULE_SCORES,
-          timingValue: now(),
-        });
+        logTiming(ANALYTICS_STRINGS.FIRST_MODULE_SCORES);
       });
     }
   },
@@ -98,13 +92,7 @@ const store = {
 
         if (i === newModules.length - 1) {
           this.getScoresFromDisk().then(() => {
-            console.info(ANALYTICS_STRINGS.ALL_MODULE_SCORES, now());
-            ga(`send`, {
-              hitType: `timing`,
-              timingCategory: ANALYTICS_STRINGS.PERFORMANCE,
-              timingVar: ANALYTICS_STRINGS.ALL_MODULE_SCORES,
-              timingValue: now(),
-            });
+            logTiming(ANALYTICS_STRINGS.ALL_MODULE_SCORES);
           });
         }
       });

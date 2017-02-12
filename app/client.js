@@ -1,7 +1,7 @@
 import App from './components/App/App';
 import store from './data/store';
 import swapNodes from './utils/swapNodes';
-import now from './utils/now';
+import logTiming from './utils/logTiming';
 import {
   ANALYTICS_STRINGS,
   KEYS,
@@ -24,13 +24,7 @@ const serverAppEl = document.getElementById(`app`);
 // check that the server and client markup match, then switch them out
 if (app.isEqualNode(serverAppEl)) {
   swapNodes(serverAppEl, app, true);
-  console.info(ANALYTICS_STRINGS.TTI, now());
-  ga(`send`, {
-    hitType: `timing`,
-    timingCategory: ANALYTICS_STRINGS.PERFORMANCE,
-    timingVar: ANALYTICS_STRINGS.TTI,
-    timingValue: now(),
-  });
+  logTiming(ANALYTICS_STRINGS.TTI);
 } else {
   console.error(`The client markup did not match the server markup`);
 
@@ -61,12 +55,7 @@ function handleFirstHumanInteraction() {
     if (sent) return;
     sent = true;
 
-    ga(`send`, {
-      hitType: `timing`,
-      timingCategory: ANALYTICS_STRINGS.PERFORMANCE,
-      timingVar: ANALYTICS_STRINGS.FIRST_HUMAN_INTERACTION,
-      timingValue: now(),
-    });
+    logTiming(ANALYTICS_STRINGS.FIRST_HUMAN_INTERACTION);
   };
 
   sendOnce();
