@@ -6916,7 +6916,7 @@
       { "name": "substr(start)", "id": "3Gir1cQq", "tags": ["METHOD"] },
       { "name": "substr(start, length)", "id": "mkUwdlYr", "tags": ["METHOD"] },
       { "name": "substring(start)", "id": "stceIyNZ", "tags": ["METHOD"] },
-      { "name": "substring(start, length)", "id": "VEo5DFg8", "tags": ["METHOD"] },
+      { "name": "substring(start, end)", "id": "VEo5DFg8", "tags": ["METHOD"] },
       { "name": "toLocaleLowerCase()", "id": "DSUHEmhW", "tags": ["METHOD"] },
       { "name": "loLocateUpperCase()", "id": "yTAGN8U6", "tags": ["METHOD"] },
       { "name": "toLowerCase()", "id": "MOmtF2qJ", "tags": ["METHOD"] },
