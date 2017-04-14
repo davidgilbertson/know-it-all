@@ -39,6 +39,7 @@
           { "name": "subgrid", "id": "PiECNdst", "tags": ["VALUE", "NEW"] }] },
         { "name": "position", "id": "s1SmxA4X", "tags": ["PROP"], "children": [
           { "name": "static", "id": "SFXkEMHw", "tags": ["VALUE"] },
+          { "name": "sticky", "id": "KFxr1QE0", "tags": ["VALUE"] },
           { "name": "relative", "id": "7ZrVVUxk", "tags": ["VALUE"] },
           { "name": "absolute", "id": "YCR7ix9R", "tags": ["VALUE"] },
           { "name": "fixed", "id": "mFOmEo75", "tags": ["VALUE"] },
