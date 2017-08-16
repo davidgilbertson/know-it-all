@@ -29,6 +29,9 @@
   .row--selected > & {
     background: $GREY_50;
   }
+  &:hover {
+    background-color: $DEEP_ORANGE_100;
+  }
 }
 
 .row__triangle {

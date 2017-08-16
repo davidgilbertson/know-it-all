@@ -89,6 +89,10 @@
   display: flex;
   align-items: center;
   border-bottom: 1px solid $GREY_50;
+  padding-left: 5px;
+  &:hover {
+    background-color: $DEEP_ORANGE_100;
+  }
 }
 
 .info-modal__unknown-item-text {
