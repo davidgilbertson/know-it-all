@@ -20,7 +20,7 @@ is hosted as a static site, so the production build just starts a very simple li
 - View a list of all "Don't know" and/or "Know of it" items.
 - Counts of scores (e.g. Don't know: 43, unrated: 8,723, etc)
 - Links to docs for each item. Maybe.
-- Search the list (where on earth is xxx buried?!)
+- Search the list
 
 ## Contributing
 I'd be delighted to get help from the greater community, I imagine
