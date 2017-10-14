@@ -2044,7 +2044,7 @@
             { "name": "selectionDirection", "id": "ZKnPiDNU", "tags": ["PROP"] }] },
           { "name": "validity", "id": "czcB9KJN", "tags": ["PROP"] },
           { "name": "focus()", "id": "emTMYQxQ", "tags": ["METHOD"] },
-          { "name": "blue()", "id": "fH1fbx4f", "tags": ["METHOD"] },
+          { "name": "blur()", "id": "fH1fbx4f", "tags": ["METHOD"] },
           { "name": "select()", "id": "CclTFpF9", "tags": ["METHOD"] },
           { "name": "click()", "id": "wTwdRJwu", "tags": ["METHOD"] },
           { "name": "setSelectionRange()", "id": "WgsJyD1w", "tags": ["METHOD"] },
