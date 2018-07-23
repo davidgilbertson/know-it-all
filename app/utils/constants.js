@@ -131,6 +131,8 @@ export const SCORES = {
   },
 };
 
+export const INHERITED_KEYS = [SCORES.LEVEL_1.key, SCORES.LEVEL_4.key];
+
 export const KEYS = {
   DOWN: 40,
   ENTER: 13,
