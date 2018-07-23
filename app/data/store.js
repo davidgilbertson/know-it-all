@@ -27,6 +27,7 @@ import {
   ANALYTICS_STRINGS,
   EVENTS,
   SCORES,
+  INHERITED_KEYS,
 } from '../utils/constants';
 import logTiming from '../utils/logTiming';
 
@@ -97,6 +98,14 @@ const store = {
         }
       });
     });
+  },
+
+  computeInheritRule(newScoreKey, oldScoreKey) {
+    if (INHERITED_KEYS.includes(newScoreKey)) {
+      return [(item) => true, newScoreKey];
+    } else if (INHERITED_KEYS.includes(oldScoreKey)) {
+      return [(item) => item.scoreKey === oldScoreKey, SCORES.LEVEL_0.key];
+    }
   },
 
   getItem(idOrItem) {
@@ -221,10 +230,31 @@ const store = {
     if (!item) return;
     const updateDom = (typeof options.updateDom !== `undefined`) ? options.updateDom : true;
 
+    const oldScoreKey = item.scoreKey;
+
     // caution: update the score summary before updating the item
-    const updatedItems = this.updateScoreSummary(item, scoreKey, item.scoreKey);
+    const updatedItems = this.updateScoreSummary(item, scoreKey, oldScoreKey);
 
     this.updateItem(item, { scoreKey }, options);
+
+    const updateChildren = (parent, inheritRule) => {
+      const children = this.getChildrenOf(parent.id);
+      if (!children) return;
+
+      children.forEach((child) => {
+        if (inheritRule[0](child)) {
+          this.updateItem(child, { scoreKey: inheritRule[1] }, options);
+        }
+
+        updateChildren(child, inheritRule);
+      });
+    };
+
+    const inheritRule = this.computeInheritRule(scoreKey, oldScoreKey);
+
+    if (inheritRule) {
+      updateChildren(item, inheritRule);
+    }
 
     if (updateDom) {
       updatedItems.forEach((updatedItem) => {
@@ -241,23 +271,56 @@ const store = {
     oldScoreKey = oldScoreKey || SCORES.LEVEL_0.key;
     const updatedItems = [];
 
-    const updateParentScore = (child) => {
-      const parent = this.getParent(child);
-      if (!parent) return; // we're at the top
+    const updateSummary = (parent, inheritRule) => {
+      const children = this.getChildrenOf(parent.id);
+      if (!children) return; // we're at the bottom
       updatedItems.push(parent);
 
       this.scoreSummary[parent.id] = this.scoreSummary[parent.id] || {};
-      this.scoreSummary[parent.id][newScoreKey] = this.scoreSummary[parent.id][newScoreKey] || 0;
-      this.scoreSummary[parent.id][newScoreKey] += 1;
+      Object.keys(SCORES).forEach((scoreKey) => {
+        this.scoreSummary[parent.id][scoreKey] = children
+        .map((child) => {
+          this.scoreSummary[child.id] = this.scoreSummary[child.id] || {};
+          const scoreSummary = this.scoreSummary[child.id][scoreKey] || 0;
+          let newValue = child.scoreKey || SCORES.LEVEL_0.key;
 
-      if (!newItem) {
-        this.scoreSummary[parent.id][oldScoreKey] -= 1;
-      }
+          if (child === item) {
+            newValue = newScoreKey;
+          } else if (inheritRule) {
+            if (inheritRule[0](child)) {
+              newValue = inheritRule[1];
+            }
+          }
 
+          return newValue === scoreKey ? scoreSummary + 1 : scoreSummary;
+        })
+        .reduce((a, b) => a + b, 0);
+      });
+    };
+    const updateChildrenScore = (parent, inheritRule) => {
+      const children = this.getChildrenOf(parent.id);
+      if (!children) return; // we're at the bottom
+
+      children.forEach((child) => {
+        updateChildrenScore(child, inheritRule);
+      });
+
+      updateSummary(parent, inheritRule);
+    };
+    const updateParentScore = (child) => {
+      const parent = this.getParent(child);
+      if (!parent) return; // we're at the top
+
+      updateSummary(parent);
       updateParentScore(parent);
     };
 
-    // we don't update the item directly, only its ancestors
+    const inheritRule = this.computeInheritRule(newScoreKey, oldScoreKey);
+
+    if (inheritRule) {
+      updateChildrenScore(item, inheritRule);
+    }
+
     updateParentScore(item);
 
     return updatedItems;
