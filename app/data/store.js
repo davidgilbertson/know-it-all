@@ -206,20 +206,25 @@ const store = {
 
     Object.assign(item, data); // gasp, mutability
 
+    if (saveToDisk) {
+      diskStore.setItem(item.id, data);
+    }
+
     if (!updateDom) return;
 
     const nextItemState = serializeItemState(item);
+    this.updateItemDom(item, prevItemState !== nextItemState, scoreChanged, options);
+  },
 
+  updateItemDom(item, renderItem, renderScore, options = {}) {
     // potentially trigger a re-render of the item
-    if (item.visible && prevItemState !== nextItemState) {
+    if (item.visible && renderItem) {
       this.triggerListener(item.id); // TODO (davidg): `ROW-${item.id}`
     }
 
     // potentially trigger a re-render of the score bar
-    if (scoreChanged) {
-      if (saveToDisk) diskStore.setItem(item.id, data);
-
-      if (this.selectedItem && this.selectedItem.id === idOrItem.id) {
+    if (renderScore) {
+      if (this.selectedItem && this.selectedItem.id === item.id) {
         this.triggerListener(EVENTS.SCORE_CHANGED); // updates the score bar
       }
     }
@@ -237,29 +242,49 @@ const store = {
 
     this.updateItem(item, { scoreKey }, options);
 
-    const updateChildren = (parent, inheritRule) => {
-      const children = this.getChildrenOf(parent.id);
-      if (!children) return;
-
-      children.forEach((child) => {
-        if (inheritRule[0](child)) {
-          this.updateItem(child, { scoreKey: inheritRule[1] }, options);
-        }
-
-        updateChildren(child, inheritRule);
-      });
-    };
-
     const inheritRule = this.computeInheritRule(scoreKey, oldScoreKey);
 
     if (inheritRule) {
-      updateChildren(item, inheritRule);
+      const dirtyChildren = [];
+
+      const updateChildren = (parent, test) => {
+        const children = this.getChildrenOf(parent.id);
+        if (!children) return;
+
+        children.forEach((child) => {
+          if (test(child)) {
+            dirtyChildren.push(child);
+          }
+
+          updateChildren(child, test);
+        });
+      };
+
+      updateChildren(item, inheritRule[0]);
+
+      const optionsNoDom = Object.assign({}, options);
+      optionsNoDom.updateDom = false;
+
+      const updateChild = (child) => {
+        this.updateItem(child, { scoreKey: inheritRule[1] }, optionsNoDom);
+      };
+      const updateChildDom = (child) => {
+        this.updateItemDom(child, true, true, options);
+      };
+
+      dirtyChildren.forEach(updateChild);
+
+      const visibleChildren = dirtyChildren.filter((child) => child.visible);
+      visibleChildren.forEach(updateChildDom);
     }
 
     if (updateDom) {
-      updatedItems.forEach((updatedItem) => {
+      const updateItem = (updatedItem) => {
         this.triggerListener(`PIE-${updatedItem.id}`);
-      });
+      };
+
+      const visibleItems = updatedItems.filter((item) => item.visible);
+      visibleItems.forEach(updateItem);
     }
   },
 
